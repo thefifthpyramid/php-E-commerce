@@ -1,6 +1,11 @@
-<?php include "includes/templates/header.php";  ?>
+<?php
+    include "init.php";
+    include $tpl . "header.php";
+?>
 
 //content
+<button class="btn btn-danger">click</button>
+<i class="fa fa-facebook"></i>
 
 
-<?php include "includes/templates/footer.php"; ?>
+<?php include $tpl . "footer.php"; ?>
