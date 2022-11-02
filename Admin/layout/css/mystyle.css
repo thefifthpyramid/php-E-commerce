@@ -1,0 +1,20 @@
+.login-page{
+    margin: 200px auto;
+    width: 600px;
+
+}
+.login-page .card{
+    border: 1px solid #dbdbdb54;
+    box-shadow: 10px 10px 11px #cdcaca5e;
+    text-align: center;
+}
+.card .card-header h5:after{
+    width: 80px;
+}
+body[themebg-pattern=theme1] {
+    background-color: #fff !important;
+}
+body{
+    background-color: #fff !important;
+    background-image:none
+}

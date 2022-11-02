@@ -41,7 +41,7 @@
 
 <!--    <link rel="stylesheet" href="../--><?php //echo $css ?><!--bootstrap.min.css">-->
     <link rel="stylesheet" href="../<?php echo $css ?>font-awesome.min.css">
-    <link rel="stylesheet" href="<?php echo $css ?>Backend.css">
+    <link rel="stylesheet" href="<?php echo $css ?>mystyle.css">
 </head>
 
 <body>
@@ -49,10 +49,3 @@
 <div class="loader-bg">
     <div class="loader-bar"></div>
 </div>
-
-<div id="pcoded" class="pcoded">
-    <div class="pcoded-overlay-box"></div>
-    <div class="pcoded-container navbar-wrapper">
-
-<!--        -->
-        <?php include "includes/templates/sidebar.php"; ?>
