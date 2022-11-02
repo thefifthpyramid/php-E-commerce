@@ -1,5 +1,5 @@
 <?php
-
+    include "conf.php";
     //routes
     $tpl = "includes/templates/"; //template directory
     $css = "layout/css/"; //css directory
