@@ -1624,8 +1624,8 @@
 
 <!-- Mirrored from demo.dashboardpack.com/admindek-html/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 02 Nov 2022 16:06:34 GMT -->
 
-<script src="<?php echo $js ?>jquery-3.6.1.min.js"></script>
-<script src="<?php echo $js ?>bootstrap.min.js"></script>
-<script src="<?php echo $js ?>backend.js"></script>
+<!--<script src="--><?php //echo $js ?><!--jquery-3.6.1.min.js"></script>-->
+<!--<script src="--><?php //echo $js ?><!--bootstrap.min.js"></script>-->
+<script src="../<?php echo $js ?>backend.js"></script>
 
 </html>
