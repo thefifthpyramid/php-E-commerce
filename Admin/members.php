@@ -1,5 +1,19 @@
 <?php
-include "init.php";
+    /*
+    ============================================================
+    ==  manage members page
+    == you can create | delete | members from here
+    ==
+    ============================================================
+    */
+    $pageTitle = "Members";
+    include "init.php";
+    /*
+    ============================================================
+    ==  Maltue pages
+    ============================================================
+    */
+    $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
 ?>
 <!-- ############### Body Page ##################### -->
 <div class="pcoded-content">
@@ -36,8 +50,9 @@ include "init.php";
             <div class="page-wrapper">
                 <div class="page-body">
                     <div class="row">
-
                         <div class="col-md-12">
+
+                            <?php if($do == 'edit'){ ?><!--   Edit Page  -->
                             <div class="card">
                                 <div class="card-header">
                                     <h5>Tooltip Validation</h5>
@@ -68,6 +83,7 @@ include "init.php";
                                     </form>
                                 </div>
                             </div>
+                            <?php }?><!--   Edit Page  -->
                         </div>
 
                     </div>

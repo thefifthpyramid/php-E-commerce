@@ -1,10 +1,19 @@
 <?php
+    /*
+    ==========================================================
+    ==  Template directory
+    ==  Css directory
+    ==  Lang directory
+    ==
+    ==
+    ==========================================================
+    */
     //routes
     $tpl = "includes/templates/"; //template directory
     $func = "includes/functions/"; //template directory
     $css = "layout/css/"; //css directory
     $js = "layout/js/"; //css directory
-    $lang = "includes/langs/";
+    $lang = "includes/langs/"; //Lang directory
 
 
     // import file

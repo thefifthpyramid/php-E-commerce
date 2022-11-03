@@ -4,6 +4,7 @@
         static $lang = array(
             'name' => 'Ahmed Ali Klay',
             'logout'=>'Logout',
+            'profile' => 'Profile',
         );
         return $lang[$phrase];
     };

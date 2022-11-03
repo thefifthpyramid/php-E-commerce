@@ -109,8 +109,8 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
-                                    <i class="feather icon-user"></i> Profile
+                                <a href="members.php?do=edit&userid=<?php echo $_SESSION['id'] ?>">
+                                    <i class="feather icon-user"></i>  <?php echo lang("profile"); ?>
                                 </a>
                             </li>
                             <li>

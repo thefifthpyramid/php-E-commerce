@@ -21,14 +21,16 @@
         $pass = $_POST['pass'];
         $hashedPass = sha1($pass);
         //Check if the user exist in Database
-        $stmt = $con->prepare('SELECT userName,password FROM users WHERE userName = ? AND password = ? ');
+        $stmt = $con->prepare('SELECT id,userName,password FROM users WHERE userName = ? AND password = ? AND groupID = 1 LIMIT 1');
         $stmt->execute(array($username,$hashedPass));
+        $row = $stmt->fetch();
         $count = $stmt->rowCount();
 
         //check if the user is admin
         if($count > 0){
             echo $username;
             $_SESSION['username'] = $username; //register session
+            $_SESSION['id'] = $row['id']; //register session
             header('Location: dashboard.php'); //redirect to dashboard page
             exit();
         }else{
