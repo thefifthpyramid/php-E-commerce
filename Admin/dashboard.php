@@ -5,6 +5,7 @@
         include "init.php";
     }else{
         header('Location: login.php'); //redirect to dashboard page
+        exit();
     }
 
 

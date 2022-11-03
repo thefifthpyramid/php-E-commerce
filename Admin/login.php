@@ -3,6 +3,7 @@
     print_r($_SESSION);
     if(isset($_SESSION['name'])){
         header('Location: dashboard.php'); //redirect to dashboard page
+        exit();
     }
     $noNavBar = '';
     include "init.php";
@@ -24,7 +25,7 @@
         if($count > 0){
             $_SESSION['name'] = $username; //register session
             header('Location: dashboard.php'); //redirect to dashboard page
-            //exit();
+            exit();
         }else{
             $_SESSION['un'] = $pass; //register session
             header('Location: dashboard.php'); //redirect to dashboard page
