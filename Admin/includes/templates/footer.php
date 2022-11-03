@@ -130,11 +130,7 @@
 <script type="text/javascript" src="layout/pages/dashboard/custom-dashboard.min.js"></script>
 <script type="text/javascript" src="<?php echo $js ?>script.min.js"></script>
 
-<script type="text/javascript" src="../<?php echo $js ?>jquery-3.6.1.min.js"></script>
 <script type="text/javascript"  src="../<?php echo $js ?>backend.js"></script>
-                <script>
-                    console.log('good job');
-                </script>
 </body>
 
 <!-- Mirrored from demo.dashboardpack.com/admindek-html/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 02 Nov 2022 16:06:34 GMT -->

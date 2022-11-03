@@ -1,7 +1,36 @@
 <?php
-include "init.php";
-include $tpl . "header.php";
-include "includes/langs/ar.php";
+    session_start();
+    print_r($_SESSION);
+    if(isset($_SESSION['name'])){
+        header('Location: dashboard.php'); //redirect to dashboard page
+    }
+    $noNavBar = '';
+    include "init.php";
+?>
+<?php
+// ########### Start php login code ############
+    if($_SERVER['REQUEST_METHOD'] == "POST"){
+        $username = $_POST['Username'];
+        $pass = $_POST['pass'];
+        $hashedPass = sha1($pass);
+
+        //Check if the user exist in Database
+        $stmt = $con->prepare('SELECT name,password FROM users WHERE userName = ? AND password = ? ');
+        $stmt->execute(array($username,$hashedPass));
+        $count = $stmt->rowCount();
+
+        header('Location: dashboard.php'); //redirect to dashboard page
+        //check if the user is admin
+        if($count > 0){
+            $_SESSION['name'] = $username; //register session
+            header('Location: dashboard.php'); //redirect to dashboard page
+            //exit();
+        }else{
+            $_SESSION['un'] = $pass; //register session
+            header('Location: dashboard.php'); //redirect to dashboard page
+        }
+    }
+// ########### End php login code ##############
 ?>
 <!-- ############### Body Page ##################### -->
 <div class="login-page">
@@ -13,16 +42,16 @@ include "includes/langs/ar.php";
                     <h5>Login Page</h5>
                 </div>
                 <div class="card-block">
-                    <form id="second" action="" method="post" novalidate="">
+                    <form id="second" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
                         <div class="form-group row">
                             <div class="col-sm-12">
-                                <input type="text" class="form-control" id="usernameP" name="Username" placeholder="Enter Username">
+                                <input type="text" class="form-control" id="username" name="Username" placeholder="Enter Username">
                                 <span class="messages popover-valid"></span>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-12">
-                                <input type="text" class="form-control" id="EmailP" name="Email" placeholder="Enter email id">
+                                <input type="password" class="form-control" id="password" name="pass" placeholder="Enter password">
                                 <span class="messages popover-valid"></span>
                             </div>
                         </div>
@@ -39,8 +68,4 @@ include "includes/langs/ar.php";
     </div>
 </div>
 <!-- ############### End Body Page ##################### -->
-<script>
-    console.log('hi');
-</script>
-<script src="../layout/js/backend.js"></script>
 <?php include $tpl . "footer.php"; ?>
