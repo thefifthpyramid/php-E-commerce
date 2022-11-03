@@ -1,10 +1,10 @@
 <?php
     session_start();
     //print_r($_SESSION);
-    if(isset($_SESSION['name'])){
+    if(isset($_SESSION['username'])){
         include "init.php";
     }else{
-        header('Location: login.php'); //redirect to dashboard page
+        header('Location: auth/login.php'); //redirect to dashboard page
         exit();
     }
 

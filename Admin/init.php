@@ -8,7 +8,7 @@
 
     // import file
     include "conf.php";
-    include $lang . "ar.php";
+    include $lang . "en.php";
     include $tpl . "header.php";
 
     if (!isset($noNavBar)){

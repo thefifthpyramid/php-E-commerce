@@ -124,8 +124,8 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="auth-sign-in-social.html">
-                                    <i class="feather icon-log-out"></i> Logout
+                                <a href="auth/logout.php">
+                                    <i class="feather icon-log-out"></i> <?php echo lang("logout"); ?>
                                 </a>
                             </li>
                         </ul>

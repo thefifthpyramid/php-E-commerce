@@ -2,7 +2,8 @@
 
     function lang($phrase){
         static $lang = array(
-            'name' => 'احمد علي كلاي'
+            'name' => 'احمد علي كلاي',
+            'logout'=>'تسجيل الخروج',
         );
         return $lang[$phrase];
     };
