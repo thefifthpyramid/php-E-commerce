@@ -1,12 +1,18 @@
 <?php
+    //##### Check session
     session_start();
     //print_r($_SESSION);
     if(isset($_SESSION['username'])){
         header('Location: dashboard.php'); //redirect to dashboard page
         exit();
     }
+    //##### Get variables
     $noNavBar = '';
+    $pageTitle = "Login";
+
+    //##### Import files
     include "init.php";
+
 ?>
 <?php
 // ########### Start php login code ############

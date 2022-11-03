@@ -2,7 +2,7 @@
 <html lang="en">
 <!-- Mirrored from demo.dashboardpack.com/admindek-html/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 02 Nov 2022 16:05:55 GMT -->
 <head>
-    <title>Admindek | Admin Template</title>
+    <title><?php getTitle();?></title>
     <!--[if lt IE 10]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>

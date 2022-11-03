@@ -1,4 +1,10 @@
 <?php
+
+    //Get Variables
+    $pageTitle = "Dashboard";
+
+
+    //Sessions
     session_start();
     //print_r($_SESSION);
     if(isset($_SESSION['username'])){
