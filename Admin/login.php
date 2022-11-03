@@ -39,4 +39,8 @@ include "includes/langs/ar.php";
     </div>
 </div>
 <!-- ############### End Body Page ##################### -->
+<script>
+    console.log('hi');
+</script>
+<script src="../layout/js/backend.js"></script>
 <?php include $tpl . "footer.php"; ?>
