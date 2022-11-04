@@ -85,7 +85,8 @@
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Password</label>
                                             <div class="col-sm-10">
-                                                <input type="password" class="form-control" name="password" placeholder="Password">
+                                                <input type="hidden"  value="<?php echo $row['password']; ?>" name="oldPassword">
+                                                <input type="password" class="form-control" name="newPassword" placeholder="Password">
                                                 <span class="messages popover-valid"></span>
                                             </div>
                                         </div>
@@ -123,12 +124,21 @@
                                         //get vars
                                         $id         = $_POST['id'];
                                         $userName   = $_POST['userName'];
-                                        //$password   = $_POST['password'];
                                         $email      = $_POST['email'];
                                         $fullName   = $_POST['fullName'];
 
-                                        $stmt = $con->prepare("UPDATE users SET userName = ?, email = ?, fullName = ? WHERE id = ?");
-                                        $stmt->execute(array($userName,$email,$fullName,$id));
+                                        //password
+                                        $oldPassword   = $_POST['oldPassword'];
+                                        $newPassword   = $_POST['newPassword'];
+                                        $pass = '';
+                                        if(empty($newPassword)){
+                                            $pass = $oldPassword;
+                                        }else{
+                                            $pass = sha1($newPassword);
+                                        }
+
+                                        $stmt = $con->prepare("UPDATE users SET userName = ?, email = ?, password = ? ,fullName = ? WHERE id = ?");
+                                        $stmt->execute(array($userName,$email,$pass,$fullName,$id));
                                     }else{
                                         echo "sorry you can't";
                                     }
