@@ -51,8 +51,20 @@
                 <div class="page-body">
                     <div class="row">
                         <div class="col-md-12">
+                            <!--   #############Edit Page##############  -->
+                            <?php
+                                if($do == 'edit'){
+                                    $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) : 0 ;
 
-                            <?php if($do == 'edit'){ ?><!--   Edit Page  -->
+                                    $stmt = $con->prepare('SELECT * FROM users WHERE id = ?');
+                                    $stmt->execute(array($userid));
+                                    $row = $stmt->fetch();
+                                    $count = $stmt->rowCount();
+                                    if($stmt->rowCount() > 0){
+
+
+
+                            ?><!--   Edit Page  -->
                             <div class="card">
                                 <div class="card-header">
                                     <h5>Tooltip Validation</h5>
@@ -61,29 +73,49 @@
                                 <div class="card-block">
                                     <form id="second" action="https://demo.dashboardpack.com/" method="post" novalidate="">
                                         <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Enter Username</label>
+                                            <label class="col-sm-2 col-form-label">user name</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="usernameP" name="Username" placeholder="Enter Username">
+                                                <input type="text" class="form-control" value="<?php echo $row['userName']; ?>" name="userName" placeholder="Enter Username">
                                                 <span class="messages popover-valid"></span>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Enter Email-id</label>
+                                            <label class="col-sm-2 col-form-label">Password</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="EmailP" name="Email" placeholder="Enter email id">
+                                                <input type="password" class="form-control" name="password" placeholder="Password">
+                                                <span class="messages popover-valid"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Email</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" value="<?php echo $row['email']; ?>" name="email" placeholder="Enter email">
+                                                <span class="messages popover-valid"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Full Name</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" value="<?php echo $row['fullName']; ?>" name="fullName" placeholder="Enter email id">
                                                 <span class="messages popover-valid"></span>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <label class="col-sm-2"></label>
                                             <div class="col-sm-10">
-                                                <button type="submit" class="btn btn-primary m-b-0">Submit</button>
+                                                <button type="submit" class="btn btn-primary m-b-0">Update</button>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
                             </div>
-                            <?php }?><!--   Edit Page  -->
+                            <?php
+                                    }else{
+                                        echo "there is no data";
+                                    }//end condition if id is existing
+                                } //end edit page tag
+
+                                ?><!--   Edit Page  -->
                         </div>
 
                     </div>
