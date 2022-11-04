@@ -14,6 +14,8 @@
     ============================================================
     */
     $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
+
+
 ?>
 <!-- ############### Body Page ##################### -->
 <div class="pcoded-content">
@@ -71,7 +73,8 @@
                                     <span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span>
                                 </div>
                                 <div class="card-block">
-                                    <form id="second" action="https://demo.dashboardpack.com/" method="post" novalidate="">
+                                    <form id="second" action="?do=Update" method="post">
+                                        <input type="hidden" name="id" value="<?php echo $userid; ?>">
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">user name</label>
                                             <div class="col-sm-10">
@@ -114,6 +117,22 @@
                                         echo "there is no data";
                                     }//end condition if id is existing
                                 } //end edit page tag
+                                elseif($do == 'Update'){
+                                    echo "hello from update form";
+                                    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                                        //get vars
+                                        $id         = $_POST['id'];
+                                        $userName   = $_POST['userName'];
+                                        //$password   = $_POST['password'];
+                                        $email      = $_POST['email'];
+                                        $fullName   = $_POST['fullName'];
+
+                                        $stmt = $con->prepare("UPDATE users SET userName = ?, email = ?, fullName = ? WHERE id = ?");
+                                        $stmt->execute(array($userName,$email,$fullName,$id));
+                                    }else{
+                                        echo "sorry you can't";
+                                    }
+                                }
 
                                 ?><!--   Edit Page  -->
                         </div>
