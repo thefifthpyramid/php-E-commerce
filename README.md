@@ -5,7 +5,7 @@ Create A eCommerce Website Using Native Php
 # Database details
 
 ::: note:
-*dataBase Name : 'users'*
+*dataBase Name : 'php_e-commerce'*
 :::
 
 ## Database tables
