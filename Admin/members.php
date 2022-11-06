@@ -203,7 +203,7 @@
                                 <?php if($do == 'add'){ ?><!--   create members page  -->
                                     <div class="card-header">
                                         <h5>create members page</h5>
-                                        <span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span>
+                                        <a href="?do=Manage" class="btn waves-effect waves-light btn-primary btn-square position-right">Show all members <i class="fa fa-users"></i> </a>
                                     </div>
                                     <div class="card-block">
                                         <form id="second" action="?do=Insert" method="post">
@@ -287,7 +287,6 @@
 
                                         //check if there's no error
                                         if(empty($formErrors)){
-                                            echo "welcome";
                                             $stmt = $con->prepare("INSERT INTO users(userName, email, password,fullName) VALUES(:userName, :email, :password, :fullName) ");
                                             $stmt->execute(array(
                                                 'userName'  =>$userName,
@@ -296,24 +295,38 @@
                                                 'fullName'  =>$fullName,
                                             ));
                                             echo '
-                                                <div class="alert alert-success background-success">
+                                                <div class="alert alert-success background-success m-3">
                                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                     <i class="icofont icofont-close-line-circled text-white"></i>
                                                     </button>
-                                                    <strong>Updating Success!</strong>
+                                                    <strong>creating Success!</strong>
                                                 </div>
                                             ';
+                                            //redirect after created function
+                                            echo '<script>
+                                                setTimeout(function () {
+                                                   window.location.href= "members.php?do=add"
+                                                },5000); // 10 seconds
+                                                </script>';
                                             }
                                         }else{
                                             echo "sorry you can't open this page direct";
                                         }
 
-                                }elseif ($do == 'Manage'){ ?>
+                                }elseif ($do == 'Manage'){
+
+                                    $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) : 0 ;
+
+                                    $stmt = $con->prepare('SELECT * FROM users');
+                                    $stmt->execute();
+                                    $rows = $stmt->fetchAll();
+
+                                ?>
                                 <!--#################### Manage page #####################-->
                                 <div class="card">
                                     <div class="card-header">
                                         <h5>All Users</h5>
-                                        <a href="#" class="btn waves-effect waves-light btn-primary btn-square position-right">craete new member <i class="fa fa-plus"></i> </a>
+                                        <a href="?do=add" class="btn waves-effect waves-light btn-primary btn-square position-right">craete new member <i class="fa fa-plus"></i> </a>
                                     </div>
                                     <div class="card-block">
                                         <div class="dt-responsive table-responsive">
@@ -329,28 +342,21 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
+                                                <?php
+                                                    foreach ($rows as $row){
+                                                ?>
                                                 <tr>
-                                                    <td>Tiger Nixon</td>
-                                                    <td>System Architect</td>
-                                                    <td>Edinburgh</td>
-                                                    <td>61</td>
-                                                    <td>2011/04/25</td>
+                                                    <td><?php echo $row['id']?></td>
+                                                    <td><?php echo $row['userName']?></td>
+                                                    <td><?php echo $row['email']?></td>
+                                                    <td><?php echo $row['fullName']?></td>
+                                                    <td><?php echo $row['id']?></td>
                                                     <td class="text-center">
-                                                        <a href="#" class="btn waves-effect waves-light btn-success btn-square">edit</a>
-                                                        <a href="#" class="btn btn-danger waves-effect waves-light">delete</a>
+                                                        <a href="members.php?do=edit&userid=<?php echo $row['id']?>" class="btn waves-effect waves-light btn-success btn-square">edit</a>
+                                                        <a href="members.php?do=delete&userid=<?php echo $row['id']?>" class="btn btn-danger waves-effect waves-light">delete</a>
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td>Dai Rios</td>
-                                                    <td>Personnel Lead</td>
-                                                    <td>Edinburgh</td>
-                                                    <td>35</td>
-                                                    <td>2012/09/26</td>
-                                                    <td class="text-center">
-                                                        <a href="#" class="btn waves-effect waves-light btn-success btn-square">edit</a>
-                                                        <a href="#" class="btn btn-danger waves-effect waves-light">delete</a>
-                                                    </td>
-                                                </tr>
+                                                <?php   } // end foreach?>
                                                 </tbody>
                                                 <tfoot>
                                                 <tr>
