@@ -32,6 +32,13 @@
 
     <link rel="stylesheet" type="text/css" href="layout/css/style.css">
     <link rel="stylesheet" type="text/css" href="layout/css/widget.css">
+    <link rel="stylesheet" type="text/css" href="layout/css/pages.css">
+    <link rel="stylesheet" type="text/css" href="layout/icon/icofont/css/icofont.css">
+
+
+    <link rel="stylesheet" type="text/css" href="layout/bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="layout/pages/data-table/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="layout/bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css">
 
 <!--    <link rel="stylesheet" href="../--><?php //echo $css ?><!--bootstrap.min.css">-->
     <link rel="stylesheet" href="../<?php echo $css ?>font-awesome.min.css">

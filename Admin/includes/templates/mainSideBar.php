@@ -972,19 +972,47 @@
                     </li>
                     <li class="">
                         <a href="javascript:void(0)" class="disabled waves-effect waves-dark">
-                                                    <span class="pcoded-micon">
-                                                        <i class="feather icon-power"></i>
-                                                        <b>D</b>
-                                                    </span>
+                            <span class="pcoded-micon">
+                                <i class="feather icon-power"></i>
+                                <b>D</b>
+                            </span>
                             <span class="pcoded-mtext">Disabled Menu</span>
                         </a>
                     </li>
+                    <!-- -->
                     <li class="">
                         <a href="default/sample-page.html" class="waves-effect waves-dark">
-                                                    <span class="pcoded-micon">
-                                                        <i class="feather icon-watch"></i>
-                                                    </span>
+                            <span class="pcoded-micon">
+                                <i class="feather icon-watch"></i>
+                            </span>
                             <span class="pcoded-mtext">Sample Page</span>
+                        </a>
+                    </li>
+                    <!-- -->
+                    <li class="">
+                        <a href="members.php?do=add" class="waves-effect waves-dark">
+                            <span class="pcoded-micon">
+                                <i class="feather icon-file-plus"></i>
+                            </span>
+                            <span class="pcoded-mtext">Create new Members</span>
+                        </a>
+                    </li>
+                    <!-- -->
+                    <li class="">
+                        <a href="members.php?do=edit&userid=<?php echo $_SESSION['id'] ?>" class="waves-effect waves-dark">
+                            <span class="pcoded-micon">
+                                <i class="feather icon-user"></i>
+                            </span>
+                            <span class="pcoded-mtext"><?php echo lang("profile"); ?></span>
+                        </a>
+                    </li>
+                    <!-- -->
+                    <li class="">
+                        <a href="members.php?do=Manage" class="waves-effect waves-dark">
+                            <span class="pcoded-micon">
+                                <i class="feather icon-user"></i>
+                            </span>
+                            <span class="pcoded-mtext"><?php echo lang("users_manage"); ?></span>
                         </a>
                     </li>
                 </ul>

@@ -18,3 +18,23 @@ body{
     background-color: #fff !important;
     background-image:none
 }
+.form-control{
+    position: relative;
+}.fa-asterisk{
+     color: #df0000;
+     font-size: 14px;
+     position: absolute;
+     right: 23px;
+     top: 11px;
+}.icofont-eye-alt{
+      color: #4099ff;
+      font-size: 14px;
+      position: absolute;
+      right: 42px;
+      top: 12px;
+      z-index: 2;
+    cursor:pointer;
+}.position-right{
+    position: absolute;
+    right: 23px;
+   }

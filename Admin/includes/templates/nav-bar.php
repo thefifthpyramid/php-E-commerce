@@ -110,7 +110,7 @@
                             </li>
                             <li>
                                 <a href="members.php?do=edit&userid=<?php echo $_SESSION['id'] ?>">
-                                    <i class="feather icon-user"></i>  <?php echo lang("profile"); ?>
+                                    <i class="feather icon-user"></i><?php echo lang("profile"); ?>
                                 </a>
                             </li>
                             <li>
