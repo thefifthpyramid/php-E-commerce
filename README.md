@@ -24,8 +24,16 @@ __Project Operations :)__
 
 - login and register
 - users operations
-  - create users by admins
-  - delete users by admins
-  - edit users data
-  - show all users
+    - create users by admins
+    - delete users by admins
+    - edit users data
+    - show all users
 - categories
+
+
+---
+
+__Project Feature :)__
+
+- 'getTitle' function to change each page title
+- 'redirect' function

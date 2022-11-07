@@ -17,4 +17,13 @@ $(function(){
     },function (){
         $('.password').attr('type','password');
     });
+
+    //redirectHome
+    function redirectHome(){
+        setTimeout(function () {
+            window.location.href= "dashboard.php"
+            console.log('hi');
+        },3000); // 10 seconds
+    };
 });
+

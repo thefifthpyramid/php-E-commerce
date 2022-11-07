@@ -34,7 +34,7 @@
                     <i class="feather icon-home bg-c-blue"></i>
                     <div class="d-inline">
                         <h5>Dashboard</h5>
-                        <span>lorem ipsum dolor sit amet, consectetur adipisicing elit</span>
+                        <span>Created By Ahmed Ali Klay</span>
                     </div>
                 </div>
             </div>
@@ -76,7 +76,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h5>Tooltip Validation</h5>
-                                    <span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span>
+                                    <a href="?do=Manage" class="btn waves-effect waves-light btn-primary btn-square position-right">Show all members <i class="fa fa-users"></i> </a>
                                 </div>
                                 <div class="card-block">
                                     <form id="second" action="?do=Update" method="post">
@@ -310,7 +310,13 @@
                                                 </script>';
                                             }
                                         }else{
-                                            echo "sorry you can't open this page direct";
+                                            echo "<div class='alert alert-danger m-3'>sorry you can't open this page direct</div>";
+                                            //redirectHome("sorry you can"t open this page direct",4);
+                                        echo '<script>
+                                                setTimeout(function () {
+                                                   window.location.href= "dashboard.php"
+                                                },5000); // 10 seconds
+                                                </script>';
                                         }
 
                                 }elseif ($do == 'Manage'){
@@ -352,8 +358,8 @@
                                                     <td><?php echo $row['fullName']?></td>
                                                     <td><?php echo $row['id']?></td>
                                                     <td class="text-center">
-                                                        <a href="members.php?do=edit&userid=<?php echo $row['id']?>" class="btn waves-effect waves-light btn-success btn-square">edit</a>
-                                                        <a href="members.php?do=delete&userid=<?php echo $row['id']?>" class="btn btn-danger waves-effect waves-light">delete</a>
+                                                        <a href="members.php?do=edit&userid=<?php echo $row['id']?>" class="btn waves-effect waves-light btn-success btn-square"><i class="fa fa-edit"></i> edit</a>
+                                                        <a href="members.php?do=delete&userid=<?php echo $row['id']?>" class="btn btn-danger waves-effect waves-light"><i class="fa fa-close"></i> delete</a>
                                                     </td>
                                                 </tr>
                                                 <?php   } // end foreach?>
@@ -374,6 +380,30 @@
                                 </div>
                                 <!--#################### Manage page #####################-->
                                 <?php } //end the condition of add and insert members
+                                elseif($do == 'delete'){
+
+                                    $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) : 0 ;
+                                    $stmt = $con->prepare('SELECT * FROM users WHERE id = ? LIMIT 1');
+
+                                    $stmt->execute(array($userid));
+                                    //fetch data from database
+                                    $count = $stmt->rowCount();
+                                    //fetch data from database
+                                    if($stmt->rowCount() > 0) {
+                                        $stmt = $con->prepare('DELETE FROM users WHERE id = ?');
+                                        $stmt->execute(array($userid));
+                                        echo '
+                                        <div class="alert alert-success background-success m-3">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <i class="icofont icofont-close-line-circled text-white"></i>
+                                            </button>
+                                            <strong>Deleted Success!</strong>
+                                        </div>
+                                        ';
+                                    }else{
+                                        echo "this row are not exist";
+                                    }
+                                }
                                 ?><!--   manage Page  -->
                                     </div>
                                 </div>
