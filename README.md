@@ -37,3 +37,4 @@ __Project Feature :)__
 
 - 'getTitle' function to change each page title
 - 'redirect' function
+- 'CheckItems' function

@@ -287,6 +287,19 @@
 
                                         //check if there's no error
                                         if(empty($formErrors)){
+                                            $check = CheckItems('userName','users',$userName);
+                                            if($check == 1){
+                                                echo '
+                                                <div class="alert alert-danger background-danger m-3">
+                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                    <i class="icofont icofont-close-line-circled text-white"></i>
+                                                    </button>
+                                                    <strong>Sorry, this user exists!</strong>
+                                                </div>
+                                            ';
+                                            }else{
+                                            //check if user already exist
+
                                             $stmt = $con->prepare("INSERT INTO users(userName, email, password,fullName) VALUES(:userName, :email, :password, :fullName) ");
                                             $stmt->execute(array(
                                                 'userName'  =>$userName,
@@ -309,6 +322,7 @@
                                                 },5000); // 10 seconds
                                                 </script>';
                                             }
+                                        } //end check function
                                         }else{
                                             echo "<div class='alert alert-danger m-3'>sorry you can't open this page direct</div>";
                                             //redirectHome("sorry you can"t open this page direct",4);
