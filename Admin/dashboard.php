@@ -9,6 +9,7 @@
     //print_r($_SESSION);
     if(isset($_SESSION['username'])){
         include "init.php";
+
     }else{
         header('Location: auth/login.php'); //redirect to dashboard page
         exit();
@@ -66,12 +67,12 @@
                                 <div class="card-body">
                                     <div class="row align-items-center">
                                         <div class="col">
-                                            <h6 class="m-b-25">Impressions</h6>
-                                            <h3 class="f-w-700 text-c-blue">1,563</h3>
-                                            <p class="m-b-0">May 23 - June 01 (2017)</p>
+                                            <h6 class="m-b-25">Total Members</h6>
+                                            <h3 class="f-w-700 text-c-blue"><?php echo countItem('id','users'); //item count function //?></h3>
+                                            <p class="m-b-0">Last Element Added in: <?php echo LastItem('Date','users');//last Item function?></p>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-eye bg-c-blue"></i>
+                                            <i class="fas fa-users bg-c-blue"></i>
                                         </div>
                                     </div>
                                 </div>

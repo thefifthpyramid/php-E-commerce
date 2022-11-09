@@ -18,6 +18,7 @@ function getTitle(){
         echo 'UnFound title';
     }
 }
+//#########################################
 /*
 	** Home Redirect Function v2.0
 	** This Function Accept Parameters
@@ -32,7 +33,7 @@ function redirectHome($errorMsg,$seconds = 3){
     exit();
 }
 
-
+//#########################################
 /*
 	** Check Items Function v1.0
 	** Function to Check Item In Database [ Function Accept Parameters ]
@@ -48,16 +49,35 @@ function CheckItems($select,$from,$value){
     $count = $statement->rowCount();
     return $count;
 }
-
+//#########################################
 /*
 	** Count Number Of Items Function v1.0
 	** Function To Count Number Of Items Rows
 	** $item = The Item To Count
 	** $table = The Table To Choose From
 */
+function countItem($item,$table){
+    global $con;
+    $count = $con->prepare("SELECT count($item) FROM $table");
+    $count->execute();
+    return $count->fetchColumn();
+}
 
+//#########################################
+/*
+	** last Items Function v1.0
+	** Function To fetch last Items Rows
+	** $item = The Item To Count
+	** $table = The Table To Choose From
+*/
+function LastItem($item,$table){
+    global $con;
+    $lastElement = $con->prepare("SELECT $item FROM $table ORDER BY id DESC LIMIT 1");
+    $lastElement->execute();
+    return $lastElement->fetchColumn();
+}
 
-
+//#########################################
 /*
 	** Get Latest Records Function v1.0
 	** Function To Get Latest Items From Database [ Users, Items, Comments ]
