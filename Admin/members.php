@@ -300,7 +300,7 @@
                                             }else{
                                             //check if user already exist
 
-                                            $stmt = $con->prepare("INSERT INTO users(userName, email, password,fullName) VALUES(:userName, :email, :password, :fullName) ");
+                                            $stmt = $con->prepare("INSERT INTO users(userName, email, password,fullName,Date) VALUES(:userName, :email, :password, :fullName,now()) ");
                                             $stmt->execute(array(
                                                 'userName'  =>$userName,
                                                 'email'     =>$email,
@@ -350,7 +350,7 @@
                                     </div>
                                     <div class="card-block">
                                         <div class="dt-responsive table-responsive">
-                                            <table id="multi-colum-dt" class="table table-striped table-bordered nowrap">
+                                            <table id="multi-colum-dt" class="table table-striped table-bordered nowrap text-center">
                                                 <thead>
                                                 <tr>
                                                     <th>#ID</th>
@@ -370,7 +370,7 @@
                                                     <td><?php echo $row['userName']?></td>
                                                     <td><?php echo $row['email']?></td>
                                                     <td><?php echo $row['fullName']?></td>
-                                                    <td><?php echo $row['id']?></td>
+                                                    <td><?php echo $row['Date']?></td>
                                                     <td class="text-center">
                                                         <a href="members.php?do=edit&userid=<?php echo $row['id']?>" class="btn waves-effect waves-light btn-success btn-square"><i class="fa fa-edit"></i> edit</a>
                                                         <a href="members.php?do=delete&userid=<?php echo $row['id']?>" class="btn btn-danger waves-effect waves-light"><i class="fa fa-close"></i> delete</a>

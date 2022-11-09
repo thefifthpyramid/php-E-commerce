@@ -19,9 +19,9 @@ $(function(){
     });
 
     //redirectHome
-    function redirectHome(){
+    function redirectHome(href){
         setTimeout(function () {
-            window.location.href= "dashboard.php"
+            window.location.href= href;
             console.log('hi');
         },3000); // 10 seconds
     };

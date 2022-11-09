@@ -33,7 +33,6 @@ function redirectHome($errorMsg,$seconds = 3){
 }
 
 
-
 /*
 	** Check Items Function v1.0
 	** Function to Check Item In Database [ Function Accept Parameters ]
