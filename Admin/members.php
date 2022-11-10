@@ -300,7 +300,7 @@
                                             }else{
                                             //check if user already exist
 
-                                            $stmt = $con->prepare("INSERT INTO users(userName, email, password,fullName,Date) VALUES(:userName, :email, :password, :fullName,now()) ");
+                                            $stmt = $con->prepare("INSERT INTO users(userName, email, password,fullName,Reg_Status,Date) VALUES(:userName, :email, :password, :fullName,1,now()) ");
                                             $stmt->execute(array(
                                                 'userName'  =>$userName,
                                                 'email'     =>$email,

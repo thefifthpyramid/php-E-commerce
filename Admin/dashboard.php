@@ -95,9 +95,9 @@
                                 <div class="card-body">
                                     <div class="row align-items-center">
                                         <div class="col">
-                                            <h6 class="m-b-25">Impact</h6>
-                                            <h3 class="f-w-700 text-c-yellow">42.6%</h3>
-                                            <p class="m-b-0">May 23 - June 01 (2017)</p>
+                                            <h6 class="m-b-25">Pending Members</h6>
+                                            <h3 class="f-w-700 text-c-yellow"><?php echo LastItem('Date','users');//last Item function?></h3>
+                                            <p class="m-b-0">Last Update: May 23 - June 01 (2017)</p>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-hand-paper bg-c-yellow"></i>
