@@ -50,12 +50,6 @@
 </div>
 <![endif]-->
 
-<script data-cfasync="false" src="layout/js/email-decode.min.js"></script>
-<script type="text/javascript" src="layout/bower_components/jquery/js/jquery.min.js"></script>
-<script type="text/javascript" src="layout/bower_components/jquery-ui/js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="layout/bower_components/popper.js/js/popper.min.js"></script>
-<script type="text/javascript" src="layout/bower_components/bootstrap/js/bootstrap.min.js"></script>
-
 <script src="layout/pages/waves/js/waves.min.js"></script>
 
 <script type="text/javascript" src="layout/bower_components/jquery-slimscroll/js/jquery.slimscroll.js"></script>
