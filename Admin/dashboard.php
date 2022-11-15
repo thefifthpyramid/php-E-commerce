@@ -35,7 +35,7 @@
                 <div class="page-header-breadcrumb">
                     <ul class=" breadcrumb breadcrumb-title">
                         <li class="breadcrumb-item">
-                            <a href="index-2.html"><i class="feather icon-home"></i></a>
+                            <a href="Admin/dashboard.php"><i class="feather icon-home"></i></a>
                         </li>
                         <li class="breadcrumb-item"><a href="#!">Dashboard</a> </li>
                     </ul>
@@ -65,6 +65,7 @@
                         <div class="col-md-12 col-xl-4">
                             <div class="card comp-card">
                                 <div class="card-body">
+                                    <a href="members.php?do=Manage">
                                     <div class="row align-items-center">
                                         <div class="col">
                                             <h6 class="m-b-25">Total Members</h6>
@@ -75,6 +76,7 @@
                                             <i class="fas fa-users bg-c-blue"></i>
                                         </div>
                                     </div>
+                                    </a>
                                 </div>
                             </div>
                             <div class="card comp-card">
@@ -93,16 +95,18 @@
                             </div>
                             <div class="card comp-card">
                                 <div class="card-body">
+                                    <a href="members.php?do=Manage&page=Pending">
                                     <div class="row align-items-center">
                                         <div class="col">
-                                            <a href="members.php?do=Manage&page=Pending"> <h6 class="m-b-25">Pending Members</h6></a>
-                                            <h3 class="f-w-700 text-c-yellow"><?php echo LastItem('Date','users');//last Item function?></h3>
-                                            <p class="m-b-0">Last Update: May 23 - June 01 (2017)</p>
+                                            <h6 class="m-b-25">Pending Members</h6>
+                                            <h3 class="f-w-700 text-c-yellow"><?php echo CheckItems('Reg_Status','users',0);//last Item function?></h3>
+                                            <p class="m-b-0">Activision Members: <?php echo CheckItems('Reg_Status','users',1);//last Item function?></p>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-hand-paper bg-c-yellow"></i>
                                         </div>
                                     </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>

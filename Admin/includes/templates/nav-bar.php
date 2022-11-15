@@ -2,7 +2,7 @@
 <nav class="navbar header-navbar pcoded-header">
      <div class="navbar-wrapper">
         <div class="navbar-logo">
-            <a href="index-2.html">
+            <a href="/E-commerce/Admin/dashboard.php">
                 <img class="img-fluid" src="layout/images/logo.png" alt="Theme-Logo" />
             </a>
             <a class="mobile-menu" id="mobile-collapse" href="#!">
