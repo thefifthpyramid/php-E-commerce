@@ -381,10 +381,9 @@
                                                         <a href="members.php?do=edit&userid=<?php echo $row['id']?>" class="btn waves-effect waves-light btn-success btn-square"><i class="fa fa-edit"></i> edit</a>
                                                         <a href="members.php?do=delete&userid=<?php echo $row['id']?>" class="btn btn-danger waves-effect waves-light"><i class="fa fa-close"></i> delete</a>
                                                         <?php
-                                                        if($row['Reg_Status'] == 0){
-                                                            echo '<a href="members.php?do=delete&userid=<?php echo $row[\'id\']?>" class="btn btn-info waves-effect waves-light"><i class="fa fa-close"></i> Activate</a>';
-                                                        }
-                                                        ?>
+                                                        if($row['Reg_Status'] == 0){ ?>
+                                                            <a href="members.php?do=activate&userid=<?php echo $row['id']?>" class="btn btn-info waves-effect waves-light"><i class="fa fa-close"></i> Activate</a>
+                                                        <?php } ?>
                                                     </td>
                                                 </tr>
                                                 <?php   } // end foreach?>
@@ -423,6 +422,31 @@
                                                 <i class="icofont icofont-close-line-circled text-white"></i>
                                             </button>
                                             <strong>Deleted Success!</strong>
+                                        </div>
+                                        ';
+                                    }else{
+                                        echo "this row are not exist";
+                                    }
+                                }
+                                // do = activate
+                                elseif($do == 'activate'){
+
+                                    $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) : 0 ;
+                                    $stmt = $con->prepare('SELECT * FROM users WHERE id = ? LIMIT 1');
+
+                                    $stmt->execute(array($userid));
+                                    //fetch data from database
+                                    $count = $stmt->rowCount();
+                                    //fetch data from database
+                                    if($stmt->rowCount() > 0) {
+                                        $stmt = $con->prepare('UPDATE users SET Reg_Status = 1 WHERE id = ? ');
+                                        $stmt->execute(array($userid));
+                                        echo '
+                                        <div class="alert alert-success background-success m-3">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <i class="icofont icofont-close-line-circled text-white"></i>
+                                            </button>
+                                            <strong>Activate Success!</strong>
                                         </div>
                                         ';
                                     }else{
