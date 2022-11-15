@@ -95,7 +95,7 @@
                                 <div class="card-body">
                                     <div class="row align-items-center">
                                         <div class="col">
-                                            <h6 class="m-b-25">Pending Members</h6>
+                                            <a href="members.php?do=Manage&page=Pending"> <h6 class="m-b-25">Pending Members</h6></a>
                                             <h3 class="f-w-700 text-c-yellow"><?php echo LastItem('Date','users');//last Item function?></h3>
                                             <p class="m-b-0">Last Update: May 23 - June 01 (2017)</p>
                                         </div>

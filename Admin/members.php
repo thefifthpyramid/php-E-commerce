@@ -334,10 +334,16 @@
                                         }
 
                                 }elseif ($do == 'Manage'){
-
                                     $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) : 0 ;
 
-                                    $stmt = $con->prepare('SELECT * FROM users');
+
+
+                                    $query = '';
+                                    if (isset($_GET['page']) && $_GET['page'] == 'Pending'){
+                                        $query = 'AND Reg_Status = 0';
+                                    }
+
+                                    $stmt = $con->prepare("SELECT * FROM users WHERE groupID != 1 $query");
                                     $stmt->execute();
                                     $rows = $stmt->fetchAll();
 
@@ -374,6 +380,11 @@
                                                     <td class="text-center">
                                                         <a href="members.php?do=edit&userid=<?php echo $row['id']?>" class="btn waves-effect waves-light btn-success btn-square"><i class="fa fa-edit"></i> edit</a>
                                                         <a href="members.php?do=delete&userid=<?php echo $row['id']?>" class="btn btn-danger waves-effect waves-light"><i class="fa fa-close"></i> delete</a>
+                                                        <?php
+                                                        if($row['Reg_Status'] == 0){
+                                                            echo '<a href="members.php?do=delete&userid=<?php echo $row[\'id\']?>" class="btn btn-info waves-effect waves-light"><i class="fa fa-close"></i> Activate</a>';
+                                                        }
+                                                        ?>
                                                     </td>
                                                 </tr>
                                                 <?php   } // end foreach?>
