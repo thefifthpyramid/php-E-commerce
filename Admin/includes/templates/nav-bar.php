@@ -3,7 +3,7 @@
      <div class="navbar-wrapper">
         <div class="navbar-logo">
             <a href="/E-commerce/Admin/dashboard.php">
-                <img class="img-fluid" src="layout/images/logo.png" alt="Theme-Logo" />
+                Klay_Dashboard
             </a>
             <a class="mobile-menu" id="mobile-collapse" href="#!">
                 <i class="feather icon-menu icon-toggle-right"></i>
