@@ -34,15 +34,15 @@
                 <div class="pcoded-navigation-label">Categories</div>
                 <ul class="pcoded-item pcoded-left-item">
                     <li class=""><!-- Start Show all Categories li -->
-                        <a href="dashboard.php" class="waves-effect waves-dark">
-                                <span class="pcoded-micon">
-                                    <i class="feather icon-server"></i>
-                                </span>
-                            <span class="pcoded-mtext">Show all Categories</span>
+                        <a href="categories.php?do=Manage" class="waves-effect waves-dark">
+                            <span class="pcoded-micon">
+                                <i class="feather icon-file-plus"></i>
+                            </span>
+                            <span class="pcoded-mtext">Show All Category</span>
                         </a>
                     </li><!-- end li -->
                     <li class=""><!-- Start li -->
-                        <a href="#" class="waves-effect waves-dark">
+                        <a href="categories.php?do=add" class="waves-effect waves-dark">
                                 <span class="pcoded-micon">
                                     <i class="feather icon-file-plus"></i>
                                 </span>
@@ -60,7 +60,7 @@
                             <span class="pcoded-micon">
                                 <i class="feather icon-file-plus"></i>
                             </span>
-                            <span class="pcoded-mtext">Create new Members</span>
+                            <span class="pcoded-mtext">Create new Member</span>
                         </a>
                     </li>
                     <!-- -->

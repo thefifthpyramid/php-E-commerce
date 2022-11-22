@@ -1,26 +1,26 @@
 <?php
-    ob_start();
-    session_start();
-    /*
-    ============================================================
-    ==  manage members page
-    == you can create | delete | members from here
-    ==
-    ============================================================
-    */
-    $pageTitle = "Members";
-    if(isset($_SESSION['username'])){
-        include "init.php";
-    }else{
-        header('Location: auth/login.php'); //redirect to dashboard page
-        exit();
-    }
-    /*
-    ============================================================
-    ==  multiple pages
-    ============================================================
-    */
-    $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
+ob_start();
+session_start();
+/*
+============================================================
+==  manage members page
+== you can create | delete | members from here
+==
+============================================================
+*/
+$pageTitle = "Categories";
+if(isset($_SESSION['username'])){
+    include "init.php";
+}else{
+    header('Location: login.php'); //redirect to dashboard page
+    exit();
+}
+/*
+============================================================
+==  multiple pages
+============================================================
+*/
+$do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
 
 
 ?>
@@ -62,14 +62,14 @@
                         <!--   #############Edit Page##############  -->
                         <div class="col-md-12">
                             <?php
-                                if($do == 'edit'){
-                                    $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) : 0 ;
+                            if($do == 'edit'){
+                            $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) : 0 ;
 
-                                    $stmt = $con->prepare('SELECT * FROM users WHERE id = ?');
-                                    $stmt->execute(array($userid));
-                                    $row = $stmt->fetch();
-                                    $count = $stmt->rowCount();
-                                    if($stmt->rowCount() > 0){
+                            $stmt = $con->prepare('SELECT * FROM users WHERE id = ?');
+                            $stmt->execute(array($userid));
+                            $row = $stmt->fetch();
+                            $count = $stmt->rowCount();
+                            if($stmt->rowCount() > 0){
 
 
 
@@ -121,12 +121,12 @@
                                 </div>
                             </div>
                             <?php
-                                    }else{
-                                        echo "there is no data";
-                                    }//end condition if id is existing
-                                } //end edit page tag
-                                elseif($do == 'Update'){
-                                    ?>
+                            }else{
+                                echo "there is no data";
+                            }//end condition if id is existing
+                            } //end edit page tag
+                            elseif($do == 'Update'){
+                            ?>
                             <div class="card">
                                 <div class="card-header">
                                     <h5>hello from update form</h5>
@@ -190,64 +190,61 @@
                                     }else{
                                         echo "sorry you can't open this page direct";
                                     }
-                                }
+                                    }
 
-                                ?><!--   Edit Page  -->
+                                    ?><!--   Edit Page  -->
                                 </div>
                             </div>
                         </div>
                         <!--   #############Edit Page##############  -->
 
-                        <!--   ############# create members page ##############  -->
+                        <!--   ############# create category page ##############  -->
                         <div class="col-md-12">
                             <div class="card">
-                                <?php if($do == 'add'){ ?><!--   create members page  -->
-                                    <div class="card-header">
-                                        <h5>create members page</h5>
-                                        <a href="?do=Manage" class="btn waves-effect waves-light btn-primary btn-square position-right">Show all members <i class="fa fa-users"></i> </a>
-                                    </div>
-                                    <div class="card-block">
-                                        <form id="second" action="?do=Insert" method="post">
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label">user name</label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="form-control" name="userName" placeholder="username to login into shop" autocomplete="off" required="required">
-                                                    <span class="messages popover-valid"></span>
-                                                </div>
+                                <?php if($do == 'add'){ ?><!--   create category page  -->
+                                <div class="card-header">
+                                    <h5>create category page</h5>
+                                    <a href="?do=Manage" class="btn waves-effect waves-light btn-primary btn-square position-right"> Show all categories <i class="fa fa-users"></i> </a>
+                                </div>
+                                <div class="card-block">
+                                    <form id="second" action="?do=Insert" method="post">
+                                        <!-- Start Form Group -->
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Name</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="mame" placeholder="name of the category" autocomplete="off" required="required">
+                                                <span class="messages popover-valid"></span>
                                             </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label">Password</label>
-                                                <div class="col-sm-10">
-                                                    <input type="password" class="password form-control" name="password" placeholder="input you password" required="required">
-                                                    <i class="icofont icofont-eye-alt"></i>
-                                                    <span class="messages popover-valid"></span>
-                                                </div>
+                                        </div><!-- End Form Group -->
+                                        <!-- Start Form Group -->
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Description</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="password form-control" name="description" placeholder="category description" required="required">
+                                                <span class="messages popover-valid"></span>
                                             </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label">Email</label>
-                                                <div class="col-sm-10">
-                                                    <input type="email" class="form-control" name="email" placeholder="Enter email" autocomplete="off" required="required">
-                                                    <span class="messages popover-valid"></span>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label">Full Name</label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="form-control" name="fullName" placeholder="full name appear in your profile page" autocomplete="off" required="required">
-                                                    <span class="messages popover-valid"></span>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <label class="col-sm-2"></label>
-                                                <div class="col-sm-10">
-                                                    <button type="submit" class="btn btn-primary m-b-0">Create New member</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <?php
+                                        </div><!-- End Form Group -->
 
-                                    }elseif($do == 'Insert'){
+                                        <!-- Start Form Group -->
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Sort / ordring</label>
+                                            <div class="col-sm-10">
+                                                <input type="number" class="password form-control" name="sort" placeholder="category sort" required="required">
+                                                <span class="messages popover-valid"></span>
+                                            </div>
+                                        </div><!-- End Form Group -->
+
+                                        <div class="row">
+                                            <label class="col-sm-2"></label>
+                                            <div class="col-sm-10">
+                                                <button type="submit" class="btn btn-primary m-b-0">Create New Category</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <?php
+
+                                }elseif($do == 'Insert'){
                                     if($_SERVER['REQUEST_METHOD'] == "POST"){
 
                                         $userName = $_POST['userName'];
@@ -292,42 +289,42 @@
                                             if($check == 1){
                                                 redirectHome('alert alert-danger background-danger',"Sorry, this user exists!","members.php?do=add", 3);
                                             }else{
-                                            //check if user already exist
+                                                //check if user already exist
 
-                                            $stmt = $con->prepare("INSERT INTO users(userName, email, password,fullName,Reg_Status,Date) VALUES(:userName, :email, :password, :fullName,0,now()) ");
-                                            $stmt->execute(array(
-                                                'userName'  =>$userName,
-                                                'email'     =>$email,
-                                                'password'  =>$hashedPass,
-                                                'fullName'  =>$fullName,
-                                            ));
+                                                $stmt = $con->prepare("INSERT INTO users(userName, email, password,fullName,Reg_Status,Date) VALUES(:userName, :email, :password, :fullName,0,now()) ");
+                                                $stmt->execute(array(
+                                                    'userName'  =>$userName,
+                                                    'email'     =>$email,
+                                                    'password'  =>$hashedPass,
+                                                    'fullName'  =>$fullName,
+                                                ));
                                                 redirectHome('alert alert-success background-success m-3',"creating Success!","members.php?do=add", 3);
                                             }
                                         } //end check function
-                                        }else{
-                                            redirectHome('danger','sorry you can"t open this page direct',4);
-                                        }
-
-                                }elseif ($do == 'Manage'){
-                                    $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) : 0 ;
-
-
-
-                                    $query = '';
-                                    if (isset($_GET['page']) && $_GET['page'] == 'Pending'){
-                                        $query = 'AND Reg_Status = 0';
+                                    }else{
+                                        redirectHome('danger','sorry you can"t open this page direct',4);
                                     }
 
-                                    $stmt = $con->prepare("SELECT * FROM users WHERE groupID != 1 $query");
-                                    $stmt->execute();
-                                    $rows = $stmt->fetchAll();
+                                }elseif ($do == 'Manage'){
+                                $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) : 0 ;
+
+
+
+                                $query = '';
+                                if (isset($_GET['page']) && $_GET['page'] == 'Pending'){
+                                    $query = 'AND Reg_Status = 0';
+                                }
+
+                                $stmt = $con->prepare("SELECT * FROM users WHERE groupID != 1 $query");
+                                $stmt->execute();
+                                $rows = $stmt->fetchAll();
 
                                 ?>
                                 <!--#################### Manage page #####################-->
                                 <div class="card">
                                     <div class="card-header">
                                         <h5>All Users</h5>
-                                        <a href="?do=add" class="btn waves-effect waves-light btn-primary btn-square position-right">craete new member <i class="fa fa-plus"></i> </a>
+                                        <a href="?do=add" class="btn waves-effect waves-light btn-primary btn-square position-right">craete new Category <i class="fa fa-plus"></i> </a>
                                     </div>
                                     <div class="card-block">
                                         <div class="dt-responsive table-responsive">
@@ -335,7 +332,7 @@
                                                 <thead>
                                                 <tr>
                                                     <th>#ID</th>
-                                                    <th>User Name</th>
+                                                    <th>Name</th>
                                                     <th>Email</th>
                                                     <th>full Name</th>
                                                     <th>Registerd date</th>
@@ -344,23 +341,23 @@
                                                 </thead>
                                                 <tbody>
                                                 <?php
-                                                    foreach ($rows as $row){
-                                                ?>
-                                                <tr>
-                                                    <td><?php echo $row['id']?></td>
-                                                    <td><?php echo $row['userName']?></td>
-                                                    <td><?php echo $row['email']?></td>
-                                                    <td><?php echo $row['fullName']?></td>
-                                                    <td><?php echo $row['Date']?></td>
-                                                    <td class="text-center">
-                                                        <a href="members.php?do=edit&userid=<?php echo $row['id']?>" class="btn waves-effect waves-light btn-success btn-square"><i class="fa fa-edit"></i> edit</a>
-                                                        <a href="members.php?do=delete&userid=<?php echo $row['id']?>" class="btn btn-danger waves-effect waves-light"><i class="fa fa-close"></i> delete</a>
-                                                        <?php
-                                                        if($row['Reg_Status'] == 0){ ?>
-                                                            <a href="members.php?do=activate&userid=<?php echo $row['id']?>" class="btn btn-info waves-effect waves-light"><i class="fa fa-close"></i> Activate</a>
-                                                        <?php } ?>
-                                                    </td>
-                                                </tr>
+                                                foreach ($rows as $row){
+                                                    ?>
+                                                    <tr>
+                                                        <td><?php echo $row['id']?></td>
+                                                        <td><?php echo $row['userName']?></td>
+                                                        <td><?php echo $row['email']?></td>
+                                                        <td><?php echo $row['fullName']?></td>
+                                                        <td><?php echo $row['Date']?></td>
+                                                        <td class="text-center">
+                                                            <a href="members.php?do=edit&userid=<?php echo $row['id']?>" class="btn waves-effect waves-light btn-success btn-square"><i class="fa fa-edit"></i> edit</a>
+                                                            <a href="members.php?do=delete&userid=<?php echo $row['id']?>" class="btn btn-danger waves-effect waves-light"><i class="fa fa-close"></i> delete</a>
+                                                            <?php
+                                                            if($row['Reg_Status'] == 0){ ?>
+                                                                <a href="members.php?do=activate&userid=<?php echo $row['id']?>" class="btn btn-info waves-effect waves-light"><i class="fa fa-close"></i> Activate</a>
+                                                            <?php } ?>
+                                                        </td>
+                                                    </tr>
                                                 <?php   } // end foreach?>
                                                 </tbody>
                                                 <tfoot>
@@ -415,25 +412,25 @@
                                         echo "this row are not exist";
                                     }
                                 }else{
-                                    header('Location:dashboard.php');
-                                    exit();
+//                                    header('Location:dashboard.php');
+//                                    exit();
                                 }
                                 ?><!--   manage Page  -->
-                                    </div>
-                                </div>
                             </div>
                         </div>
-                        <!--   ############# create members page ##############  -->
                     </div>
                 </div>
+                <!--   ############# create members page ##############  -->
             </div>
         </div>
     </div>
-    <!--  page content  -->
+</div>
+</div>
+<!--  page content  -->
 
 </div><!-- end last div-->
 <!-- ############### End Body Page ##################### -->
 <?php
-    include $tpl . "footer.php";
-    ob_end_flush();
+include $tpl . "footer.php";
+ob_end_flush();
 ?>
