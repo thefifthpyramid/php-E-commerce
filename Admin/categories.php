@@ -224,7 +224,6 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                 <span class="messages popover-valid"></span>
                                             </div>
                                         </div><!-- End Form Group -->
-
                                         <!-- Start Form Group -->
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Sort / ordring</label>
@@ -233,7 +232,75 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                 <span class="messages popover-valid"></span>
                                             </div>
                                         </div><!-- End Form Group -->
+                                        <!-- Start Form Group -->
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">visible</label>
+                                            <div class="col-sm-10">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <input id="Yes" type="radio" value="0" name="visibility" checked>
+                                                        </div>
+                                                    </div>
+                                                    <label for="Yes" class="form-control">Yes</label>
+                                                </div>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <input id="No" type="radio" value="1" name="visibility">
+                                                        </div>
+                                                    </div>
+                                                    <label for="No" class="form-control">No</label>
+                                                </div>
+                                            </div>
+                                        </div><!-- End Form Group -->
 
+
+                                        <!-- Start Form Group -->
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Allow Comments</label>
+                                            <div class="col-sm-10">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <input id="Yes" type="radio" value="0" name="allow_comment" checked>
+                                                        </div>
+                                                    </div>
+                                                    <label for="Yes" class="form-control">Yes</label>
+                                                </div>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <input id="No" type="radio" value="1" name="allow_comment">
+                                                        </div>
+                                                    </div>
+                                                    <label for="No" class="form-control">No</label>
+                                                </div>
+                                            </div>
+                                        </div><!-- End Form Group -->
+
+                                        <!-- Start Form Group -->
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Allow Ads</label>
+                                            <div class="col-sm-10">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <input id="Yes" type="radio" value="0" name="allow_ads" checked>
+                                                        </div>
+                                                    </div>
+                                                    <label for="Yes" class="form-control">Yes</label>
+                                                </div>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <input id="No" type="radio" value="1" name="allow_ads">
+                                                        </div>
+                                                    </div>
+                                                    <label for="No" class="form-control">No</label>
+                                                </div>
+                                            </div>
+                                        </div><!-- End Form Group -->
                                         <div class="row">
                                             <label class="col-sm-2"></label>
                                             <div class="col-sm-10">

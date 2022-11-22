@@ -36,9 +36,9 @@
                     <li class=""><!-- Start Show all Categories li -->
                         <a href="categories.php?do=Manage" class="waves-effect waves-dark">
                             <span class="pcoded-micon">
-                                <i class="feather icon-file-plus"></i>
+                                <i class="feather icon-layers"></i>
                             </span>
-                            <span class="pcoded-mtext">Show All Category</span>
+                            <span class="pcoded-mtext">Show All Categories</span>
                         </a>
                     </li><!-- end li -->
                     <li class=""><!-- Start li -->
