@@ -18,6 +18,15 @@ Create A eCommerce Website Using Native Php
    + fullName
    + groupID 'Valeur par défaut = 0'
 
+2. categories
+    + id
+    + name
+    + description
+    + sort
+    + visibility 'Valeur par défaut = 0'
+    + allow_comment 'Valeur par défaut = 0'
+    + allow_ads 'Valeur par défaut = 0'
+
 ---
 
 __Project Operations :)__
@@ -29,7 +38,7 @@ __Project Operations :)__
     - edit users data
     - show all users
 - categories
-
+    - create category
 
 ---
 
