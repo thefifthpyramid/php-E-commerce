@@ -1,5 +1,5 @@
 <?php
-
+    ob_start();
     //Get Variables
     $pageTitle = "Dashboard";
 
@@ -103,7 +103,7 @@
                                         <div class="col">
                                             <h6 class="m-b-25">Pending Members</h6>
                                             <h3 class="f-w-700 text-c-yellow"><?php echo CheckItems('Reg_Status','users',0);//last Item function?></h3>
-                                            <p class="m-b-0">Activision Members: <?php echo CheckItems('Reg_Status','users',1);//last Item function?></p>
+                                            <p class="m-b-0">Actvation Members: <?php echo CheckItems('Reg_Status','users',1);//last Item function?></p>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-hand-paper bg-c-yellow"></i>
@@ -212,7 +212,11 @@
                                                         <h6><?php echo $row['userName'];?></h6>
                                                     </a>
                                                         <p class="text-muted m-b-0"><?php echo $row['Date'];?> |
-                                                            <a href="members.php?do=edit&userid=<?php echo $row['id'];?>" class="text-c-blue">edit</a>
+                                                            <a href="members.php?do=edit&userid=<?php echo $row['id'];?>" class="text-c-blue"> <i class="fa fa-edit"></i> edit</a>
+                                                            <?php
+                                                            if($row['Reg_Status'] == 0){ ?> |
+                                                                <a href="members.php?do=activate&userid=<?php echo $row['id']?>" class="text-c-green"><i class="fa fa-close"></i> Activate</a>
+                                                            <?php } ?>
                                                     </p>
                                                 </div>
                                             </div>
@@ -509,4 +513,7 @@
                     </div>
 
 <!-- ############### End Body Page ##################### -->
-<?php include $tpl . "footer.php"; ?>
+<?php
+    include $tpl . "footer.php";
+    ob_end_flush();
+?>

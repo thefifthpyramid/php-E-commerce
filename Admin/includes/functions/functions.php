@@ -26,11 +26,11 @@ function getTitle(){
 	** $url = The Link You Want To Redirect To
 	** $seconds = Seconds Before Redirecting
 */
-function redirectHome($errorMsg,$seconds = 3){
-    echo '<div class="alert alert-danger">$errorMsg.</div>';
-    echo '<div class="alert alert-info">You will be redirected to Home page After $seconds seconds.</div>';
-    header("refresh:$seconds;url=auth/dashboard.php ");
-    exit();
+function redirectHome($class,$massage,$url = 'dashboard.php',$seconds = 3){
+    echo '<div class="' . $class .'  m-3"> '.$massage.' </div>';
+    echo '<p class="m-3"><i class="fa fa-bell text-c-red "></i> You will be redirected to Home page After <strong>' . $seconds .' </strong> seconds.</p>';
+    header("refresh:$seconds;url=$url");
+    //exit();
 }
 
 //#########################################

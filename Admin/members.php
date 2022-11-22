@@ -1,4 +1,5 @@
 <?php
+    ob_start();
     session_start();
     /*
     ============================================================
@@ -289,48 +290,22 @@
                                         if(empty($formErrors)){
                                             $check = CheckItems('userName','users',$userName);
                                             if($check == 1){
-                                                echo '
-                                                <div class="alert alert-danger background-danger m-3">
-                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                    <i class="icofont icofont-close-line-circled text-white"></i>
-                                                    </button>
-                                                    <strong>Sorry, this user exists!</strong>
-                                                </div>
-                                            ';
+                                                redirectHome('alert alert-danger background-danger',"Sorry, this user exists!","members.php?do=add", 3);
                                             }else{
                                             //check if user already exist
 
-                                            $stmt = $con->prepare("INSERT INTO users(userName, email, password,fullName,Reg_Status,Date) VALUES(:userName, :email, :password, :fullName,1,now()) ");
+                                            $stmt = $con->prepare("INSERT INTO users(userName, email, password,fullName,Reg_Status,Date) VALUES(:userName, :email, :password, :fullName,0,now()) ");
                                             $stmt->execute(array(
                                                 'userName'  =>$userName,
                                                 'email'     =>$email,
                                                 'password'  =>$hashedPass,
                                                 'fullName'  =>$fullName,
                                             ));
-                                            echo '
-                                                <div class="alert alert-success background-success m-3">
-                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                    <i class="icofont icofont-close-line-circled text-white"></i>
-                                                    </button>
-                                                    <strong>creating Success!</strong>
-                                                </div>
-                                            ';
-                                            //redirect after created function
-                                            echo '<script>
-                                                setTimeout(function () {
-                                                   window.location.href= "members.php?do=add"
-                                                },5000); // 10 seconds
-                                                </script>';
+                                                redirectHome('alert alert-success background-success m-3',"creating Success!","members.php?do=add", 3);
                                             }
                                         } //end check function
                                         }else{
-                                            echo "<div class='alert alert-danger m-3'>sorry you can't open this page direct</div>";
-                                            //redirectHome("sorry you can"t open this page direct",4);
-                                        echo '<script>
-                                                setTimeout(function () {
-                                                   window.location.href= "dashboard.php"
-                                                },5000); // 10 seconds
-                                                </script>';
+                                            redirectHome('danger','sorry you can"t open this page direct',4);
                                         }
 
                                 }elseif ($do == 'Manage'){
@@ -416,16 +391,9 @@
                                     if($stmt->rowCount() > 0) {
                                         $stmt = $con->prepare('DELETE FROM users WHERE id = ?');
                                         $stmt->execute(array($userid));
-                                        echo '
-                                        <div class="alert alert-success background-success m-3">
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <i class="icofont icofont-close-line-circled text-white"></i>
-                                            </button>
-                                            <strong>Deleted Success!</strong>
-                                        </div>
-                                        ';
+                                        redirectHome('alert alert-success background-success m-3','Deleted Success!','members.php?do=Manage');
                                     }else{
-                                        echo "this row are not exist";
+                                        redirectHome('alert alert-danger background-success m-3','this row are not exist');
                                     }
                                 }
                                 // do = activate
@@ -441,14 +409,8 @@
                                     if($stmt->rowCount() > 0) {
                                         $stmt = $con->prepare('UPDATE users SET Reg_Status = 1 WHERE id = ? ');
                                         $stmt->execute(array($userid));
-                                        echo '
-                                        <div class="alert alert-success background-success m-3">
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <i class="icofont icofont-close-line-circled text-white"></i>
-                                            </button>
-                                            <strong>Activate Success!</strong>
-                                        </div>
-                                        ';
+
+                                        redirectHome('alert alert-success background-success','Activate Success!');
                                     }else{
                                         echo "this row are not exist";
                                     }
@@ -468,4 +430,5 @@
 
 </div><!-- end last div-->
 <!-- ############### End Body Page ##################### -->
-<?php include $tpl . "footer.php"; ?>
+<?php include $tpl . "footer.php";
+ob_end_flush();?>
