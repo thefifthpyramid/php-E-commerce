@@ -34,7 +34,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                 <div class="page-header-title">
                     <i class="feather icon-home bg-c-blue"></i>
                     <div class="d-inline">
-                        <h5>Dashboard</h5>
+                        <h5>E-commerce system</h5>
                         <span>Created By Ahmed Ali Klay</span>
                     </div>
                 </div>
@@ -43,9 +43,10 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                 <div class="page-header-breadcrumb">
                     <ul class=" breadcrumb breadcrumb-title">
                         <li class="breadcrumb-item">
-                            <a href="index-2.html"><i class="feather icon-home"></i></a>
+                            <a href="dashboard.php"><i class="feather icon-home"></i></a>
                         </li>
-                        <li class="breadcrumb-item"><a href="#!">Dashboard</a> </li>
+                        <li class="breadcrumb-item"><a href="categories.php">Categories</a> </li>
+                        <li class="breadcrumb-item readonly">create category </li>
                     </ul>
                 </div>
             </div>
@@ -85,7 +86,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">user name</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" value="<?php echo $row['userName']; ?>" name="userName" placeholder="Enter Username" autocomplete="off" required="required">
+                                                <input type="text" class="form-control" value="<?php echo $row['name']; ?>" name="name" placeholder="Enter Username" autocomplete="off" required="required">
                                                 <span class="messages popover-valid"></span>
                                             </div>
                                         </div>
@@ -137,7 +138,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                     if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                         //get vars
                                         $id         = $_POST['id'];
-                                        $userName   = $_POST['userName'];
+                                        $name   = $_POST['name'];
                                         $email      = $_POST['email'];
                                         $fullName   = $_POST['fullName'];
 
@@ -151,10 +152,10 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
 
                                         //validate the form
                                         $formErrors =  array();
-                                        if(strlen($userName) < 4){
+                                        if(strlen($name) < 4){
                                             $formErrors[] = 'username can"t less than four characters';
                                         }
-                                        if(empty($userName)){
+                                        if(empty($name)){
                                             $formErrors[] = 'username can"t be empty';
                                         }
                                         if(empty($email)){
@@ -176,8 +177,8 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
 
                                         //check if there's no error
                                         if(empty($formErrors)){
-                                            $stmt = $con->prepare("UPDATE users SET userName = ?, email = ?, password = ? ,fullName = ? WHERE id = ?");
-                                            $stmt->execute(array($userName,$email,$pass,$fullName,$id));
+                                            $stmt = $con->prepare("UPDATE users SET name = ?, email = ?, password = ? ,fullName = ? WHERE id = ?");
+                                            $stmt->execute(array($name,$email,$pass,$fullName,$id));
                                             echo '
                                                 <div class="alert alert-success background-success">
                                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -212,7 +213,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Name</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="mame" placeholder="name of the category" autocomplete="off" required="required">
+                                                <input type="text" class="form-control" name="name" placeholder="name of the category" autocomplete="off" required="required">
                                                 <span class="messages popover-valid"></span>
                                             </div>
                                         </div><!-- End Form Group -->
@@ -239,18 +240,18 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text">
-                                                            <input id="Yes" type="radio" value="0" name="visibility" checked>
+                                                            <input id="visibility:Yes" type="radio" value="0" name="visibility" checked>
                                                         </div>
                                                     </div>
-                                                    <label for="Yes" class="form-control">Yes</label>
+                                                    <label for="visibility:Yes" class="form-control">Yes</label>
                                                 </div>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text">
-                                                            <input id="No" type="radio" value="1" name="visibility">
+                                                            <input id="visibility:No" type="radio" value="1" name="visibility">
                                                         </div>
                                                     </div>
-                                                    <label for="No" class="form-control">No</label>
+                                                    <label for="visibility:No" class="form-control">No</label>
                                                 </div>
                                             </div>
                                         </div><!-- End Form Group -->
@@ -263,18 +264,18 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text">
-                                                            <input id="Yes" type="radio" value="0" name="allow_comment" checked>
+                                                            <input id="allow_comment:Yes" type="radio" value="0" name="allow_comment" checked>
                                                         </div>
                                                     </div>
-                                                    <label for="Yes" class="form-control">Yes</label>
+                                                    <label for="allow_comment:Yes" class="form-control">Yes</label>
                                                 </div>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text">
-                                                            <input id="No" type="radio" value="1" name="allow_comment">
+                                                            <input id="allow_comment:No" type="radio" value="1" name="allow_comment">
                                                         </div>
                                                     </div>
-                                                    <label for="No" class="form-control">No</label>
+                                                    <label for="allow_comment:No" class="form-control">No</label>
                                                 </div>
                                             </div>
                                         </div><!-- End Form Group -->
@@ -286,18 +287,18 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text">
-                                                            <input id="Yes" type="radio" value="0" name="allow_ads" checked>
+                                                            <input id="allow_ads:Yes" type="radio" value="0" name="allow_ads" checked>
                                                         </div>
                                                     </div>
-                                                    <label for="Yes" class="form-control">Yes</label>
+                                                    <label for="allow_ads:Yes" class="form-control">Yes</label>
                                                 </div>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text">
-                                                            <input id="No" type="radio" value="1" name="allow_ads">
+                                                            <input id="allow_ads:No" type="radio" value="1" name="allow_ads">
                                                         </div>
                                                     </div>
-                                                    <label for="No" class="form-control">No</label>
+                                                    <label for="allow_ads:No" class="form-control">No</label>
                                                 </div>
                                             </div>
                                         </div><!-- End Form Group -->
@@ -314,31 +315,21 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                 }elseif($do == 'Insert'){
                                     if($_SERVER['REQUEST_METHOD'] == "POST"){
 
-                                        $userName = $_POST['userName'];
-                                        $email = $_POST['email'];
-                                        $fullName = $_POST['fullName'];
+                                        $Name = $_POST['name'];
+                                        $description = $_POST['description'];
+                                        $sort = $_POST['sort'];
+                                        $visibility = $_POST['visibility'];
+                                        $allow_comment = $_POST['allow_comment'];
+                                        $allow_ads = $_POST['allow_ads'];
 
-                                        //pass
-                                        $pass = $_POST['password'];
-                                        $hashedPass = sha1($pass);
 
                                         //errors
                                         $formErrors =  array();
-                                        if(strlen($userName) < 4){
-                                            $formErrors[] = 'username can"t less than four characters';
+                                        if(strlen($Name) < 4){
+                                            $formErrors[] = 'section name can"t less than four characters';
                                         }
-                                        if(empty($userName)){
-                                            $formErrors[] = 'username can"t be empty';
-                                        }
-                                        if(empty($email)){
-                                            $formErrors[] = 'email can"t be empty';
-                                        }
-                                        if(empty($pass)){
-                                            $formErrors[] = 'password can"t be empty';
-                                        }
-                                        if(empty($fullName)){
-                                            $formErrors[] = 'full name can"t be empty';
-                                        }
+
+
                                         foreach ($formErrors as $error){
                                             echo '
                                                 <div class="alert alert-danger background-danger">
@@ -352,20 +343,23 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
 
                                         //check if there's no error
                                         if(empty($formErrors)){
-                                            $check = CheckItems('userName','users',$userName);
+                                            $check = CheckItems('name','categories',$Name);
                                             if($check == 1){
                                                 redirectHome('alert alert-danger background-danger',"Sorry, this user exists!","members.php?do=add", 3);
                                             }else{
-                                                //check if user already exist
-
-                                                $stmt = $con->prepare("INSERT INTO users(userName, email, password,fullName,Reg_Status,Date) VALUES(:userName, :email, :password, :fullName,0,now()) ");
+                                                //check if category already exist
+                                                //id	name	description	sort	visibility	allow_comment	allow_ads
+                                                $stmt = $con->prepare("INSERT INTO categories(name, description, sort,visibility,allow_comment,allow_ads) VALUES(:name, :description, :sort, :visibility,:allow_comment,:allow_ads) ");
                                                 $stmt->execute(array(
-                                                    'userName'  =>$userName,
-                                                    'email'     =>$email,
-                                                    'password'  =>$hashedPass,
-                                                    'fullName'  =>$fullName,
+                                                    'name'          =>$Name,
+                                                    'description'   =>$description,
+                                                    'sort'          =>$sort,
+                                                    'visibility'    =>$visibility,
+                                                    'allow_comment' =>$allow_comment,
+                                                    'allow_ads'     =>$allow_ads,
+
                                                 ));
-                                                redirectHome('alert alert-success background-success m-3',"creating Success!","members.php?do=add", 3);
+                                                redirectHome('alert alert-success background-success m-3',"creating Success!","categories.php?do=add", 3);
                                             }
                                         } //end check function
                                     }else{
@@ -412,7 +406,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                     ?>
                                                     <tr>
                                                         <td><?php echo $row['id']?></td>
-                                                        <td><?php echo $row['userName']?></td>
+                                                        <td><?php echo $row['name']?></td>
                                                         <td><?php echo $row['email']?></td>
                                                         <td><?php echo $row['fullName']?></td>
                                                         <td><?php echo $row['Date']?></td>

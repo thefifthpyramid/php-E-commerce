@@ -29,8 +29,8 @@
                 <div class="page-header-title">
                     <i class="feather icon-home bg-c-blue"></i>
                     <div class="d-inline">
-                        <h5>Dashboard</h5>
-                        <span>lorem ipsum dolor sit amet, consectetur adipisicing elit</span>
+                        <h5>E-commerce system</h5>
+                        <span>Created By Ahmed Ali Klay</span>
                     </div>
                 </div>
             </div>
@@ -38,9 +38,9 @@
                 <div class="page-header-breadcrumb">
                     <ul class=" breadcrumb breadcrumb-title">
                         <li class="breadcrumb-item">
-                            <a href="Admin/dashboard.php"><i class="feather icon-home"></i></a>
+                            <i class="feather icon-home"></i>
+                            Dashboard
                         </li>
-                        <li class="breadcrumb-item"><a href="#!">Dashboard</a> </li>
                     </ul>
                 </div>
             </div>

@@ -25,5 +25,6 @@ $(function(){
             console.log('hi');
         },3000); // 10 seconds
     };
+    $(".readonly").readOnly;
 });
 
