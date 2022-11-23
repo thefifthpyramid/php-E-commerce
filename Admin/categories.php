@@ -64,10 +64,10 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                         <div class="col-md-12">
                             <?php
                             if($do == 'edit'){
-                            $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) : 0 ;
+                            $id = isset($_GET['id']) && is_numeric($_GET['id']) ? intval($_GET['id']) : 0 ;
 
-                            $stmt = $con->prepare('SELECT * FROM users WHERE id = ?');
-                            $stmt->execute(array($userid));
+                            $stmt = $con->prepare('SELECT * FROM categories WHERE id = ?');
+                            $stmt->execute(array($id));
                             $row = $stmt->fetch();
                             $count = $stmt->rowCount();
                             if($stmt->rowCount() > 0){
@@ -82,36 +82,97 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                 </div>
                                 <div class="card-block">
                                     <form id="second" action="?do=Update" method="post">
-                                        <input type="hidden" name="id" value="<?php echo $userid; ?>">
+                                        <input type="hidden" name="id" value="<?php echo $id; ?>">
                                         <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">user name</label>
+                                            <label class="col-sm-2 col-form-label">section name</label>
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control" value="<?php echo $row['name']; ?>" name="name" placeholder="Enter Username" autocomplete="off" required="required">
                                                 <span class="messages popover-valid"></span>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Password</label>
+                                            <label class="col-sm-2 col-form-label">description</label>
                                             <div class="col-sm-10">
-                                                <input type="hidden"  value="<?php echo $row['password']; ?>" name="oldPassword">
-                                                <input type="password" class="form-control" name="newPassword" placeholder="Leave This Input Blank If You Dont want to change">
+                                                <textarea type="text" class="form-control" name="description" placeholder=""><?php echo $row['description']; ?></textarea>
                                                 <span class="messages popover-valid"></span>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Email</label>
+                                            <label class="col-sm-2 col-form-label">Sort</label>
                                             <div class="col-sm-10">
-                                                <input type="email" class="form-control" value="<?php echo $row['email']; ?>" name="email" placeholder="Enter email" autocomplete="off" required="required">
+                                                <input type="text" class="form-control" value="<?php echo $row['sort']; ?>" name="sort" placeholder="Enter email" autocomplete="off" required="required">
                                                 <span class="messages popover-valid"></span>
                                             </div>
                                         </div>
+                                        <!-- Start Form Group -->
                                         <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Full Name</label>
+                                            <label class="col-sm-2 col-form-label">visible</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" value="<?php echo $row['fullName']; ?>" name="fullName" placeholder="Enter your full name" autocomplete="off" required="required">
-                                                <span class="messages popover-valid"></span>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <input id="visibility:Yes" type="radio" value="0" name="visibility" checked>
+                                                        </div>
+                                                    </div>
+                                                    <label for="visibility:Yes" class="form-control">Yes</label>
+                                                </div>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <input id="visibility:No" type="radio" value="1" name="visibility">
+                                                        </div>
+                                                    </div>
+                                                    <label for="visibility:No" class="form-control">No</label>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </div><!-- End Form Group -->
+
+                                        <!-- Start Form Group -->
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Allow Comments</label>
+                                            <div class="col-sm-10">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <input id="allow_comment:Yes" type="radio" value="0" name="allow_comment" checked>
+                                                        </div>
+                                                    </div>
+                                                    <label for="allow_comment:Yes" class="form-control">Yes</label>
+                                                </div>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <input id="allow_comment:No" type="radio" value="1" name="allow_comment">
+                                                        </div>
+                                                    </div>
+                                                    <label for="allow_comment:No" class="form-control">No</label>
+                                                </div>
+                                            </div>
+                                        </div><!-- End Form Group -->
+
+                                        <!-- Start Form Group -->
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Allow Ads</label>
+                                            <div class="col-sm-10">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <input id="allow_ads:Yes" type="radio" value="0" name="allow_ads" checked>
+                                                        </div>
+                                                    </div>
+                                                    <label for="allow_ads:Yes" class="form-control">Yes</label>
+                                                </div>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <input id="allow_ads:No" type="radio" value="1" name="allow_ads">
+                                                        </div>
+                                                    </div>
+                                                    <label for="allow_ads:No" class="form-control">No</label>
+                                                </div>
+                                            </div>
+                                        </div><!-- End Form Group -->
+
                                         <div class="row">
                                             <label class="col-sm-2"></label>
                                             <div class="col-sm-10">
@@ -367,16 +428,13 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                     }
 
                                 }elseif ($do == 'Manage'){
-                                $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) : 0 ;
+                                $id = isset($_GET['id']) && is_numeric($_GET['id']) ? intval($_GET['id']) : 0 ;
 
 
 
-                                $query = '';
-                                if (isset($_GET['page']) && $_GET['page'] == 'Pending'){
-                                    $query = 'AND Reg_Status = 0';
-                                }
 
-                                $stmt = $con->prepare("SELECT * FROM users WHERE groupID != 1 $query");
+
+                                $stmt = $con->prepare("SELECT * FROM categories");
                                 $stmt->execute();
                                 $rows = $stmt->fetchAll();
 
@@ -394,9 +452,9 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                 <tr>
                                                     <th>#ID</th>
                                                     <th>Name</th>
-                                                    <th>Email</th>
-                                                    <th>full Name</th>
-                                                    <th>Registerd date</th>
+                                                    <th>description</th>
+                                                    <th>sort</th>
+                                                    <th>visibility</th>
                                                     <th>Control</th>
                                                 </tr>
                                                 </thead>
@@ -407,15 +465,15 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                     <tr>
                                                         <td><?php echo $row['id']?></td>
                                                         <td><?php echo $row['name']?></td>
-                                                        <td><?php echo $row['email']?></td>
-                                                        <td><?php echo $row['fullName']?></td>
-                                                        <td><?php echo $row['Date']?></td>
+                                                        <td><?php echo $row['description']?></td>
+                                                        <td><?php echo $row['sort']?></td>
+                                                        <td><?php echo $row['visibility']?></td>
                                                         <td class="text-center">
-                                                            <a href="categories.php?do=edit&userid=<?php echo $row['id']?>" class="btn waves-effect waves-light btn-success btn-square"><i class="fa fa-edit"></i> edit</a>
-                                                            <a href="categories.php?do=delete&userid=<?php echo $row['id']?>" class="btn btn-danger waves-effect waves-light"><i class="fa fa-close"></i> delete</a>
+                                                            <a href="categories.php?do=edit&id=<?php echo $row['id']?>" class="btn waves-effect waves-light btn-success btn-square"><i class="fa fa-edit"></i> edit</a>
+                                                            <a href="categories.php?do=delete&id=<?php echo $row['id']?>" class="btn btn-danger waves-effect waves-light"><i class="fa fa-close"></i> delete</a>
                                                             <?php
-                                                            if($row['Reg_Status'] == 0){ ?>
-                                                                <a href="categories.php?do=activate&userid=<?php echo $row['id']?>" class="btn btn-info waves-effect waves-light"><i class="fa fa-close"></i> Activate</a>
+                                                            if($row['visibility'] == 0){ ?>
+                                                                <a href="categories.php?do=activate&id=<?php echo $row['id']?>" class="btn btn-info waves-effect waves-light"><i class="fa fa-close"></i> Activate</a>
                                                             <?php } ?>
                                                         </td>
                                                     </tr>
@@ -424,7 +482,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                 <tfoot>
                                                 <tr>
                                                     <th>#ID</th>
-                                                    <th>User Name</th>
+                                                    <th>name</th>
                                                     <th>Email</th>
                                                     <th>full Name</th>
                                                     <th>Registerd date</th>
@@ -439,16 +497,16 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                 <?php } //end the condition of add and insert members
                                 elseif($do == 'delete'){
 
-                                    $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) : 0 ;
+                                    $id = isset($_GET['id']) && is_numeric($_GET['id']) ? intval($_GET['id']) : 0 ;
                                     $stmt = $con->prepare('SELECT * FROM users WHERE id = ? LIMIT 1');
 
-                                    $stmt->execute(array($userid));
+                                    $stmt->execute(array($id));
                                     //fetch data from database
                                     $count = $stmt->rowCount();
                                     //fetch data from database
                                     if($stmt->rowCount() > 0) {
                                         $stmt = $con->prepare('DELETE FROM users WHERE id = ?');
-                                        $stmt->execute(array($userid));
+                                        $stmt->execute(array($id));
                                         redirectHome('alert alert-success background-success m-3','Deleted Success!','categories.php?do=Manage');
                                     }else{
                                         redirectHome('alert alert-danger background-success m-3','this row are not exist');
@@ -457,16 +515,16 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                 // do = activate
                                 elseif($do == 'activate'){
 
-                                    $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) : 0 ;
+                                    $id = isset($_GET['id']) && is_numeric($_GET['id']) ? intval($_GET['id']) : 0 ;
                                     $stmt = $con->prepare('SELECT * FROM users WHERE id = ? LIMIT 1');
 
-                                    $stmt->execute(array($userid));
+                                    $stmt->execute(array($id));
                                     //fetch data from database
                                     $count = $stmt->rowCount();
                                     //fetch data from database
                                     if($stmt->rowCount() > 0) {
                                         $stmt = $con->prepare('UPDATE users SET Reg_Status = 1 WHERE id = ? ');
-                                        $stmt->execute(array($userid));
+                                        $stmt->execute(array($id));
 
                                         redirectHome('alert alert-success background-success','Activate Success!');
                                     }else{
