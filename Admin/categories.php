@@ -467,14 +467,21 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                         <td><?php echo $row['name']?></td>
                                                         <td><?php echo $row['description']?></td>
                                                         <td><?php echo $row['sort']?></td>
-                                                        <td><?php echo $row['visibility']?></td>
-                                                        <td class="text-center">
-                                                            <a href="categories.php?do=edit&id=<?php echo $row['id']?>" class="btn waves-effect waves-light btn-success btn-square"><i class="fa fa-edit"></i> edit</a>
-                                                            <a href="categories.php?do=delete&id=<?php echo $row['id']?>" class="btn btn-danger waves-effect waves-light"><i class="fa fa-close"></i> delete</a>
+                                                        <td>
+
                                                             <?php
                                                             if($row['visibility'] == 0){ ?>
                                                                 <a href="categories.php?do=activate&id=<?php echo $row['id']?>" class="btn btn-info waves-effect waves-light"><i class="fa fa-close"></i> Activate</a>
-                                                            <?php } ?>
+                                                            <?php }else{
+                                                                echo "Activate";
+                                                            }?>
+                                                        </td>
+                                                        <td><?php echo $row['allow_comment']?></td>
+                                                        <td><?php echo $row['allow_ads']?></td>
+                                                        <td class="text-center">
+                                                            <a href="categories.php?do=edit&id=<?php echo $row['id']?>" class="btn waves-effect waves-light btn-success btn-square"><i class="fa fa-edit"></i> edit</a>
+                                                            <a href="categories.php?do=delete&id=<?php echo $row['id']?>" class="btn btn-danger waves-effect waves-light"><i class="fa fa-close"></i> delete</a>
+
                                                         </td>
                                                     </tr>
                                                 <?php   } // end foreach?>
@@ -483,9 +490,11 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                 <tr>
                                                     <th>#ID</th>
                                                     <th>name</th>
-                                                    <th>Email</th>
-                                                    <th>full Name</th>
-                                                    <th>Registerd date</th>
+                                                    <th>description</th>
+                                                    <th>sort</th>
+                                                    <th>visibility</th>
+                                                    <th>allow comment</th>
+                                                    <th>allow ads</th>
                                                     <th>Control</th>
                                                 </tr>
                                                 </tfoot>
