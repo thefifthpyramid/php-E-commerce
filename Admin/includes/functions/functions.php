@@ -20,13 +20,22 @@ function getTitle(){
 }
 //#########################################
 /*
-	** Home Redirect Function v2.0
+	** Home Redirect Function v3.0
 	** This Function Accept Parameters
 	** $theMsg = Echo The Message [ Error | Success | Warning ]
 	** $url = The Link You Want To Redirect To
 	** $seconds = Seconds Before Redirecting
 */
-function redirectHome($class,$massage,$url = 'dashboard.php',$seconds = 3){
+function redirectHome($class,$massage,$url = null,$seconds = 3){
+    if($url === null){
+        $url = 'dashboard.php';
+    }else{
+        if(isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] !== ''){
+            $url = $_SERVER['HTTP_REFERER'];
+        }else{
+            $url = 'dashboard.php';
+        }
+    }
     echo '<div class="' . $class .'  m-3"> '.$massage.' </div>';
     echo '<p class="m-3"><i class="fa fa-bell text-c-red "></i> You will be redirected to Home page After <strong>' . $seconds .' </strong> seconds.</p>';
     header("refresh:$seconds;url=$url");

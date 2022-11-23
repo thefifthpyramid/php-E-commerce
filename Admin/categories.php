@@ -345,7 +345,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                         if(empty($formErrors)){
                                             $check = CheckItems('name','categories',$Name);
                                             if($check == 1){
-                                                redirectHome('alert alert-danger background-danger',"Sorry, this user exists!","members.php?do=add", 3);
+                                                redirectHome('alert alert-danger background-danger',"Sorry, this user exists!","categories.php?do=add", 3);
                                             }else{
                                                 //check if category already exist
                                                 //id	name	description	sort	visibility	allow_comment	allow_ads
@@ -411,11 +411,11 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                         <td><?php echo $row['fullName']?></td>
                                                         <td><?php echo $row['Date']?></td>
                                                         <td class="text-center">
-                                                            <a href="members.php?do=edit&userid=<?php echo $row['id']?>" class="btn waves-effect waves-light btn-success btn-square"><i class="fa fa-edit"></i> edit</a>
-                                                            <a href="members.php?do=delete&userid=<?php echo $row['id']?>" class="btn btn-danger waves-effect waves-light"><i class="fa fa-close"></i> delete</a>
+                                                            <a href="categories.php?do=edit&userid=<?php echo $row['id']?>" class="btn waves-effect waves-light btn-success btn-square"><i class="fa fa-edit"></i> edit</a>
+                                                            <a href="categories.php?do=delete&userid=<?php echo $row['id']?>" class="btn btn-danger waves-effect waves-light"><i class="fa fa-close"></i> delete</a>
                                                             <?php
                                                             if($row['Reg_Status'] == 0){ ?>
-                                                                <a href="members.php?do=activate&userid=<?php echo $row['id']?>" class="btn btn-info waves-effect waves-light"><i class="fa fa-close"></i> Activate</a>
+                                                                <a href="categories.php?do=activate&userid=<?php echo $row['id']?>" class="btn btn-info waves-effect waves-light"><i class="fa fa-close"></i> Activate</a>
                                                             <?php } ?>
                                                         </td>
                                                     </tr>
@@ -449,7 +449,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                     if($stmt->rowCount() > 0) {
                                         $stmt = $con->prepare('DELETE FROM users WHERE id = ?');
                                         $stmt->execute(array($userid));
-                                        redirectHome('alert alert-success background-success m-3','Deleted Success!','members.php?do=Manage');
+                                        redirectHome('alert alert-success background-success m-3','Deleted Success!','categories.php?do=Manage');
                                     }else{
                                         redirectHome('alert alert-danger background-success m-3','this row are not exist');
                                     }
