@@ -63,136 +63,148 @@
                         <div class="col-md-12">
                             <?php
                                 if($do == 'edit'){
-                                    $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) : 0 ;
+                                    if(isset($_GET['userid']) && is_numeric($_GET['userid'])){
+                                        $userid = intval($_GET['userid']);
+                                    }else{
+                                        $userid = 0;
+                                    }
+                                    //$userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) : 0 ;
 
                                     $stmt = $con->prepare('SELECT * FROM users WHERE id = ?');
                                     $stmt->execute(array($userid));
                                     $row = $stmt->fetch();
                                     $count = $stmt->rowCount();
                                     if($stmt->rowCount() > 0){
-
-
-
-                            ?><!--   Edit Page  -->
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>Tooltip Validation</h5>
-                                    <a href="?do=Manage" class="btn waves-effect waves-light btn-primary btn-square position-right">Show all members <i class="fa fa-users"></i> </a>
-                                </div>
-                                <div class="card-block">
-                                    <form id="second" action="?do=Update" method="post">
-                                        <input type="hidden" name="id" value="<?php echo $userid; ?>">
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">user name</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" value="<?php echo $row['userName']; ?>" name="userName" placeholder="Enter Username" autocomplete="off" required="required">
-                                                <span class="messages popover-valid"></span>
+                                        ?><!--   Edit Page  -->
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h5>Tooltip Validation</h5>
+                                                <a href="?do=Manage" class="btn waves-effect waves-light btn-primary btn-square position-right">Show all members <i class="fa fa-users"></i> </a>
+                                            </div>
+                                            <div class="card-block">
+                                                <form id="second" action="?do=Update" method="post">
+                                                    <input type="hidden" name="id" value="<?php echo $userid; ?>">
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-2 col-form-label">user name</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" class="form-control" value="<?php echo $row['userName']; ?>" name="userName" placeholder="Enter Username" autocomplete="off" required="required">
+                                                            <span class="messages popover-valid"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-2 col-form-label">Password</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="hidden"  value="<?php echo $row['password']; ?>" name="oldPassword">
+                                                            <input type="password" class="form-control" name="newPassword" placeholder="Leave This Input Blank If You Dont want to change">
+                                                            <span class="messages popover-valid"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-2 col-form-label">Email</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="email" class="form-control" value="<?php echo $row['email']; ?>" name="email" placeholder="Enter email" autocomplete="off" required="required">
+                                                            <span class="messages popover-valid"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-2 col-form-label">Full Name</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="text" class="form-control" value="<?php echo $row['fullName']; ?>" name="fullName" placeholder="Enter your full name" autocomplete="off" required="required">
+                                                            <span class="messages popover-valid"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label class="col-sm-2"></label>
+                                                        <div class="col-sm-10">
+                                                            <button type="submit" class="btn btn-primary m-b-0">Update</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Password</label>
-                                            <div class="col-sm-10">
-                                                <input type="hidden"  value="<?php echo $row['password']; ?>" name="oldPassword">
-                                                <input type="password" class="form-control" name="newPassword" placeholder="Leave This Input Blank If You Dont want to change">
-                                                <span class="messages popover-valid"></span>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Email</label>
-                                            <div class="col-sm-10">
-                                                <input type="email" class="form-control" value="<?php echo $row['email']; ?>" name="email" placeholder="Enter email" autocomplete="off" required="required">
-                                                <span class="messages popover-valid"></span>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Full Name</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" value="<?php echo $row['fullName']; ?>" name="fullName" placeholder="Enter your full name" autocomplete="off" required="required">
-                                                <span class="messages popover-valid"></span>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <label class="col-sm-2"></label>
-                                            <div class="col-sm-10">
-                                                <button type="submit" class="btn btn-primary m-b-0">Update</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <?php
+                                        <?php
                                     }else{
                                         echo "there is no data";
                                     }//end condition if id is existing
                                 } //end edit page tag
-                                elseif($do == 'Update'){
-                                    ?>
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>hello from update form</h5>
-                                    <span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span>
-                                </div>
-                                <div class="card-block">
-                                    <?php
-                                    if($_SERVER['REQUEST_METHOD'] == 'POST'){
-                                        //get vars
-                                        $id         = $_POST['id'];
-                                        $userName   = $_POST['userName'];
-                                        $email      = $_POST['email'];
-                                        $fullName   = $_POST['fullName'];
+                                        elseif($do == 'activate'){
 
-                                        //password
-                                        $oldPassword   = $_POST['oldPassword'];
-                                        $newPassword   = $_POST['newPassword'];
-                                        $pass = '';
+                                            $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) : 0 ;
+                                            $stmt = $con->prepare('SELECT * FROM users WHERE id = ? LIMIT 1');
 
-                                        //check password value
-                                        $pass = empty($newPassword) ? $oldPassword : sha1($newPassword);
+                                            $stmt->execute(array($userid));
+                                            //fetch data from database
+                                            $count = $stmt->rowCount();
+                                            //fetch data from database
+                                            if($stmt->rowCount() > 0) {
+                                                $stmt = $con->prepare('UPDATE users SET Reg_Status = 1 WHERE id = ? ');
+                                                $stmt->execute(array($userid));
 
-                                        //validate the form
-                                        $formErrors =  array();
-                                        if(strlen($userName) < 4){
-                                            $formErrors[] = 'username can"t less than four characters';
+                                                redirectHome('alert alert-success background-success','Activate Success!');
+                                            }else{
+                                                echo "this row are not exist";
+                                            }
                                         }
-                                        if(empty($userName)){
-                                            $formErrors[] = 'username can"t be empty';
-                                        }
-                                        if(empty($email)){
-                                            $formErrors[] = 'email can"t be empty';
-                                        }
-                                        if(empty($fullName)){
-                                            $formErrors[] = 'full name can"t be empty';
-                                        }
-                                        foreach ($formErrors as $error){
-                                            echo '
-                                                <div class="alert alert-danger background-danger">
-                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <i class="icofont icofont-close-line-circled text-white"></i>
-                                                </button>
-                                                <strong>'. $error.'</strong> 
-                                                </div>
-                                            '; //end echo
-                                        }//end foreach
+                                elseif($do == 'Update'){ ?>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>hello from update form</h5>
+                                        <span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span>
+                                    </div>
+                                    <div class="card-block">
+                                        <?php
+                                        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                                            //get vars
+                                            $id         = $_POST['id'];
+                                            $userName   = $_POST['userName'];
+                                            $email      = $_POST['email'];
+                                            $fullName   = $_POST['fullName'];
 
-                                        //check if there's no error
-                                        if(empty($formErrors)){
-                                            $stmt = $con->prepare("UPDATE users SET userName = ?, email = ?, password = ? ,fullName = ? WHERE id = ?");
-                                            $stmt->execute(array($userName,$email,$pass,$fullName,$id));
-                                            echo '
-                                                <div class="alert alert-success background-success">
+                                            //password
+                                            $oldPassword   = $_POST['oldPassword'];
+                                            $newPassword   = $_POST['newPassword'];
+                                            $pass = '';
+
+                                            //check password value
+                                            $pass = empty($newPassword) ? $oldPassword : sha1($newPassword);
+
+                                            //validate the form
+                                            $formErrors =  array();
+                                            if(strlen($userName) < 4){
+                                                $formErrors[] = 'username can"t less than four characters';
+                                            }
+                                            if(empty($userName)){
+                                                $formErrors[] = 'username can"t be empty';
+                                            }
+                                            if(empty($email)){
+                                                $formErrors[] = 'email can"t be empty';
+                                            }
+                                            if(empty($fullName)){
+                                                $formErrors[] = 'full name can"t be empty';
+                                            }
+                                            foreach ($formErrors as $error){
+                                                echo '
+                                                    <div class="alert alert-danger background-danger">
                                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                     <i class="icofont icofont-close-line-circled text-white"></i>
                                                     </button>
-                                                    <strong>Updating Success!</strong>
-                                                </div>
-                                            ';
-                                        }
-                                    }else{
-                                        echo "sorry you can't open this page direct";
-                                    }
-                                }
+                                                    <strong>'. $error.'</strong> 
+                                                    </div>
+                                                '; //end echo
+                                            }//end foreach
 
-                                ?><!--   Edit Page  -->
+                                            //check if there's no error
+                                            if(empty($formErrors)){
+                                                $stmt = $con->prepare("UPDATE users SET userName = ?, email = ?, password = ? ,fullName = ? WHERE id = ?");
+                                                $stmt->execute(array($userName,$email,$pass,$fullName,$id));
+
+                                                redirectHome('alert alert-success background-success','Updating Success!');
+                                            }
+                                        }else{
+                                            echo "sorry you can't open this page direct";
+                                        }
+                                    }
+                                        ?><!--   Edit Page  -->
                                 </div>
                             </div>
                         </div>
@@ -395,29 +407,7 @@
                                     }else{
                                         redirectHome('alert alert-danger background-success m-3','this row are not exist');
                                     }
-                                }
-                                // do = activate
-                                elseif($do == 'activate'){
-
-                                    $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) : 0 ;
-                                    $stmt = $con->prepare('SELECT * FROM users WHERE id = ? LIMIT 1');
-
-                                    $stmt->execute(array($userid));
-                                    //fetch data from database
-                                    $count = $stmt->rowCount();
-                                    //fetch data from database
-                                    if($stmt->rowCount() > 0) {
-                                        $stmt = $con->prepare('UPDATE users SET Reg_Status = 1 WHERE id = ? ');
-                                        $stmt->execute(array($userid));
-
-                                        redirectHome('alert alert-success background-success','Activate Success!');
-                                    }else{
-                                        echo "this row are not exist";
-                                    }
-                                }else{
-                                    header('Location:dashboard.php');
-                                    exit();
-                                }
+                                }//end conditions
                                 ?><!--   manage Page  -->
                                     </div>
                                 </div>

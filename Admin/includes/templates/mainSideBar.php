@@ -51,18 +51,30 @@
                     </li><!-- end li -->
                 </ul>
 
+                <!-- Products -->
+                <div class="pcoded-navigation-label">Products</div>
+                <ul class="pcoded-item pcoded-left-item">
+                    <li class=""><!-- Start Show all Categories li -->
+                        <a href="items.php?do=Manage" class="waves-effect waves-dark">
+                            <span class="pcoded-micon">
+                                <i class="feather icon-layers"></i>
+                            </span>
+                            <span class="pcoded-mtext">Show All Products</span>
+                        </a>
+                    </li><!-- end li -->
+                    <li class=""><!-- Start li -->
+                        <a href="items.php?do=add" class="waves-effect waves-dark">
+                                <span class="pcoded-micon">
+                                    <i class="feather icon-file-plus"></i>
+                                </span>
+                            <span class="pcoded-mtext">Create New</span>
+                        </a>
+                    </li><!-- end li -->
+                </ul>
+
                 <!-- Other -->
                 <div class="pcoded-navigation-label">Other</div>
                 <ul class="pcoded-item pcoded-left-item">
-
-                    <li class="">
-                        <a href="members.php?do=add" class="waves-effect waves-dark">
-                            <span class="pcoded-micon">
-                                <i class="feather icon-file-plus"></i>
-                            </span>
-                            <span class="pcoded-mtext">Create new Member</span>
-                        </a>
-                    </li>
                     <!-- -->
                     <li class="">
                         <a href="members.php?do=edit&userid=<?php echo $_SESSION['id'] ?>" class="waves-effect waves-dark">
@@ -73,6 +85,7 @@
                         </a>
                     </li>
                     <!-- -->
+                    <!-- -->
                     <li class="">
                         <a href="members.php?do=Manage" class="waves-effect waves-dark">
                             <span class="pcoded-micon">
@@ -81,6 +94,17 @@
                             <span class="pcoded-mtext"><?php echo lang("users_manage"); ?></span>
                         </a>
                     </li>
+                    <!-- -->
+                    <li class="">
+                        <a href="members.php?do=add" class="waves-effect waves-dark">
+                            <span class="pcoded-micon">
+                                <i class="feather icon-file-plus"></i>
+                            </span>
+                            <span class="pcoded-mtext">Create new Member</span>
+                        </a>
+                    </li>
+                    <!-- -->
+
                 </ul>
             </div>
         </div>

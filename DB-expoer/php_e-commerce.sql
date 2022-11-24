@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mar. 22 nov. 2022 à 22:24
+-- Généré le : jeu. 24 nov. 2022 à 04:30
 -- Version du serveur : 10.4.24-MariaDB
 -- Version de PHP : 8.1.6
 
@@ -37,6 +37,40 @@ CREATE TABLE `categories` (
   `allow_ads` tinyint(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Déchargement des données de la table `categories`
+--
+
+INSERT INTO `categories` (`id`, `name`, `description`, `sort`, `visibility`, `allow_comment`, `allow_ads`) VALUES
+(2, 'Jayme Harrell', 'Sit excepteur aliqu', 34, 0, 0, 0),
+(3, 'Ariel Cantu', 'Debitis porro do mol', 49, 0, 0, 0),
+(4, 'TaShya Barrera', 'At est consectetur', 32, 0, 1, 0),
+(5, 'Levi Bridges', 'Officiis eiusmod mod', 73, 1, 0, 1),
+(6, 'Akeem Molina', 'Elit corporis culpa', 89, 1, 0, 0),
+(7, 'Hoyt Reid', 'Et eu incidunt est ', 28, 0, 1, 0),
+(8, 'Rigel Parsons', 'Consectetur aut ut a', 40, 0, 0, 1),
+(9, 'Ali Weber', 'Ullam optio quia co', 55, 0, 1, 1),
+(10, 'Kyra Henson', 'Cupidatat laudantium', 6, 0, 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `items`
+--
+
+CREATE TABLE `items` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `price` varchar(255) NOT NULL,
+  `add_date` date NOT NULL,
+  `country_made` varchar(255) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `rating` smallint(6) NOT NULL,
+  `cat_id` int(11) NOT NULL,
+  `member_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 -- --------------------------------------------------------
 
 --
@@ -61,10 +95,9 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `userName`, `password`, `email`, `fullName`, `groupID`, `Reg_Status`, `Date`) VALUES
 (1, 'ahmed', '8cb2237d0679ca88db6464eac60da96345513964', 'admin@outlook.com', 'Ahmed Ali Mohammed', 1, 1, '2022-11-18'),
 (8, 'noriqyki', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'leme@mailinator.com', 'Fletcher Molina', 0, 1, '2022-11-18'),
-(10, 'noriqyki', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'leme@mailinator.com', 'Fletcher Molina', 0, 1, NULL),
-(11, 'noriqyki', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'leme@mailinator.com', 'Fletcher Molina', 0, 1, NULL),
+(11, 'Mohammed', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'Mohamed@mailinator.com', 'Fletcher Molina', 0, 1, NULL),
 (13, 'hyhud', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'jibif@mailinator.com', 'Aubrey Russell', 0, 1, NULL),
-(14, 'hyhud', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'jibif@mailinator.com', 'Aubrey Russell', 0, 0, NULL),
+(14, 'hyhud', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'jibif@mailinator.com', 'Aubrey Russell', 0, 1, NULL),
 (15, 'hyhud', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'jibif@mailinator.com', 'Aubrey Russell', 0, 0, NULL),
 (16, 'hyhud', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'jibif@mailinator.com', 'Aubrey Russell', 0, 0, NULL),
 (17, 'hyhud', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'jibif@mailinator.com', 'Aubrey Russell', 0, 0, NULL),
@@ -103,8 +136,8 @@ INSERT INTO `users` (`id`, `userName`, `password`, `email`, `fullName`, `groupID
 (50, 'juretic', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'lebosadaxi@mailinator.com', 'Chaim Rodriquez', 0, 1, '2022-11-21'),
 (51, 'gutana', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'henoganyb@mailinator.com', 'Fulton Gould', 0, 0, '2022-11-21'),
 (52, 'nuquw', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'kirab@mailinator.com', 'April Randall', 0, 0, '2022-11-21'),
-(53, 'wykylyco', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'kekibulyq@mailinator.com', 'Vaughan Jacobson', 0, 0, '2022-11-21'),
-(54, 'jitowyz', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'tivuza@mailinator.com', 'Athena Buckner', 0, 1, '2022-11-21');
+(53, 'Ali Ahmed', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'kekibulyq@mailinator.com', 'Vaughan Jacobson', 0, 0, '2022-11-21'),
+(54, 'AHMED', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'tivuza@mailinator.com', 'Athena Buckner', 0, 1, '2022-11-21');
 
 --
 -- Index pour les tables déchargées
@@ -116,6 +149,12 @@ INSERT INTO `users` (`id`, `userName`, `password`, `email`, `fullName`, `groupID
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `name` (`name`);
+
+--
+-- Index pour la table `items`
+--
+ALTER TABLE `items`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `users`
@@ -131,6 +170,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `categories`
 --
 ALTER TABLE `categories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT pour la table `items`
+--
+ALTER TABLE `items`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
