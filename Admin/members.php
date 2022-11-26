@@ -3,7 +3,7 @@
     session_start();
     /*
     ============================================================
-    ==  manage members page
+    ==  members manage page
     == you can create | delete | members from here
     ==
     ============================================================
@@ -365,12 +365,22 @@
                                                     <td><?php echo $row['fullName']?></td>
                                                     <td><?php echo $row['Date']?></td>
                                                     <td class="text-center">
-                                                        <a href="members.php?do=edit&userid=<?php echo $row['id']?>" class="btn waves-effect waves-light btn-success btn-square"><i class="fa fa-edit"></i> edit</a>
-                                                        <a href="members.php?do=delete&userid=<?php echo $row['id']?>" class="btn btn-danger waves-effect waves-light"><i class="fa fa-close"></i> delete</a>
-                                                        <?php
-                                                        if($row['Reg_Status'] == 0){ ?>
-                                                            <a href="members.php?do=activate&userid=<?php echo $row['id']?>" class="btn btn-info waves-effect waves-light"><i class="fa fa-close"></i> Activate</a>
-                                                        <?php } ?>
+                                                        <div class="col-12">
+                                                            <div class="input-group-dropdown">
+                                                                <div class="input-group-prepend text-center" >
+                                                                    <button type="button" class="btn btn-primary dropdown-toggle col-12" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>
+                                                                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                                                        <a href="members.php?do=edit&userid=<?php echo $row['id']?>" class="dropdown-item"><i class="fa fa-edit text-primary"></i> edit</a>
+                                                                        <a href="members.php?do=delete&userid=<?php echo $row['id']?>" class="dropdown-item"><i class="fa fa-close text-c-red"></i> delete</a>
+                                                                        <?php
+                                                                        if($row['Reg_Status'] == 0){ ?>
+                                                                            <div role="separator" class="dropdown-divider"></div>
+                                                                            <a href="members.php?do=activate&userid=<?php echo $row['id']?>" class="dropdown-item"><i class="fa fa-check text-c-green"></i> Activate</a>
+                                                                        <?php } ?>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div><!-- end col class -->
                                                     </td>
                                                 </tr>
                                                 <?php   } // end foreach?>
