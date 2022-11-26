@@ -57,7 +57,7 @@
                     <li class=""><!-- Start Show all Categories li -->
                         <a href="items.php?do=Manage" class="waves-effect waves-dark">
                             <span class="pcoded-micon">
-                                <i class="feather icon-layers"></i>
+                                <i class="feather icon-package"></i>
                             </span>
                             <span class="pcoded-mtext">Show All Products</span>
                         </a>
@@ -65,7 +65,28 @@
                     <li class=""><!-- Start li -->
                         <a href="items.php?do=add" class="waves-effect waves-dark">
                                 <span class="pcoded-micon">
-                                    <i class="feather icon-file-plus"></i>
+                                    <i class="feather icon-edit"></i>
+                                </span>
+                            <span class="pcoded-mtext">Create New</span>
+                        </a>
+                    </li><!-- end li -->
+                </ul>
+
+                <!-- Products -->
+                <div class="pcoded-navigation-label">Comments</div>
+                <ul class="pcoded-item pcoded-left-item">
+                    <li class=""><!-- Start Show all Comments li -->
+                        <a href="comments.php?do=Manage" class="waves-effect waves-dark">
+                            <span class="pcoded-micon">
+                                <i class="fa fa-comments"></i>
+                            </span>
+                            <span class="pcoded-mtext">Show All Comments</span>
+                        </a>
+                    </li><!-- end li -->
+                    <li class=""><!-- Start li -->
+                        <a href="comments.php?do=add" class="waves-effect waves-dark">
+                                <span class="pcoded-micon">
+                                    <i class="feather icon-edit"></i>
                                 </span>
                             <span class="pcoded-mtext">Create New</span>
                         </a>
