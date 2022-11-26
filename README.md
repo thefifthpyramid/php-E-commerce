@@ -27,6 +27,18 @@ Create A eCommerce Website Using Native Php
     + allow_comment 'Valeur par défaut = 0'
     + allow_ads 'Valeur par défaut = 0'
 
+3. categories
+    + id
+    + name
+    + description
+    + price
+    + add_date
+    + country_made
+    + status
+    + image
+    + rating
+    + cat_id
+    + member_id
 ---
 
 __Project Operations :)__
