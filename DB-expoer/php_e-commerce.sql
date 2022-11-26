@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : jeu. 24 nov. 2022 à 04:30
+-- Généré le : ven. 25 nov. 2022 à 05:16
 -- Version du serveur : 10.4.24-MariaDB
 -- Version de PHP : 8.1.6
 
@@ -49,8 +49,7 @@ INSERT INTO `categories` (`id`, `name`, `description`, `sort`, `visibility`, `al
 (6, 'Akeem Molina', 'Elit corporis culpa', 89, 1, 0, 0),
 (7, 'Hoyt Reid', 'Et eu incidunt est ', 28, 0, 1, 0),
 (8, 'Rigel Parsons', 'Consectetur aut ut a', 40, 0, 0, 1),
-(9, 'Ali Weber', 'Ullam optio quia co', 55, 0, 1, 1),
-(10, 'Kyra Henson', 'Cupidatat laudantium', 6, 0, 0, 1);
+(9, 'Ali Weber', 'Ullam optio quia co', 55, 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -65,11 +64,27 @@ CREATE TABLE `items` (
   `price` varchar(255) NOT NULL,
   `add_date` date NOT NULL,
   `country_made` varchar(255) NOT NULL,
+  `status` int(11) NOT NULL,
   `image` varchar(255) NOT NULL,
   `rating` smallint(6) NOT NULL,
+  `approve` tinyint(4) NOT NULL DEFAULT 0,
   `cat_id` int(11) NOT NULL,
   `member_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `items`
+--
+
+INSERT INTO `items` (`id`, `name`, `description`, `price`, `add_date`, `country_made`, `status`, `image`, `rating`, `approve`, `cat_id`, `member_id`) VALUES
+(2, 'Carla Bailey', 'Ullam aliqua In ven', '212', '2022-11-24', 'In eius dolorem expe', 4, 'imsge', 1, 0, 9, 49),
+(3, 'Justin Hamilton', 'Duis reprehenderit f', '291', '2022-11-24', 'Qui id illo maxime ', 1, 'imsge', 2, 0, 9, 54),
+(4, 'Felix Mcguire', 'Esse labore ipsam ei', '16', '2022-11-24', 'Cum ut exercitatione', 2, 'imsge', 0, 0, 8, 20),
+(6, 'Kuame Garza', 'Quae cupidatat sed e', '559', '2022-11-24', 'Eum ex asperiores es', 2, 'imsge', 4, 0, 6, 42),
+(7, 'Helen Meyers', 'Veniam id ad in vol', '233', '2022-11-24', 'Minus irure tempor i', 0, 'imsge', 0, 0, 5, 51),
+(8, 'Mira Kirby', 'Fugiat minima atque', '236', '2022-11-24', 'Ex non autem asperio', 2, 'imsge', 3, 0, 9, 36),
+(9, 'Justina Daugherty', 'Consectetur quibusda', '591', '2022-11-24', 'Dolorem veniam volu', 2, 'imsge', 1, 0, 4, 41),
+(10, 'Noelle Ramirez', 'Incidunt ipsa omni', '130', '2022-11-24', 'Quaerat ea in sit am', 2, 'imsge', 5, 0, 4, 47);
 
 -- --------------------------------------------------------
 
@@ -136,8 +151,8 @@ INSERT INTO `users` (`id`, `userName`, `password`, `email`, `fullName`, `groupID
 (50, 'juretic', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'lebosadaxi@mailinator.com', 'Chaim Rodriquez', 0, 1, '2022-11-21'),
 (51, 'gutana', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'henoganyb@mailinator.com', 'Fulton Gould', 0, 0, '2022-11-21'),
 (52, 'nuquw', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'kirab@mailinator.com', 'April Randall', 0, 0, '2022-11-21'),
-(53, 'Ali Ahmed', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'kekibulyq@mailinator.com', 'Vaughan Jacobson', 0, 0, '2022-11-21'),
-(54, 'AHMED', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'tivuza@mailinator.com', 'Athena Buckner', 0, 1, '2022-11-21');
+(54, 'AHMED', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'tivuza@mailinator.com', 'Athena Buckner', 0, 1, '2022-11-21'),
+(100, 'Ali Ahmed', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'kekibulyq@mailinator.com', 'Vaughan Jacobson', 0, 0, '2022-11-21');
 
 --
 -- Index pour les tables déchargées
@@ -154,7 +169,9 @@ ALTER TABLE `categories`
 -- Index pour la table `items`
 --
 ALTER TABLE `items`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `member_1` (`member_id`),
+  ADD KEY `cat_1` (`cat_id`);
 
 --
 -- Index pour la table `users`
@@ -170,19 +187,30 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT pour la table `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `items`
+--
+ALTER TABLE `items`
+  ADD CONSTRAINT `cat_1` FOREIGN KEY (`cat_id`) REFERENCES `categories` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `member_1` FOREIGN KEY (`member_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
