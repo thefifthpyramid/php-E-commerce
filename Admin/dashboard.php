@@ -51,8 +51,76 @@
         <div class="main-body">
             <div class="page-wrapper">
                 <div class="page-body">
-
                     <div class="row">
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card prod-p-card card-red">
+                                <div class="card-body">
+                                    <div class="row align-items-center m-b-30">
+                                        <div class="col">
+                                            <h6 class="m-b-5 text-white">Total Product</h6>
+                                            <h3 class="m-b-0 f-w-700 text-white"><?php echo countItem('id','items'); //item count function //?></h3>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas feather icon-package text-c-red f-18"></i>
+                                        </div>
+                                    </div>
+                                    <p class="m-b-0 text-white m-r-10">
+                                        Last Element Added  in: <?php echo LastItem('add_date','items');//last Item function?>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card prod-p-card card-blue">
+                                <div class="card-body">
+                                    <div class="row align-items-center m-b-30">
+                                        <div class="col">
+                                            <h6 class="m-b-5 text-white">Total Comments</h6>
+                                            <h3 class="m-b-0 f-w-700 text-white"><?php echo countItem('id','comments'); //item count function //?></h3>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-comments text-c-blue f-18"></i>
+                                        </div>
+                                    </div>
+                                    <p class="m-b-0 text-white m-r-10">
+                                        Last Element Added  in: <?php echo LastItem('comment_date','comments');//last Item function?>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card prod-p-card card-green">
+                                <div class="card-body">
+                                    <div class="row align-items-center m-b-30">
+                                        <div class="col">
+                                            <h6 class="m-b-5 text-white">Average Price</h6>
+                                            <h3 class="m-b-0 f-w-700 text-white">$6,780</h3>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign text-c-green f-18"></i>
+                                        </div>
+                                    </div>
+                                    <p class="m-b-0 text-white"><span class="label label-success m-r-10">+52%</span>From Previous Month</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card prod-p-card card-yellow">
+                                <div class="card-body">
+                                    <div class="row align-items-center m-b-30">
+                                        <div class="col">
+                                            <h6 class="m-b-5 text-white">Product Sold</h6>
+                                            <h3 class="m-b-0 f-w-700 text-white">6,784</h3>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-tags text-c-yellow f-18"></i>
+                                        </div>
+                                    </div>
+                                    <p class="m-b-0 text-white"><span class="label label-warning m-r-10">+52%</span>From Previous Month</p>
+                                </div>
+                            </div>
+                        </div>
+
 
                         <div class="col-md-12 col-xl-8">
                             <div class="card sale-card">
@@ -84,16 +152,18 @@
                             </div>
                             <div class="card comp-card">
                                 <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col">
-                                            <h6 class="m-b-25">Goal</h6>
-                                            <h3 class="f-w-700 text-c-green">30,564</h3>
-                                            <p class="m-b-0">May 23 - June 01 (2017)</p>
+                                    <a href="items.php?do=Manage">
+                                        <div class="row align-items-center">
+                                            <div class="col">
+                                                <h6 class="m-b-25">Products</h6>
+                                                <h3 class="f-w-700 text-c-green"><?php echo countItem('id','items'); //item count function //?></h3>
+                                                <p class="m-b-0">Last Element Added  in: <?php echo LastItem('add_date','items');//last Item function?></p>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas feather icon-package bg-c-green"></i>
+                                            </div>
                                         </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-bullseye bg-c-green"></i>
-                                        </div>
-                                    </div>
+                                    </a>
                                 </div>
                             </div>
                             <div class="card comp-card">
@@ -113,7 +183,6 @@
                                 </div>
                             </div>
                         </div>
-
 
                         <div class="col-xl-12">
                             <div class="card proj-progress-card">
@@ -158,7 +227,6 @@
                                 </div>
                             </div>
                         </div>
-
 
                         <div class="col-md-12 col-xl-4">
                             <div class="card card-blue text-white">
@@ -334,7 +402,6 @@
                             </div>
                         </div>
 
-
                         <div class="col-md-12">
                             <div class="card table-card">
                                 <div class="card-header">
@@ -362,145 +429,49 @@
                                             <thead>
                                             <tr>
                                                 <th>Name</th>
-                                                <th>Product Code</th>
-                                                <th>Customer</th>
+                                                <th>price</th>
+                                                <th>created in</th>
+                                                <th>Category</th>
+                                                <th>Created By</th>
                                                 <th>Status</th>
                                                 <th>Rating</th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr>
-                                                <td>Sofa</td>
-                                                <td>#PHD001</td>
-                                                <td><a href="https://demo.dashboardpack.com/cdn-cgi/l/email-protection"
-                                                       class="__cf_email__"
-                                                       data-cfemail="54353637143339353d387a373b39">[email&#160;protected]</a>
-                                                </td>
-                                                <td><label class="label label-danger">Out
-                                                        Stock</label></td>
-                                                <td>
-                                                    <a href="#!"><i
-                                                                class="fa fa-star f-12 text-c-yellow"></i></a>
-                                                    <a href="#!"><i
-                                                                class="fa fa-star f-12 text-c-yellow"></i></a>
-                                                    <a href="#!"><i
-                                                                class="fa fa-star f-12 text-c-yellow"></i></a>
-                                                    <a href="#!"><i
-                                                                class="fa fa-star f-12 text-default"></i></a>
-                                                    <a href="#!"><i
-                                                                class="fa fa-star f-12 text-default"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Computer</td>
-                                                <td>#PHD002</td>
-                                                <td><a href="https://demo.dashboardpack.com/cdn-cgi/l/email-protection"
-                                                       class="__cf_email__"
-                                                       data-cfemail="2b484f486b4c464a424705484446">[email&#160;protected]</a>
-                                                </td>
-                                                <td><label class="label label-success">In
-                                                        Stock</label></td>
-                                                <td>
-                                                    <a href="#!"><i
-                                                                class="fa fa-star f-12 text-c-yellow"></i></a>
-                                                    <a href="#!"><i
-                                                                class="fa fa-star f-12 text-c-yellow"></i></a>
-                                                    <a href="#!"><i
-                                                                class="fa fa-star f-12 text-default"></i></a>
-                                                    <a href="#!"><i
-                                                                class="fa fa-star f-12 text-default"></i></a>
-                                                    <a href="#!"><i
-                                                                class="fa fa-star f-12 text-default"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mobile</td>
-                                                <td>#PHD003</td>
-                                                <td><a href="https://demo.dashboardpack.com/cdn-cgi/l/email-protection"
-                                                       class="__cf_email__"
-                                                       data-cfemail="98e8e9ead8fff5f9f1f4b6fbf7f5">[email&#160;protected]</a>
-                                                </td>
-                                                <td><label class="label label-danger">Out
-                                                        Stock</label></td>
-                                                <td>
-                                                    <a href="#!"><i
-                                                                class="fa fa-star f-12 text-c-yellow"></i></a>
-                                                    <a href="#!"><i
-                                                                class="fa fa-star f-12 text-c-yellow"></i></a>
-                                                    <a href="#!"><i
-                                                                class="fa fa-star f-12 text-c-yellow"></i></a>
-                                                    <a href="#!"><i
-                                                                class="fa fa-star f-12 text-c-yellow"></i></a>
-                                                    <a href="#!"><i
-                                                                class="fa fa-star f-12 text-default"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Coat</td>
-                                                <td>#PHD004</td>
-                                                <td><a href="https://demo.dashboardpack.com/cdn-cgi/l/email-protection"
-                                                       class="__cf_email__"
-                                                       data-cfemail="6705041427000a060e0b4904080a">[email&#160;protected]</a>
-                                                </td>
-                                                <td><label class="label label-success">In
-                                                        Stock</label></td>
-                                                <td>
-                                                    <a href="#!"><i
-                                                                class="fa fa-star f-12 text-c-yellow"></i></a>
-                                                    <a href="#!"><i
-                                                                class="fa fa-star f-12 text-c-yellow"></i></a>
-                                                    <a href="#!"><i
-                                                                class="fa fa-star f-12 text-c-yellow"></i></a>
-                                                    <a href="#!"><i
-                                                                class="fa fa-star f-12 text-default"></i></a>
-                                                    <a href="#!"><i
-                                                                class="fa fa-star f-12 text-default"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Watch</td>
-                                                <td>#PHD005</td>
-                                                <td><a href="https://demo.dashboardpack.com/cdn-cgi/l/email-protection"
-                                                       class="__cf_email__"
-                                                       data-cfemail="8ae9eee9caede7ebe3e6a4e9e5e7">[email&#160;protected]</a>
-                                                </td>
-                                                <td><label class="label label-success">In
-                                                        Stock</label></td>
-                                                <td>
-                                                    <a href="#!"><i
-                                                                class="fa fa-star f-12 text-c-yellow"></i></a>
-                                                    <a href="#!"><i
-                                                                class="fa fa-star f-12 text-c-yellow"></i></a>
-                                                    <a href="#!"><i
-                                                                class="fa fa-star f-12 text-default"></i></a>
-                                                    <a href="#!"><i
-                                                                class="fa fa-star f-12 text-default"></i></a>
-                                                    <a href="#!"><i
-                                                                class="fa fa-star f-12 text-default"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Shoes</td>
-                                                <td>#PHD006</td>
-                                                <td><a href="https://demo.dashboardpack.com/cdn-cgi/l/email-protection"
-                                                       class="__cf_email__"
-                                                       data-cfemail="e0909192a0878d81898cce838f8d">[email&#160;protected]</a>
-                                                </td>
-                                                <td><label class="label label-danger">Out
-                                                        Stock</label></td>
-                                                <td>
-                                                    <a href="#!"><i
-                                                                class="fa fa-star f-12 text-c-yellow"></i></a>
-                                                    <a href="#!"><i
-                                                                class="fa fa-star f-12 text-c-yellow"></i></a>
-                                                    <a href="#!"><i
-                                                                class="fa fa-star f-12 text-c-yellow"></i></a>
-                                                    <a href="#!"><i
-                                                                class="fa fa-star f-12 text-c-yellow"></i></a>
-                                                    <a href="#!"><i
-                                                                class="fa fa-star f-12 text-default"></i></a>
-                                                </td>
-                                            </tr>
+                                                    <?php
+                                                        $stmt = $con->prepare("
+                                                                SELECT items.*, categories.name AS cat_name,users.userName FROM items
+                                                                INNER JOIN categories ON categories.id = items.cat_id
+                                                                INNER JOIN users ON users.id = items.member_id ORDER BY id DESC LIMIT 5
+                                                                ");
+                                                        $stmt->execute();
+                                                        $products_data = $stmt->fetchAll();
+                                                        foreach ($products_data as $product){
+                                                    ?>
+                                                        <tr>
+                                                            <td><?php echo $product['name'];?></td>
+                                                            <td><?php echo $product['price'];?></td>
+                                                            <td><?php echo $product['add_date'];?></td>
+                                                            <td><?php echo $product['cat_name'];?></td>
+                                                            <td><?php echo $product['userName'];?></td>
+                                                            <td>
+                                                                <label class="label label-danger">Out Stock</label>
+                                                                <!-- <label class="label label-success">In Stock</label>-->
+                                                            </td>
+                                                            <td>
+                                                                <?php
+                                                                    $counter = $product['rating'];
+                                                                    $unCounter = 5 - $product['rating'];
+                                                                    for ($i = 1; $i <= $counter; $i++){
+                                                                        echo '<i class="fa fa-star f-12 text-c-yellow"></i>';
+                                                                    }
+                                                                    for ($x = 1; $x <= $unCounter; $x++){
+                                                                        echo '<i class="fa fa-star f-12 text-default"></i>';
+                                                                    }
+                                                                ?>
+                                                            </td>
+                                                        </tr>
+                                                    <?php }?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -508,9 +479,7 @@
                             </div>
                         </div>
 
-
-
-                    </div>
+                    </div><!--End row div-->
 
 <!-- ############### End Body Page ##################### -->
 <?php
