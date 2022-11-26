@@ -16,7 +16,7 @@
     <meta name="author" content="colorlib" />
 
 
-    <link rel="icon" href="layout/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="layout/images/avatar-4.jpg" type="image/x-icon">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Quicksand:500,700" rel="stylesheet">
