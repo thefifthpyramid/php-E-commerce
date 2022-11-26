@@ -3,12 +3,12 @@ ob_start();
 session_start();
 /*
 ============================================================
-==  manage items page
-== you can create | delete | items from here
+==  Products manage page
+== you can create | delete | Edit | Products from here
 ==
 ============================================================
 */
-$pageTitle = "items";
+$pageTitle = "Products page";
 if(isset($_SESSION['username'])){
     include "init.php";
 }else{
@@ -63,120 +63,119 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                         <!--   #############Edit Page##############  -->
                         <div class="col-md-12">
                             <?php
-                            if($do == 'edit'){
-                            $id = isset($_GET['id']) && is_numeric($_GET['id']) ? intval($_GET['id']) : 0 ;
+                                if($do == 'edit'){
+                                $id = isset($_GET['id']) && is_numeric($_GET['id']) ? intval($_GET['id']) : 0 ;
 
-                            $stmt = $con->prepare('SELECT * FROM items WHERE id = ?');
-                            $stmt->execute(array($id));
-                            $row = $stmt->fetch();
-                            $count = $stmt->rowCount();
-                            if($stmt->rowCount() > 0){
-
-
-
+                                $stmt = $con->prepare('SELECT * FROM items WHERE id = ?');
+                                $stmt->execute(array($id));
+                                $row = $stmt->fetch();
+                                $count = $stmt->rowCount();
+                                if($stmt->rowCount() > 0){
                             ?><!--   Edit Page  -->
                             <div class="card">
                                 <div class="card-header">
                                     <h5>Tooltip Validation</h5>
-                                    <a href="?do=Manage" class="btn waves-effect waves-light btn-primary btn-square position-right">Show all items <i class="fa fa-items"></i> </a>
+                                    <a href="?do=Manage" class="btn waves-effect waves-light btn-primary btn-square position-right">Show all Products <i class="fa fa-items"></i> </a>
                                 </div>
                                 <div class="card-block">
-                                    <form id="second" action="?do=Update" method="post">
-                                        <input type="hidden" name="id" value="<?php echo $id; ?>">
+                                    <form id="second" action="?do=Update&id=<?php echo $id;?>" method="post">
+                                        <!-- Start Form Group -->
+                                        <input type="hidden" name="id" value="<?php echo $id;?>">
                                         <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">section name</label>
+                                            <label class="col-sm-2 col-form-label">Name</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" value="<?php echo $row['name']; ?>" name="name" placeholder="Enter Product Name" autocomplete="off" required="required">
+                                                <input type="text" class="form-control" name="name" value="<?php echo $row['name']; ?>" placeholder="name of the product" required="required">
                                                 <span class="messages popover-valid"></span>
                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">description</label>
-                                            <div class="col-sm-10">
-                                                <textarea type="text" class="form-control" name="description" placeholder=""><?php echo $row['description']; ?></textarea>
-                                                <span class="messages popover-valid"></span>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Sort</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" value="<?php echo $row['sort']; ?>" name="sort" placeholder="Enter Product Sort" autocomplete="off">
-                                                <span class="messages popover-valid"></span>
-                                            </div>
-                                        </div>
+                                        </div><!-- End Form Group -->
                                         <!-- Start Form Group -->
                                         <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">visible</label>
+                                            <label class="col-sm-2 col-form-label">Description</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="password form-control" value="<?php echo $row['description']; ?>" name="description" placeholder="product description" required="required">
+                                                <span class="messages popover-valid"></span>
+                                            </div>
+                                        </div><!-- End Form Group -->
+                                        <!-- Start Form Group -->
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Price</label>
                                             <div class="col-sm-10">
                                                 <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text">
-                                                            <input id="visibility:Yes" type="radio" value="0" name="visibility" <?php if($row['visibility'] == 0){ echo 'checked'; } ?> />
-                                                        </div>
-                                                    </div>
-                                                    <label for="visibility:Yes" class="form-control">Yes</label>
+                                                    <input type="text" class="form-control" name="price"  value="<?php echo $row['price']; ?>" placeholder="product price">
+                                                    <span class="input-group-append" id="basic-addon3">
+                                                        <label class="input-group-text">$</label>
+                                                     </span>
                                                 </div>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text">
-                                                            <input id="visibility:No" type="radio" value="1" name="visibility"  <?php if($row['visibility'] == 1){ echo 'checked'; } ?> />
-                                                        </div>
-                                                    </div>
-                                                    <label for="visibility:No" class="form-control">No</label>
+                                            </div>
+                                        </div><!-- End Form Group -->
+                                        <!-- Start Form Group -->
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">country of product</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="country_made" value="<?php echo $row['country_made']; ?>" placeholder="product country" required="required">
+                                                <span class="messages popover-valid"></span>
+                                            </div>
+                                        </div><!-- End Form Group -->
+                                        <!-- Start Form Group -->
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">image</label>
+                                            <div class="col-sm-10">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                                                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                                                 </div>
+                                            </div>
+                                        </div><!-- End Form Group -->
+                                        <!-- Start Form Group -->
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Status</label>
+                                            <div class="col-sm-10">
+                                                <select name="status" class="form-control">
+                                                    <option value="0">...</option>
+                                                    <option value="1"<?php if($row['status'] == 1){echo 'selected';} ?> >New</option>
+                                                    <option value="2"<?php if($row['status'] == 2){echo 'selected';} ?> >Like New</option>
+                                                    <option value="3"<?php if($row['status'] == 3){echo 'selected';} ?> >used</option>
+                                                    <option value="4"<?php if($row['status'] == 4){echo 'selected';} ?> >very old</option>
+                                                </select>
+                                            </div>
+                                        </div><!-- End Form Group -->
+                                        <!-- Start Form Group -->
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Created By</label>
+                                            <div class="col-sm-10">
+                                                <select name="member_id" class="form-control">
+                                                    <option value="0">...</option>
+                                                    <?php
+                                                    $users = GetDataTable('*','users','id');
+                                                    foreach ($users as $user){ ?>
+                                                        <option value="<?php echo $user['id']?>" <?php if($row['member_id'] == $user['id']){echo 'selected';} ?> ><?php echo $user['userName']?></option>
+                                                    <?php }
+                                                    ?>
+                                                </select>
+
                                             </div>
                                         </div><!-- End Form Group -->
 
                                         <!-- Start Form Group -->
                                         <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Allow Comments</label>
+                                            <label class="col-sm-2 col-form-label">Category</label>
                                             <div class="col-sm-10">
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text">
-                                                            <input id="allow_comment:Yes" type="radio" value="0" name="allow_comment"  <?php if($row['allow_comment'] == 0){ echo 'checked'; } ?>>
-                                                        </div>
-                                                    </div>
-                                                    <label for="allow_comment:Yes" class="form-control">Yes</label>
-                                                </div>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text">
-                                                            <input id="allow_comment:No" type="radio" value="1" name="allow_comment" <?php if($row['allow_comment'] == 1){ echo 'checked'; } ?>>
-                                                        </div>
-                                                    </div>
-                                                    <label for="allow_comment:No" class="form-control">No</label>
-                                                </div>
-                                            </div>
-                                        </div><!-- End Form Group -->
-
-                                        <!-- Start Form Group -->
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Allow Ads</label>
-                                            <div class="col-sm-10">
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text">
-                                                            <input id="allow_ads:Yes" type="radio" value="0" name="allow_ads"  <?php if($row['allow_ads'] == 0){ echo 'checked'; } ?> />
-                                                        </div>
-                                                    </div>
-                                                    <label for="allow_ads:Yes" class="form-control">Yes</label>
-                                                </div>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text">
-                                                            <input id="allow_ads:No" type="radio" value="1" name="allow_ads" <?php if($row['allow_ads'] == 1){ echo 'checked'; } ?> />
-                                                        </div>
-                                                    </div>
-                                                    <label for="allow_ads:No" class="form-control">No</label>
-                                                </div>
+                                                <select name="cat_id" class="form-control">
+                                                    <option value="0">...</option>
+                                                    <?php
+                                                    $categories = GetDataTable('*','categories','id');
+                                                    foreach ($categories as $category){ ?>
+                                                        <option value="<?php echo $category['id']; ?>"  <?php if($row['cat_id'] == $category['id']){echo 'selected';} ?> ><?php echo $category['name'];?></option>
+                                                    <?php }
+                                                    ?>
+                                                </select>
                                             </div>
                                         </div><!-- End Form Group -->
 
                                         <div class="row">
                                             <label class="col-sm-2"></label>
                                             <div class="col-sm-10">
-                                                <button type="submit" class="btn btn-primary m-b-0">Update</button>
+                                                <button type="submit" class="btn btn-primary m-b-0">Update Product</button>
                                             </div>
                                         </div>
                                     </form>
@@ -187,52 +186,70 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                 echo "there is no data";
                             }//end condition if id is existing
                             } //end edit page tag
-                            elseif($do == 'Update'){
-                            ?>
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>hello from update form</h5>
-                                    <span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span>
+                            elseif($do == 'Update'){ ?>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>hello from update form</h5>
+                                        <span>Add class of <code>.form-control</code> with <code>&lt;input&gt;</code> tag</span>
+                                    </div>
+                                    <div class="card-block">
+                                        <?php
+                                        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                                            //get vars
+                                            $id             = $_POST['id'];
+                                            $name           = $_POST['name'];
+                                            $description    = $_POST['description'];
+                                            $price = $_POST['price'];
+                                            $country_made = $_POST['country_made'];
+                                            $status = $_POST['status'];
+                                            $image = 'imsge';
+                                            $cat_id = $_POST['cat_id'];
+                                            $member_id = $_POST['member_id'];
+
+                                            //validate the form
+                                            $formErrors =  array();
+                                            if(empty($name)){
+                                                $formErrors[] = "products name can't be empty!";
+                                            }
+                                            if(empty($description)){
+                                                $formErrors[] = "description name can't be empty!";
+                                            }
+                                            if(empty($price)){
+                                                $formErrors[] = "price name can't be empty!";
+                                            }
+                                            if(empty($country_made)){
+                                                $formErrors[] = "country made name can't be empty!";
+                                            }
+                                            if($status === 0){
+                                                $formErrors[] = "country made name can't be empty!";
+                                            }
+                                            if($cat_id == 0){
+                                                $formErrors[] = "Category name can't be empty!";
+                                            }
+                                            if($member_id == 0){
+                                                $formErrors[] = "created By can't be empty!";
+                                            }
+
+                                            foreach ($formErrors as $error){
+
+                                                redirectHome('alert alert-danger background-danger','<strong>'.$error.'</strong>','items.php');
+                                            }//end foreach
+
+                                            //check if there's no error
+                                            if(empty($formErrors)){
+                                                $stmt = $con->prepare("UPDATE items SET name = ?, description = ?, price = ? ,country_made = ?,status = ?,image = ?,cat_id = ?,member_id = ? WHERE id = ?");
+                                                $stmt->execute(array($name,$description,$price,$country_made,$status,$image,$cat_id,$member_id,$id));
+
+                                                redirectHome('alert alert-success background-success','Updating Success!','items.php');
+                                            }
+                                        }else{
+                                            echo "sorry you can't open this page direct";
+                                      ?>
+                                    </div>
                                 </div>
-                                <div class="card-block">
-                                    <?php
-                                    if($_SERVER['REQUEST_METHOD'] == 'POST'){
-                                        //get vars
-                                        $id             = $_POST['id'];
-                                        $name           = $_POST['name'];
-                                        $description    = $_POST['description'];
-                                        $allow_ads      = $_POST['allow_ads'];
-                                        $sort           = $_POST['sort'];
-                                        $visibility     = $_POST['visibility'];
-                                        $allow_comment  = $_POST['allow_comment'];
-                                        $allow_ads      = $_POST['allow_ads'];
+                                        <?php  }
+                            }   ?><!--   Edit Page  -->
 
-                                        //validate the form
-                                        $formErrors =  array();
-                                        if(strlen($name) < 4){
-                                            $formErrors[] = 'product name can"t less than four characters';
-                                        }
-
-                                        foreach ($formErrors as $error){
-                                            
-                                            redirectHome('alert alert-danger background-danger','<strong>'.$error.'</strong>','items.php');
-                                        }//end foreach
-
-                                        //check if there's no error
-                                        if(empty($formErrors)){
-                                            //id name description sort visibility allow_comment allow_ads
-                                            $stmt = $con->prepare("UPDATE items SET name = ?, description = ?, sort = ? ,visibility = ?,allow_comment = ?,allow_ads = ? WHERE id = ?");
-                                            $stmt->execute(array($name,$description,$sort,$visibility,$allow_comment,$allow_ads,$id));
-                                            redirectHome('alert alert-success background-success','Updating Success!','items.php');
-                                        }
-                                    }else{
-                                        echo "sorry you can't open this page direct";
-                                    }
-                                    }
-
-                                    ?><!--   Edit Page  -->
-                                </div>
-                            </div>
                         </div>
                         <!--   #############Edit Page##############  -->
 
@@ -267,7 +284,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                             <label class="col-sm-2 col-form-label">Price</label>
                                             <div class="col-sm-10">
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" name="price" placeholder="Right addon">
+                                                    <input type="text" class="form-control" name="price" placeholder="product price">
                                                     <span class="input-group-append" id="basic-addon3">
                                                         <label class="input-group-text">$</label>
                                                      </span>
@@ -286,8 +303,10 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">image</label>
                                             <div class="col-sm-10">
-                                                <input type="file" class="form-control" name="image" placeholder="product price" required="required">
-                                                <span class="messages popover-valid"></span>
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                                                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                                </div>
                                             </div>
                                         </div><!-- End Form Group -->
                                         <!-- Start Form Group -->
@@ -303,30 +322,38 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                 </select>
                                             </div>
                                         </div><!-- End Form Group -->
-
                                         <!-- Start Form Group -->
                                         <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">visible</label>
+                                            <label class="col-sm-2 col-form-label">Created By</label>
                                             <div class="col-sm-10">
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text">
-                                                            <input id="visibility:Yes" type="radio" value="0" name="visibility" checked>
-                                                        </div>
-                                                    </div>
-                                                    <label for="visibility:Yes" class="form-control">Yes</label>
-                                                </div>
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text">
-                                                            <input id="visibility:No" type="radio" value="1" name="visibility">
-                                                        </div>
-                                                    </div>
-                                                    <label for="visibility:No" class="form-control">No</label>
-                                                </div>
+                                                <select name="member_id" class="form-control">
+                                                    <option value="0">...</option>
+                                                    <?php
+                                                        $data = GetDataTable('*','users','id');
+                                                        foreach ($data as $row){
+                                                            echo "<option value=". $row['id'] .">" .$row['userName']. "</option>";
+                                                        }
+                                                    ?>
+                                                </select>
+
                                             </div>
                                         </div><!-- End Form Group -->
 
+                                        <!-- Start Form Group -->
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Category</label>
+                                            <div class="col-sm-10">
+                                                <select name="cat_id" class="form-control">
+                                                    <option value="0">...</option>
+                                                    <?php
+                                                        $data = GetDataTable('*','categories','id');
+                                                        foreach ($data as $row){
+                                                            echo "<option value=". $row['id'] .">" .$row['name']. "</option>";
+                                                        }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div><!-- End Form Group -->
 
                                         <div class="row">
                                             <label class="col-sm-2"></label>
@@ -343,50 +370,64 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
 
                                         $Name = $_POST['name'];
                                         $description = $_POST['description'];
-                                        $sort = $_POST['sort'];
-                                        $visibility = $_POST['visibility'];
-                                        $allow_comment = $_POST['allow_comment'];
-                                        $allow_ads = $_POST['allow_ads'];
+                                        $price = $_POST['price'];
+                                        $country_made = $_POST['country_made'];
+                                        $status = $_POST['status'];
+                                        $image = 'imsge';
+                                        $cat_id = $_POST['cat_id'];
+                                        $member_id = $_POST['member_id'];
 
 
                                         //errors
                                         $formErrors =  array();
-                                        if(strlen($Name) < 4){
-                                            $formErrors[] = 'section name can"t less than four characters';
+                                        if(empty($Name)){
+                                            $formErrors[] = "section name can't be empty!";
                                         }
-
-
-                                        foreach ($formErrors as $error){
+                                        if(empty($description)){
+                                            $formErrors[] = "description name can't be empty!";
+                                        }
+                                        if(empty($price)){
+                                            $formErrors[] = "price name can't be empty!";
+                                        }
+                                        if(empty($country_made)){
+                                            $formErrors[] = "country made name can't be empty!";
+                                        }
+                                        if($status === 0){
+                                            $formErrors[] = "country made name can't be empty!";
+                                        }
+                                        if($cat_id == 0){
+                                            $formErrors[] = "Category name can't be empty!";
+                                        }
+                                        if($member_id == 0){
+                                            $formErrors[] = "created By can't be empty!";
+                                        }
+                                        foreach ($formErrors as $errors){
                                             echo '
-                                                <div class="alert alert-danger background-danger">
+                                                <div class="alert alert-danger background-danger m-3">
                                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <i class="icofont icofont-close-line-circled text-white"></i>
                                                 </button>
-                                                <strong>'. $error.'</strong> 
+                                                <strong>'. $errors.'</strong> 
                                                 </div>
                                             '; //end echo
                                         }//end foreach
-
-                                        //check if there's no error
+                                        //check if there's no errors
                                         if(empty($formErrors)){
-                                            $check = CheckItems('name','items',$Name);
-                                            if($check == 1){
-                                                redirectHome('alert alert-danger background-danger',"Sorry, this user exists!","items.php?do=add", 3);
-                                            }else{
-                                                //check if product already exist
-                                                //id	name	description	sort	visibility	allow_comment	allow_ads
-                                                $stmt = $con->prepare("INSERT INTO items(name, description, sort,visibility,allow_comment,allow_ads) VALUES(:name, :description, :sort, :visibility,:allow_comment,:allow_ads) ");
+                                            //id	name	description	price	add_date	country_made	status	image	rating	cat_id	member_id
+                                                $stmt = $con->prepare("INSERT INTO items(name, description, price,add_date,country_made,status,image,rating,cat_id,member_id) 
+                                                                             VALUES(:name, :description, :price, now(),:country_made,:status,:image,:rating,:cat_id,:member_id) ");
                                                 $stmt->execute(array(
-                                                    'name'          =>$Name,
-                                                    'description'   =>$description,
-                                                    'sort'          =>$sort,
-                                                    'visibility'    =>$visibility,
-                                                    'allow_comment' =>$allow_comment,
-                                                    'allow_ads'     =>$allow_ads,
-
+                                                    'name'              =>$Name,
+                                                    'description'       =>$description,
+                                                    'price'             =>$price,
+                                                    'country_made'      =>$country_made,
+                                                    'status'            =>$status,
+                                                    'image'             =>$image,
+                                                    'rating'            =>'...',
+                                                    'cat_id'            =>$cat_id,
+                                                    'member_id'         =>$member_id,
                                                 ));
                                                 redirectHome('alert alert-success background-success m-3',"creating Success!","items.php?do=add", 3);
-                                            }
                                         } //end check function
                                     }else{
                                         redirectHome('danger','sorry you can"t open this page direct',4);
@@ -394,7 +435,11 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
 
                                 }elseif ($do == 'Manage'){
                                     $id = isset($_GET['id']) && is_numeric($_GET['id']) ? intval($_GET['id']) : 0 ;
-                                    $stmt = $con->prepare("SELECT * FROM items ORDER BY sort DESC");
+                                    $stmt = $con->prepare("
+                                                            SELECT items.*, categories.name AS cat_name,users.userName FROM items
+                                                            INNER JOIN categories ON categories.id = items.cat_id
+                                                            INNER JOIN users ON users.id = items.member_id
+                                                            ");
                                     $stmt->execute();
                                     $rows = $stmt->fetchAll();
 
@@ -402,7 +447,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                 <!--#################### Manage page #####################-->
                                 <div class="card">
                                     <div class="card-header">
-                                        <h5>All items</h5>
+                                        <h5>All items/products</h5>
                                         <a href="?do=add" class="btn waves-effect waves-light btn-primary btn-square position-right">craete new Product <i class="fa fa-plus"></i> </a>
                                     </div>
                                     <div class="card-block">
@@ -413,10 +458,10 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                     <th>#ID</th>
                                                     <th>Name</th>
                                                     <th>description</th>
-                                                    <th>sort</th>
-                                                    <th>visibility</th>
-                                                    <th>allow comment</th>
-                                                    <th>allow ads</th>
+                                                    <th>add_date</th>
+                                                    <th>image</th>
+                                                    <th>Category Name</th>
+                                                    <th>Ceated by</th>
                                                     <th>Control</th>
                                                 </tr>
                                                 </thead>
@@ -425,36 +470,49 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                 foreach ($rows as $row){
                                                     ?>
                                                     <tr>
+
                                                         <td><?php echo $row['id']?></td>
                                                         <td><?php echo $row['name']?></td>
                                                         <td><?php echo $row['description']?></td>
-                                                        <td><?php echo $row['sort']?></td>
-                                                        <td>
-                                                            <?php
-                                                            if($row['visibility'] == 0){ ?>
-                                                                <a href="items.php?do=activate&id=<?php echo $row['id']?>" class="btn btn-info waves-effect waves-light"><i class="fa fa-close"></i> Activate</a>
-                                                            <?php }else{
-                                                                echo "Activate";
-                                                            }?>
-                                                        </td>
-                                                        <td><?php echo $row['allow_comment']?></td>
-                                                        <td><?php echo $row['allow_ads']?></td>
+
+                                                        <td><?php echo $row['add_date']?></td>
+                                                        <td><?php echo $row['image']?></td>
+                                                        <td><?php echo $row['cat_name']?></td>
+                                                        <td><?php echo $row['userName']?></td>
                                                         <td class="text-center">
-                                                            <a href="items.php?do=edit&id=<?php echo $row['id']?>" class="btn waves-effect waves-light btn-success btn-square"><i class="fa fa-edit"></i> edit</a>
-                                                            <a href="items.php?do=delete&id=<?php echo $row['id']?>" class="btn btn-danger waves-effect waves-light"><i class="fa fa-close"></i> delete</a>
-                                                        </td>
+                                                            <div class="col-12">
+                                                                <div class="input-group-dropdown">
+                                                                    <div class="input-group-prepend text-center" >
+                                                                        <button type="button" class="btn btn-primary dropdown-toggle col-12" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>
+                                                                        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                                                            <a href="items.php?do=edit&id=<?php echo $row['id']?>" class="dropdown-item"><i class="fa fa-edit text-primary"></i> edit</a>
+                                                                            <a href="items.php?do=delete&id=<?php echo $row['id']?>" class="dropdown-item"><i class="fa fa-close text-c-red"></i> delete</a>
+                                                                            <?php
+                                                                            $chechCom = CheckItems('item_id','comments',$row['id']);
+                                                                            if($chechCom > 0){ ?>
+                                                                                <a href="items.php?do=CommentsPage&id=<?php echo $row['id']?>" class="dropdown-item"><i class="fa fa-comments text-c-red"></i> Comments</a>
+                                                                            <?php }
+                                                                            if($row['approve'] == 0){ ?>
+                                                                                <div role="separator" class="dropdown-divider"></div>
+                                                                                <a href="items.php?do=activate&item_id=<?php echo $row['id']?>" class="dropdown-item"><i class="fa fa-eye text-c-green"></i> Activate</a>
+                                                                            <?php } ?>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div><!-- end col class -->
+                                                        </td><!-- end td -->
                                                     </tr>
                                                 <?php   } // end foreach?>
                                                 </tbody>
                                                 <tfoot>
                                                 <tr>
                                                     <th>#ID</th>
-                                                    <th>name</th>
+                                                    <th>Name</th>
                                                     <th>description</th>
-                                                    <th>sort</th>
-                                                    <th>visibility</th>
-                                                    <th>allow comment</th>
-                                                    <th>allow ads</th>
+                                                    <th>add_date</th>
+                                                    <th>image</th>
+                                                    <th>cat_id</th>
+                                                    <th>member_id</th>
                                                     <th>Control</th>
                                                 </tr>
                                                 </tfoot>
@@ -484,24 +542,108 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                 // do = activate
                                 elseif($do == 'activate'){
 
-                                    $id = isset($_GET['id']) && is_numeric($_GET['id']) ? intval($_GET['id']) : 0 ;
+                                    $item_id = isset($_GET['item_id']) && is_numeric($_GET['item_id']) ? intval($_GET['item_id']) : 0 ;
                                     $stmt = $con->prepare('SELECT * FROM items WHERE id = ? LIMIT 1');
 
-                                    $stmt->execute(array($id));
+                                    $stmt->execute(array($item_id));
                                     //fetch data from database
                                     $count = $stmt->rowCount();
                                     //fetch data from database
                                     if($stmt->rowCount() > 0) {
-                                        $stmt = $con->prepare('UPDATE items SET Reg_Status = 1 WHERE id = ? ');
-                                        $stmt->execute(array($id));
+                                        $stmt = $con->prepare('UPDATE items SET approve = 1 WHERE id = ? ');
+                                        $stmt->execute(array($item_id));
 
                                         redirectHome('alert alert-success background-success','Activate Success!');
                                     }else{
                                         echo "this row are not exist";
                                     }
+                                }elseif($do == 'CommentsPage') {
+
+                                $Item_Id = isset($_GET['id']) && is_numeric($_GET['id']) ? intval($_GET['id']) : 0 ;
+                                $stmt = $con->prepare("SELECT 
+                                                                comments.* ,items.name,users.userName
+                                                            FROM 
+                                                                comments
+                                                            INNER JOIN 
+                                                                items
+                                                            on 
+                                                                items.id = comments.item_id
+                                                            inner join 
+                                                                users
+                                                            on users.id = comments.user_id
+                                                            WHERE item_id = ".$Item_Id);
+                                $stmt->execute();
+                                $rows = $stmt->fetchAll();
+
+                                ?>
+                                <!--#################### Manage page #####################-->
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>All Comments</h5>
+                                    </div>
+                                    <div class="card-block">
+                                        <div class="dt-responsive table-responsive">
+                                            <table id="multi-colum-dt" class="table table-striped table-bordered nowrap text-center">
+                                                <thead>
+                                                <tr>
+                                                    <th>#ID</th>
+                                                    <th>Comment</th>
+                                                    <th>Product Name</th>
+                                                    <th>Username</th>
+                                                    <th>Date</th>
+                                                    <th>Control</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php
+                                                foreach ($rows as $row){
+                                                    ?>
+                                                    <tr>
+                                                        <td><?php echo $row['id']?></td>
+                                                        <td><?php echo $row['comment']?></td>
+                                                        <td><?php echo $row['name']?></td>
+                                                        <td><?php echo $row['userName']?></td>
+                                                        <td><?php echo $row['comment_date']?></td>
+                                                        <td class="text-center">
+                                                            <div class="col-12">
+                                                                <div class="input-group-dropdown">
+                                                                    <div class="input-group-prepend text-center" >
+                                                                        <button type="button" class="btn btn-primary dropdown-toggle col-12" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>
+                                                                        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                                                            <a href="comments.php?do=edit&userid=<?php echo $row['id']?>" class="dropdown-item"><i class="fa fa-edit text-primary"></i> edit</a>
+                                                                            <a href="comments.php?do=delete&userid=<?php echo $row['id']?>" class="dropdown-item"><i class="fa fa-close text-c-red"></i> delete</a>
+                                                                            <?php
+                                                                            if($row['status'] == 0){ ?>
+                                                                                <div role="separator" class="dropdown-divider"></div>
+                                                                                <a href="comments.php?do=activate&comment_id=<?php echo $row['id']?>" class="dropdown-item"><i class="fa fa-check text-c-green"></i> Activate</a>
+                                                                            <?php } ?>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div><!-- end col class -->
+                                                        </td>
+                                                    </tr>
+                                                <?php   } // end foreach?>
+                                                </tbody>
+                                                <tfoot>
+                                                <tr>
+                                                    <th>#ID</th>
+                                                    <th>Comment</th>
+                                                    <th>Product Name</th>
+                                                    <th>Username</th>
+                                                    <th>Date</th>
+                                                    <th>Control</th>
+                                                </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php
                                 }else{
 //                                    header('Location:dashboard.php');
 //                                    exit();
+                                    echo 'something Wrong';
                                 }
                                 ?><!--   manage Page  -->
                             </div>
