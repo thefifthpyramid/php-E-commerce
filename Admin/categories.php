@@ -3,7 +3,7 @@ ob_start();
 session_start();
 /*
 ============================================================
-==  manage Categories page
+==  Categories manage page
 == you can create | delete | Categories from here
 ==
 ============================================================
@@ -77,7 +77,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                             ?><!--   Edit Page  -->
                             <div class="card">
                                 <div class="card-header">
-                                    <h5>Tooltip Validation</h5>
+                                    <h5>Edit <strong><?php echo $row['name']; ?></strong> Category</h5>
                                     <a href="?do=Manage" class="btn waves-effect waves-light btn-primary btn-square position-right">Show all Categories <i class="fa fa-categories"></i> </a>
                                 </div>
                                 <div class="card-block">
@@ -111,18 +111,18 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text">
-                                                            <input id="visibility:Yes" type="radio" value="0" name="visibility" <?php if($row['visibility'] == 0){ echo 'checked'; } ?> />
+                                                            <input id="visibility:No" type="radio" value="0" name="visibility" <?php if($row['visibility'] == 0){ echo 'checked'; } ?> />
                                                         </div>
                                                     </div>
-                                                    <label for="visibility:Yes" class="form-control">Yes</label>
+                                                    <label for="visibility:No" class="form-control">No</label>
                                                 </div>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text">
-                                                            <input id="visibility:No" type="radio" value="1" name="visibility"  <?php if($row['visibility'] == 1){ echo 'checked'; } ?> />
+                                                            <input id="visibility:Yes" type="radio" value="1" name="visibility"  <?php if($row['visibility'] == 1){ echo 'checked'; } ?> />
                                                         </div>
                                                     </div>
-                                                    <label for="visibility:No" class="form-control">No</label>
+                                                    <label for="visibility:Yes" class="form-control">Yes</label>
                                                 </div>
                                             </div>
                                         </div><!-- End Form Group -->
@@ -134,18 +134,18 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text">
-                                                            <input id="allow_comment:Yes" type="radio" value="0" name="allow_comment"  <?php if($row['allow_comment'] == 0){ echo 'checked'; } ?>>
+                                                            <input id="allow_comment:No" type="radio" value="0" name="allow_comment"  <?php if($row['allow_comment'] == 0){ echo 'checked'; } ?>>
                                                         </div>
                                                     </div>
-                                                    <label for="allow_comment:Yes" class="form-control">Yes</label>
+                                                    <label for="allow_comment:No" class="form-control">No</label>
                                                 </div>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text">
-                                                            <input id="allow_comment:No" type="radio" value="1" name="allow_comment" <?php if($row['allow_comment'] == 1){ echo 'checked'; } ?>>
+                                                            <input id="allow_comment:Yes" type="radio" value="1" name="allow_comment" <?php if($row['allow_comment'] == 1){ echo 'checked'; } ?>>
                                                         </div>
                                                     </div>
-                                                    <label for="allow_comment:No" class="form-control">No</label>
+                                                    <label for="allow_comment:Yes" class="form-control">Yes</label>
                                                 </div>
                                             </div>
                                         </div><!-- End Form Group -->
@@ -157,18 +157,18 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text">
-                                                            <input id="allow_ads:Yes" type="radio" value="0" name="allow_ads"  <?php if($row['allow_ads'] == 0){ echo 'checked'; } ?> />
+                                                            <input id="allow_ads:No" type="radio" value="0" name="allow_ads"  <?php if($row['allow_ads'] == 0){ echo 'checked'; } ?> />
                                                         </div>
                                                     </div>
-                                                    <label for="allow_ads:Yes" class="form-control">Yes</label>
+                                                    <label for="allow_ads:No" class="form-control">No</label>
                                                 </div>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text">
-                                                            <input id="allow_ads:No" type="radio" value="1" name="allow_ads" <?php if($row['allow_ads'] == 1){ echo 'checked'; } ?> />
+                                                            <input id="allow_ads:Yes" type="radio" value="1" name="allow_ads" <?php if($row['allow_ads'] == 1){ echo 'checked'; } ?> />
                                                         </div>
                                                     </div>
-                                                    <label for="allow_ads:No" class="form-control">No</label>
+                                                    <label for="allow_ads:Yes" class="form-control">Yes</label>
                                                 </div>
                                             </div>
                                         </div><!-- End Form Group -->
@@ -277,18 +277,18 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text">
-                                                            <input id="visibility:Yes" type="radio" value="0" name="visibility" checked>
+                                                            <input id="visibility:No" type="radio" value="0" name="visibility" checked>
                                                         </div>
                                                     </div>
-                                                    <label for="visibility:Yes" class="form-control">Yes</label>
+                                                    <label for="visibility:No" class="form-control">No</label>
                                                 </div>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text">
-                                                            <input id="visibility:No" type="radio" value="1" name="visibility">
+                                                            <input id="visibility:Yes" type="radio" value="1" name="visibility">
                                                         </div>
                                                     </div>
-                                                    <label for="visibility:No" class="form-control">No</label>
+                                                    <label for="visibility:Yes" class="form-control">Yes</label>
                                                 </div>
                                             </div>
                                         </div><!-- End Form Group -->
@@ -301,18 +301,18 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text">
-                                                            <input id="allow_comment:Yes" type="radio" value="0" name="allow_comment" checked>
+                                                            <input id="allow_comment:No" type="radio" value="0" name="allow_comment" checked>
                                                         </div>
                                                     </div>
-                                                    <label for="allow_comment:Yes" class="form-control">Yes</label>
+                                                    <label for="allow_comment:No" class="form-control">No</label>
                                                 </div>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text">
-                                                            <input id="allow_comment:No" type="radio" value="1" name="allow_comment">
+                                                            <input id="allow_comment:Yes" type="radio" value="1" name="allow_comment">
                                                         </div>
                                                     </div>
-                                                    <label for="allow_comment:No" class="form-control">No</label>
+                                                    <label for="allow_comment:Yes" class="form-control">Yes</label>
                                                 </div>
                                             </div>
                                         </div><!-- End Form Group -->
@@ -324,18 +324,18 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text">
-                                                            <input id="allow_ads:Yes" type="radio" value="0" name="allow_ads" checked>
+                                                            <input id="allow_ads:No" type="radio" value="0" name="allow_ads" checked>
                                                         </div>
                                                     </div>
-                                                    <label for="allow_ads:Yes" class="form-control">Yes</label>
+                                                    <label for="allow_ads:No" class="form-control">No</label>
                                                 </div>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text">
-                                                            <input id="allow_ads:No" type="radio" value="1" name="allow_ads">
+                                                            <input id="allow_ads:Yes" type="radio" value="1" name="allow_ads">
                                                         </div>
                                                     </div>
-                                                    <label for="allow_ads:No" class="form-control">No</label>
+                                                    <label for="allow_ads:Yes" class="form-control">Yes</label>
                                                 </div>
                                             </div>
                                         </div><!-- End Form Group -->
@@ -442,17 +442,56 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                         <td><?php echo $row['sort']?></td>
                                                         <td>
                                                             <?php
-                                                            if($row['visibility'] == 0){ ?>
-                                                                <a href="categories.php?do=activate&id=<?php echo $row['id']?>" class="btn btn-info waves-effect waves-light"><i class="fa fa-close"></i> Activate</a>
-                                                            <?php }else{
-                                                                echo "Activate";
-                                                            }?>
+                                                            if($row['visibility'] == 0){
+                                                                echo "<span class='text-c-red'>Hidden</span>";
+                                                            }else{
+                                                                echo "<span class='text-c-green'>Visible</span>";
+                                                            }
+                                                            ?>
                                                         </td>
-                                                        <td><?php echo $row['allow_comment']?></td>
-                                                        <td><?php echo $row['allow_ads']?></td>
+                                                        <td>
+                                                            <?php
+                                                            if($row['allow_comment'] == 0){
+                                                                echo "<span class='text-c-red'>No't Allowed</span>";
+                                                            }else{
+                                                                echo "<span class='text-c-green'>Allow</span>";
+                                                            }
+                                                            ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php
+                                                            if($row['allow_ads'] == 0){
+                                                                echo "<span class='text-c-red'>No't Allowed</span>";
+                                                            }else{
+                                                                echo "<span class='text-c-green'>Allow</span>";
+                                                            }
+                                                            ?>
+                                                        </td>
                                                         <td class="text-center">
-                                                            <a href="categories.php?do=edit&id=<?php echo $row['id']?>" class="btn waves-effect waves-light btn-success btn-square"><i class="fa fa-edit"></i> edit</a>
-                                                            <a href="categories.php?do=delete&id=<?php echo $row['id']?>" class="btn btn-danger waves-effect waves-light"><i class="fa fa-close"></i> delete</a>
+                                                            <div class="col-12">
+                                                                <div class="input-group-dropdown">
+                                                                    <div class="input-group-prepend text-center" >
+                                                                        <button type="button" class="btn btn-primary dropdown-toggle col-12" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>
+                                                                        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                                                            <a href="categories.php?do=edit&id=<?php echo $row['id']?>" class="dropdown-item"><i class="fa fa-edit text-primary"></i> edit</a>
+                                                                            <a href="categories.php?do=delete&id=<?php echo $row['id']?>" class="dropdown-item"><i class="fa fa-close text-c-red"></i> delete</a>
+                                                                            <?php
+                                                                            if($row['visibility'] == 0 Or $row['allow_comment'] == 0 Or $row['allow_ads'] == 0){ ?>
+                                                                                <div role="separator" class="dropdown-divider"></div>
+                                                                                <?php if($row['visibility'] == 0 ){ ?>
+                                                                                <a href="categories.php?do=activate&id=<?php echo $row['id']?>&Action=visibility" class="dropdown-item"><i class="fa fa-eye text-c-green"></i> Activate</a>
+                                                                                <?php } ?>
+                                                                                <?php if($row['allow_comment'] == 0 ){ ?>
+                                                                                <a href="categories.php?do=activate&id=<?php echo $row['id']?>&Action=allow_comment" class="dropdown-item"><i class="fa fa-comments text-c-green"></i> Allow Comment</a>
+                                                                                <?php } ?>
+                                                                                <?php if($row['allow_ads'] == 0 ){ ?>
+                                                                                <a href="categories.php?do=activate&id=<?php echo $row['id']?>&Action=allow_ads" class="dropdown-item"><i class="fa fa-check text-c-green"></i> Allow Ads</a>
+                                                                                <?php }} ?>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div><!-- end col class -->
                                                         </td>
                                                     </tr>
                                                 <?php   } // end foreach?>
@@ -496,6 +535,8 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                 elseif($do == 'activate'){
 
                                     $id = isset($_GET['id']) && is_numeric($_GET['id']) ? intval($_GET['id']) : 0 ;
+                                    $Action = isset($_GET['Action']) ? $_GET['Action'] : '' ;
+
                                     $stmt = $con->prepare('SELECT * FROM categories WHERE id = ? LIMIT 1');
 
                                     $stmt->execute(array($id));
@@ -503,10 +544,10 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                     $count = $stmt->rowCount();
                                     //fetch data from database
                                     if($stmt->rowCount() > 0) {
-                                        $stmt = $con->prepare('UPDATE categories SET Reg_Status = 1 WHERE id = ? ');
+                                        $stmt = $con->prepare('UPDATE categories SET '.$Action.' = 1 WHERE id = ? ');
                                         $stmt->execute(array($id));
 
-                                        redirectHome('alert alert-success background-success','Activate Success!');
+                                        redirectHome('alert alert-success background-success','Activate Success!','categories.php?do=Manage');
                                     }else{
                                         echo "this row are not exist";
                                     }
