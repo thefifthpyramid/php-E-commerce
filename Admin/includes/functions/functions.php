@@ -37,7 +37,7 @@ function redirectHome($class,$massage,$url = null,$seconds = 3){
         }
     }
     echo '<div class="' . $class .'  m-3"> '.$massage.' </div>';
-    echo '<p class="m-3"><i class="fa fa-bell text-c-red "></i> You will be redirected to Home page After <strong>' . $seconds .' </strong> seconds.</p>';
+    echo '<p class="m-3"><i class="fa fa-bell text-c-red "></i> You will be redirected Back After <strong>' . $seconds .' </strong> seconds.</p>';
     header("refresh:$seconds;url=$url");
     //exit();
 }
@@ -100,6 +100,26 @@ function LastItem($item,$table){
 function getLatest($item,$table,$order,$limit){
     global $con;
     $lastElement = $con->prepare("SELECT $item FROM $table ORDER BY $order DESC LIMIT $limit");
+    $lastElement->execute();
+    $data = $lastElement->fetchAll();
+    return $data;
+}
+
+
+//#########################################
+/*
+	** fetch data table Function v1.0
+	** Function To Get the latest Items From Database [ Users, Items, Comments ]
+	** $select = Field To Select
+	** $table = The Table To Choose From
+	** $order = The Desc Ordering
+	** $limit = Number Of Records To Get
+*/
+
+
+function GetDataTable($item,$table,$order){
+    global $con;
+    $lastElement = $con->prepare("SELECT $item FROM $table ORDER BY $order DESC");
     $lastElement->execute();
     $data = $lastElement->fetchAll();
     return $data;
