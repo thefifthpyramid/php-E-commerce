@@ -20,11 +20,11 @@
                         </a>
                     </li><!-- end li -->
                     <li class=""><!-- Start li -->
-                        <a href="#" class="waves-effect waves-dark">
+                        <a href="../index.php" class="waves-effect waves-dark">
                                 <span class="pcoded-micon">
                                     <i class="feather icon-menu"></i>
                                 </span>
-                            <span class="pcoded-mtext">Navigation</span>
+                            <span class="pcoded-mtext">Go To Shop</span>
                         </a>
                     </li><!-- end li -->
                 </ul>
