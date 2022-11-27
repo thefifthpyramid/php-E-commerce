@@ -451,6 +451,6 @@
 
 <!-- Main JS -->
 <script src="layout/assets/js/main.js"></script>
-<script src="layout/js/backend.js"></script>
+<script src="layout/assets/js/backend.js"></script>
 </body>
 </html>

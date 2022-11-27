@@ -30,7 +30,7 @@
     <!-- Main CSS -->
     <link rel="stylesheet" href="layout/assets/css/style.css">
 
-    <link rel="stylesheet" href="layout/css/mystyle.css">
+    <link rel="stylesheet" href="layout/assets/css/mystyle.css">
     <!-- Use the minified version files listed below for better performance and remove the files listed above -->
     <!-- <link rel="stylesheet" href="layout/assets/css/vendor/vendor.min.css">
     <link rel="stylesheet" href="layout/assets/css/plugins/plugins.min.css">
