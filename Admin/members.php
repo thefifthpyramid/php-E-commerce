@@ -62,7 +62,7 @@
                         <!--   #############Edit Page##############  -->
                         <div class="col-md-12">
                             <?php
-                                if($do == 'edit'){
+                                    if($do == 'edit'){
                                     if(isset($_GET['userid']) && is_numeric($_GET['userid'])){
                                         $userid = intval($_GET['userid']);
                                     }else{
@@ -195,10 +195,18 @@
 
                                             //check if there's no error
                                             if(empty($formErrors)){
-                                                $stmt = $con->prepare("UPDATE users SET userName = ?, email = ?, password = ? ,fullName = ? WHERE id = ?");
-                                                $stmt->execute(array($userName,$email,$pass,$fullName,$id));
+                                                $stmt2 = $con->prepare("SELECT * FROM users WHERE userName = ? AND id != ?");
+                                                $stmt2->execute(array($userName,$id));
+                                                $count2 = $stmt2->rowCount();
+                                                if($count2 == 1){
+                                                    echo 'Sorry this username already exist';
+                                                }else{
+                                                    $stmt = $con->prepare("UPDATE users SET userName = ?, email = ?, password = ? ,fullName = ? WHERE id = ?");
+                                                    $stmt->execute(array($userName,$email,$pass,$fullName,$id));
 
-                                                redirectHome('alert alert-success background-success','Updating Success!');
+                                                    redirectHome('alert alert-success background-success','Updating Success!');
+                                                }
+
                                             }
                                         }else{
                                             echo "sorry you can't open this page direct";
