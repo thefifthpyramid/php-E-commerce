@@ -62,7 +62,7 @@
                                         <a class="active main-menu-link" href="index.php">Home </a>
                                     </li>
                                     <li class="has-dropdown has-megaitem">
-                                        <a href="product-details-default.html">Shop <i
+                                        <a href="shop.php">Shop <i
                                                     class="fa fa-angle-down"></i></a>
                                         <!-- Mega Menu -->
                                         <div class="mega-menu">
@@ -99,7 +99,7 @@
                                                 <li class="mega-menu-item">
                                                     <a href="#" class="mega-menu-item-title">Product Types</a>
                                                     <ul class="mega-menu-sub">
-                                                        <li><a href="product-details-default.html">Product
+                                                        <li><a href="shop.php">Product
                                                                 Default</a></li>
                                                         <li><a href="product-details-variable.html">Product
                                                                 Variable</a></li>
@@ -289,7 +289,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#"><span>Shop</span></a>
+                        <a href="shop.php"><span>Shop</span></a>
                         <ul class="mobile-sub-menu">
                             <li>
                                 <a href="#">Shop Layout</a>
@@ -320,7 +320,7 @@
                             <li>
                                 <a href="#">Product Single</a>
                                 <ul class="mobile-sub-menu">
-                                    <li><a href="product-details-default.html">Product Default</a></li>
+                                    <li><a href="shop.php">Product Default</a></li>
                                     <li><a href="product-details-variable.html">Product Variable</a></li>
                                     <li><a href="product-details-affiliate.html">Product Referral</a></li>
                                     <li><a href="product-details-group.html">Product Group</a></li>
