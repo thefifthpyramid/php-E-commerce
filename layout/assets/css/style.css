@@ -16287,7 +16287,7 @@ input {
     font-weight: 700;
     color: #24262b;
 }
-.sidebar-menu li a:hover {
+.sidebar-menu li a:hover,.sidebar-menu li a.active {
     color: #b19361;
 }
 

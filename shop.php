@@ -4,7 +4,7 @@
     $cat_id = $userid = isset($_GET['category_id']) && is_numeric($_GET['category_id']) ? intval($_GET['category_id']) : 0 ;
     $cat_name = $_GET['cat_name'];
 
-    $lastElement = $con->prepare("SELECT * FROM items WHERE  cat_id = ? ");
+    $lastElement = $con->prepare("SELECT * FROM items WHERE  cat_id = ? ORDER BY id DESC ");
     $lastElement->execute(array($cat_id));
     $tableData = $lastElement->fetchAll();
 ?>
@@ -65,7 +65,18 @@
                                         $dataCat = getLatest('*','categories','sort',7);
                                         foreach ($dataCat as $item){
                                     ?>
-                                    <li><a href="?category=<?php echo $item['id']; ?>"><?php echo $item['name']; ?></a></li>
+                                    <li>
+                                        <a href="?category_id=<?php echo $item['id']; ?>&cat_name=<?php echo str_replace(' ','-',$item['name']); ?>" class="<?php if($item['name'] == str_replace('-',' ',$cat_name)){ echo 'active';}?>" ><?php echo $item['name']; ?>
+
+                                            <span class="Category_counter float-right">
+                                            <?php
+                                                $count = $con->prepare("SELECT count(cat_id) FROM items WHERE cat_id = ?");
+                                                $count->execute(array($item['id']));
+                                                echo $count->fetchColumn();
+                                            ?>
+                                            </span>
+                                        </a>
+                                    </li>
                                     <?php } ?>
                                 </ul>
                             </div>
