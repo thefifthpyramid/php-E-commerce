@@ -69,11 +69,7 @@
                                         <a href="?category_id=<?php echo $item['id']; ?>&cat_name=<?php echo str_replace(' ','-',$item['name']); ?>" class="<?php if($item['name'] == str_replace('-',' ',$cat_name)){ echo 'active';}?>" ><?php echo $item['name']; ?>
 
                                             <span class="Category_counter float-right">
-                                            <?php
-                                                $count = $con->prepare("SELECT count(cat_id) FROM items WHERE cat_id = ?");
-                                                $count->execute(array($item['id']));
-                                                echo $count->fetchColumn();
-                                            ?>
+                                                <?php echo getCatCount('cat_id','items',$item['id']); ?>
                                             </span>
                                         </a>
                                     </li>

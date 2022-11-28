@@ -132,3 +132,10 @@ function GetDataTable($item,$table,$order){
 //UI&Shop Function
 
 //#########################################
+
+function getCatCount($item,$table,$where){
+    global $con;
+    $count = $con->prepare("SELECT count($item) FROM $table WHERE cat_id = ?");
+    $count->execute(array($where));
+    return $count->fetchColumn();
+}
