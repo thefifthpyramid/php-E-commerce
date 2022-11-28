@@ -75,7 +75,7 @@
                                                             $dataCat = getLatest('*','categories','sort',7);
                                                             foreach ($dataCat as $item){
                                                         ?>
-                                                        <li><a href="shop.php?category_id=<?php echo $item['id']; ?>"><?php echo $item['name']; ?></a></li>
+                                                        <li><a href="shop.php?category_id=<?php echo $item['id']; ?>&cat_name=<?php echo str_replace(' ','-',$item['name']); ?>"><?php echo $item['name']; ?></a></li>
                                                         <?php } ?>
                                                     </ul>
                                                 </li>

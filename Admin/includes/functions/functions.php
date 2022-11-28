@@ -132,21 +132,3 @@ function GetDataTable($item,$table,$order){
 //UI&Shop Function
 
 //#########################################
-/*
-	** fetch data table Function v2.0
-	** Function To Get the latest Items From Database [ Users, Items, Comments ]
-	** $select = Field To Select
-	** $table = The Table To Choose From
-	** $order = The Desc Ordering
-	** $limit = Number Of Records To Get
-*/
-
-
-function CategoriesDataTable($item,$table,$order,$where1Par ,$where2Par){
-
-    global $con;
-    $lastElement = $con->prepare("SELECT $item FROM $table ORDER BY $order DESC WHERE ". $where1Par . ' = ? ');
-    $lastElement->execute(array($where2Par));
-    $data = $lastElement->fetchAll();
-    return $data;
-}

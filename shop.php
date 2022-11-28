@@ -1,6 +1,12 @@
 <?php
-$pageTitle = "Home Page";
-include_once "init.php";
+    $pageTitle = "Home Page";
+    include_once "init.php";
+    $cat_id = $userid = isset($_GET['category_id']) && is_numeric($_GET['category_id']) ? intval($_GET['category_id']) : 0 ;
+    $cat_name = $_GET['cat_name'];
+
+    $lastElement = $con->prepare("SELECT * FROM items WHERE  cat_id = ? ");
+    $lastElement->execute(array($cat_id));
+    $tableData = $lastElement->fetchAll();
 ?>
 <!--Start Page-->
 
@@ -10,13 +16,13 @@ include_once "init.php";
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <h3 class="breadcrumb-title">Shop - Grid Left Sidebar</h3>
+                        <h3 class="breadcrumb-title">Shop - <?php echo str_replace('-',' ',$cat_name);?></h3>
                         <div class="breadcrumb-nav breadcrumb-nav-color--black breadcrumb-nav-hover-color--golden">
                             <nav aria-label="breadcrumb">
                                 <ul>
                                     <li><a href="index.html">Home</a></li>
                                     <li><a href="shop-grid-sidebar-left.html">Shop</a></li>
-                                    <li class="active" aria-current="page">Shop Grid Left Sidebar</li>
+                                    <li class="active" aria-current="page"><?php echo str_replace('-',' ',$cat_name);?></li>
                                 </ul>
                             </nav>
                         </div>
@@ -246,10 +252,6 @@ include_once "init.php";
                                         <div class="tab-pane active show sort-layout-single" id="layout-3-grid">
                                             <div class="row">
                                                 <?php
-                                                    $cat_id = $userid = isset($_GET['category_id']) && is_numeric($_GET['category_id']) ? intval($_GET['category_id']) : 0 ;
-                                                    $lastElement = $con->prepare("SELECT * FROM items WHERE  cat_id = ? ");
-                                                    $lastElement->execute(array($cat_id));
-                                                    $tableData = $lastElement->fetchAll();
                                                     if($lastElement->rowCount() > 0){
                                                     foreach($tableData as $item){
                                                 ?>
