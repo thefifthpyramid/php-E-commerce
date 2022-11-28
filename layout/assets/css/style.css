@@ -15571,10 +15571,15 @@ input {
 @media (min-width: 768px) {
     .product-list-img-link {
         width: auto;
+        /* height: 208px; */
+        /* margin-bottom: 127px; */
     }
 }
 .product-list-img-link img {
     transition: all 0.5s ease;
+    height: 248px;
+    margin-bottom: 20px;
+    width: 450px;
 }
 .product-list-img-link img:nth-child(2) {
     position: absolute;
@@ -15583,6 +15588,9 @@ input {
     width: 100%;
     height: 100%;
     opacity: 0;
+    height: 248px;
+    margin-bottom: 20px;
+    width: 450px;
 }
 
 .product-list-content {
