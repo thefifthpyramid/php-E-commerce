@@ -125,3 +125,9 @@ function GetDataTable($item,$table,$order){
     return $data;
 }
 
+/*
+ * ********************************
+ * ********************************
+*/
+//UI&Shop Function
+

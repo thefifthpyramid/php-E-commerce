@@ -69,17 +69,14 @@
                                             <ul class="mega-menu-inner">
                                                 <!-- Mega Menu Sub Link -->
                                                 <li class="mega-menu-item">
-                                                    <a href="#" class="mega-menu-item-title">Shop Layouts</a>
+                                                    <a href="#" class="mega-menu-item-title">Shop Categories</a>
                                                     <ul class="mega-menu-sub">
-                                                        <li><a href="shop-grid-sidebar-left.html">Grid Left
-                                                                Sidebar</a></li>
-                                                        <li><a href="shop-grid-sidebar-right.html">Grid Right
-                                                                Sidebar</a></li>
-                                                        <li><a href="shop-full-width.html">Full Width</a></li>
-                                                        <li><a href="shop-list-sidebar-left.html">List Left
-                                                                Sidebar</a></li>
-                                                        <li><a href="shop-list-sidebar-right.html">List Right
-                                                                Sidebar</a></li>
+                                                        <?php
+                                                            $dataCat = getLatest('*','categories','sort',7);
+                                                            foreach ($dataCat as $item){
+                                                        ?>
+                                                        <li><a href="shop.php?category=games"><?php echo $item['name']; ?></a></li>
+                                                        <?php } ?>
                                                     </ul>
                                                 </li>
                                                 <!-- Mega Menu Sub Link -->
