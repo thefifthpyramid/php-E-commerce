@@ -4884,9 +4884,9 @@ progress {
 }
 
 .alert-danger {
-    color: #030303;
-    background-color: #cdcdcd;
-    border-color: #b9b9b9;
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
 }
 .alert-danger .alert-link {
     color: black;
