@@ -1,44 +1,7 @@
-
-<!DOCTYPE html>
-<html lang="zxx">
-
-<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title><?php getTitle(); ?></title>
-
-    <!-- ::::::::::::::Favicon icon::::::::::::::-->
-    <link rel="shortcut icon" href="layout/assets/images/favicon.ico" type="image/png">
-
-    <!-- ::::::::::::::All CSS Files here :::::::::::::: -->
-    <!-- Vendor CSS -->
-    <link rel="stylesheet" href="layout/assets/css/vendor/font-awesome.min.css">
-    <link rel="stylesheet" href="layout/assets/css/vendor/ionicons.css">
-    <link rel="stylesheet" href="layout/assets/css/vendor/simple-line-icons.css">
-    <link rel="stylesheet" href="layout/assets/css/vendor/jquery-ui.min.css">
-
-    <!-- Plugin CSS -->
-    <link rel="stylesheet" href="layout/assets/css/plugins/swiper-bundle.min.css">
-    <link rel="stylesheet" href="layout/assets/css/plugins/animate.min.css">
-    <link rel="stylesheet" href="layout/assets/css/plugins/nice-select.css">
-    <link rel="stylesheet" href="layout/assets/css/plugins/venobox.min.css">
-    <link rel="stylesheet" href="layout/assets/css/plugins/jquery.lineProgressbar.css">
-    <link rel="stylesheet" href="layout/assets/css/plugins/aos.min.css">
-
-    <!-- Main CSS -->
-    <link rel="stylesheet" href="layout/assets/css/style.css">
-
-    <link rel="stylesheet" href="layout/assets/css/mystyle.css">
-    <!-- Use the minified version files listed below for better performance and remove the files listed above -->
-    <!-- <link rel="stylesheet" href="layout/assets/css/vendor/vendor.min.css">
-    <link rel="stylesheet" href="layout/assets/css/plugins/plugins.min.css">
-    <link rel="stylesheet" href="layout/assets/css/style.min.css"> -->
-
-</head>
-
-<body>
+<?php
+    //##### Check session
+    session_start();
+?>
 <!-- Start Header Area -->
 <header class="header-section d-none d-xl-block">
     <div class="header-wrapper">
@@ -62,7 +25,7 @@
                                         <a class="active main-menu-link" href="index.php">Home </a>
                                     </li>
                                     <li class="has-dropdown has-megaitem">
-                                        <a href="shop.php">Shop <i
+                                        <a href="shop.php?category_id=000&cat_name=All-Products">Shop <i
                                                     class="fa fa-angle-down"></i></a>
                                         <!-- Mega Menu -->
                                         <div class="mega-menu">
@@ -92,7 +55,6 @@
                                                         <li><a href="wishlist.html">Wishlist</a></li>
                                                         <li><a href="compare.html">Compare</a></li>
                                                         <li><a href="checkout.html">Checkout</a></li>
-                                                        <li><a href="login.html">Login</a></li>
                                                         <li><a href="my-account.html">My Account</a></li>
                                                     </ul>
                                                 </li>
@@ -155,17 +117,7 @@
                                             </li>
                                             <li><a href="blog-single-sidebar-left.html">Blog Single Sidebar left</a>
                                             </li>
-                                            <li><a href="blog-single-sidebar-right.html">Blog Single Sidebar
-                                                    Right</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="has-dropdown">
-                                        <a href="#">Pages <i class="fa fa-angle-down"></i></a>
-                                        <!-- Sub Menu -->
-                                        <ul class="sub-menu">
-                                            <li><a href="faq.html">Frequently Questions</a></li>
-                                            <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                                            <li><a href="404.html">404 Page</a></li>
+                                            <li><a href="blog-single-sidebar-right.html">Blog Single Sidebar  Right</a></li>
                                         </ul>
                                     </li>
                                     <li>
@@ -312,7 +264,6 @@
                                     <li><a href="wishlist.html">Wishlist</a></li>
                                     <li><a href="compare.html">Compare</a></li>
                                     <li><a href="checkout.html">Checkout</a></li>
-                                    <li><a href="login.html">Login</a></li>
                                     <li><a href="my-account.html">My Account</a></li>
                                 </ul>
                             </li>
@@ -365,22 +316,24 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="#"><span>Pages</span></a>
-                        <ul class="mobile-sub-menu">
-                            <li><a href="faq.html">Frequently Questions</a></li>
-                            <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                            <li><a href="404.html">404 Page</a></li>
-                        </ul>
-                    </li>
                     <li><a href="about-us.html">About Us</a></li>
                     <li><a href="contact-us.html">Contact Us</a></li>
+                    <?php
+                        if(isset($_SESSION['userSession_username'])){
+                    ?>
+                        <li><a href="login.php">Login</a></li>
+                        <li><a href="register.php">register</a></li>
+                    <?php
+                    }else{
+                        echo '<li><a href="auth/logout.php">Sign Out</a></li>';
+                    }?>
                 </ul>
             </div> <!-- End Mobile Menu Nav -->
         </div> <!-- End Mobile Menu -->
 
         <!-- Start Mobile contact Info -->
         <div class="mobile-contact-info">
+
             <div class="logo">
                 <a href="index.php"><img src="layout/assets/images/logo/logo_white.png" alt=""></a>
             </div>
@@ -418,10 +371,28 @@
     <!-- Start Offcanvas Mobile Menu Wrapper -->
     <!-- Start Mobile contact Info -->
     <div class="mobile-contact-info">
-        <div class="logo">
-            <a href="index.php"><img src="layout/assets/images/logo/logo_white.png" alt=""></a>
+            <?php
+            if(isset($_SESSION['userSession_username'])){
+                echo '<div class="menu-msg"><a href="index.php">Welcome '. $_SESSION['userSession_username'].'</a>';
+                $status = CheckUserStatus($_SESSION['userSession_username']);
+                if($status == 0){
+                    echo 'Your account still needs to activate';
+                }
+            }else{
+                echo '<div class="logo"><a href="index.php"><img src="layout/assets/images/logo/logo_white.png" alt=""></a>';
+            }?>
         </div>
-
+        <ul class="widget-sideBar-menu">
+            <?php
+            if(isset($_SESSION['userSession_username'])){
+                echo '<li><a href="profile.php">My Profile</a></li>';
+                echo '<li><a href="auth/logout.php">Sign Out</a></li>';
+            }else{
+                echo '
+                    <li><a href="login.php">Login</a></li>
+                    <li><a href="register.php">register</a></li>';
+            }?>
+        </ul><hr>
         <address class="address">
             <span>Address: Your address goes here.</span>
             <span>Call Us: 0123456789, 0123456789</span>
