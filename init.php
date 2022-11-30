@@ -21,10 +21,10 @@
 
     include $func . "functions.php";
     include $lang . "en.php";
-    include $tpl . "header.php";
+    include $tpl . "head.php";
 
-//    if (!isset($noNavBar)){
-//        include $tpl . "mainSideBar.php";
-//    }
+    if (!isset($noNavBar)){
+        include $tpl . "header.php";
+    }
 
 
