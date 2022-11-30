@@ -2,8 +2,6 @@
     ob_start();
     //Get Variables
     $pageTitle = "Dashboard";
-
-
     //Sessions
     session_start();
     //print_r($_SESSION);
@@ -14,7 +12,7 @@
         $LastItemData =  getLatest('*','users','id',$usersCount);
 
     }else{
-        header('Location: auth/login.php'); //redirect to dashboard page
+        header('Location: login.php'); //redirect to dashboard page
         exit();
     }
 
