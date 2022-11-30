@@ -139,3 +139,14 @@ function getCatCount($item,$table,$where){
     $count->execute(array($where));
     return $count->fetchColumn();
 }
+
+function CheckUserStatus($user){
+    global $con;
+    $stmtx = $con->prepare("SELECT userName,Reg_Status FROM users WHERE userName = ? AND Reg_Status = 0");
+
+    $stmtx->execute(array($user));
+
+    $status = $stmtx->rowCount();
+
+    return $status;
+}
