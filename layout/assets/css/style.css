@@ -18789,11 +18789,13 @@ Pages - Contact
 }
 .mobile-contact-info .logo {
     margin: 0 auto;
-    width: 100px;
+    width: 97%;
+    color: white;
 }
 .mobile-contact-info .logo img {
-    width: 100%;
+    width: 100px;
     height: auto;
+    margin-top: 35px;
 }
 .mobile-contact-info .address {
     margin-top: 30px;
