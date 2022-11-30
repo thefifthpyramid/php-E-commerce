@@ -2,10 +2,19 @@
     $pageTitle = "Home Page";
     include_once "init.php";
     $cat_id = $userid = isset($_GET['category_id']) && is_numeric($_GET['category_id']) ? intval($_GET['category_id']) : 0 ;
+    $WhereVar =  '';
+    if($cat_id != 000){
+        $WhereVar =  "WHERE cat_id = ?";
+    }
     $cat_name = $_GET['cat_name'];
 
-    $lastElement = $con->prepare("SELECT * FROM items WHERE  cat_id = ? ORDER BY id DESC ");
-    $lastElement->execute(array($cat_id));
+    $lastElement = $con->prepare("SELECT * FROM items " . $WhereVar ." ORDER BY id DESC ");
+
+    if($cat_id != 000){
+        $lastElement->execute(array($cat_id));
+    }else{
+        $lastElement->execute();
+    }
     $tableData = $lastElement->fetchAll();
 ?>
 <!--Start Page-->
