@@ -1,6 +1,9 @@
 <?php
     //##### Check session
-    session_start();
+    if(!isset($_SESSION))
+    {
+        session_start();
+    }
 ?>
 <!-- Start Header Area -->
 <header class="header-section d-none d-xl-block">
