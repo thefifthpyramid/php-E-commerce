@@ -157,3 +157,26 @@ function getIData($table,$where,$value){
     $count->execute(array($value));
     return $count->fetchAll();
 }
+
+
+function redirect_user($class,$massage,$notifyMsg,$url = null,$seconds = 3){
+    if($url === null){
+        $url = 'dashboard.php';
+    }else{
+        if(isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] !== ''){
+            $url = $_SERVER['HTTP_REFERER'];
+        }else{
+            $url = 'index.php';
+        }
+    }
+    $textOfNotify = '';
+    if($notifyMsg === ''){
+        $textOfNotify =  " You will be redirected Back After <strong>" . $seconds ." </strong> Seconds";
+    }else{
+        $textOfNotify = $notifyMsg;
+    }
+    echo '<div class="' . $class .'  m-3"> '.$massage.' </div>';
+    echo '<p class="m-3"><i class="fa fa-bell text-c-red "></i> ' . $textOfNotify . '</p>';
+    header("refresh:$seconds;url=$url");
+    //exit();
+}

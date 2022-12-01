@@ -13,6 +13,15 @@
         $lastElement->execute(array($_SESSION['userSession_username']));
         $data = $lastElement->fetch();
 
+        // fetch the products of the user
+        $stmt = $con->prepare("
+        SELECT items.*, categories.name AS cat_name FROM items
+        INNER JOIN categories ON categories.id = items.cat_id
+        WHERE member_id = ? ORDER BY id DESC LIMIT 5
+        ");
+        $stmt->execute(array($data['id']));
+        $products_data = $stmt->fetchAll();
+
         //Fetch all comments
         $comments = getIData('comments','user_id',$data['id']);
     }else{
@@ -179,6 +188,7 @@
                             <h4 class="">My Products</h4>
                             <a href="#" class="btn waves-effect waves-light btn-main btn-square position-right"> Create New <i class="fa fa-plus text-primary"></i> </a>
                         </div>
+                        <?php if(!empty($products_data)){?>
                         <table class="table border">
                             <thead>
                             <tr>
@@ -192,13 +202,7 @@
                             </thead>
                             <tbody>
                             <?php
-                            $stmt = $con->prepare("
-                                                        SELECT items.*, categories.name AS cat_name FROM items
-                                                        INNER JOIN categories ON categories.id = items.cat_id
-                                                        WHERE member_id = ? ORDER BY id DESC LIMIT 5
-                                                        ");
-                            $stmt->execute(array($data['id']));
-                            $products_data = $stmt->fetchAll();
+
                             foreach ($products_data as $product){
                                 ?>
                                 <tr>
@@ -226,6 +230,11 @@
                             <?php }?>
                             </tbody>
                         </table>
+                            <?php
+                        }else{
+                            echo "the's no Products";
+                        }
+                        ?>
                     </div>
                 </div>
 
@@ -234,7 +243,6 @@
                     <div class="card-body text-center">
                         <div class="card-header">
                             <h4 class="">My Comments</h4>
-                            <a href="#" class="btn waves-effect waves-light btn-main btn-square position-right"> Create New <i class="fa fa-plus text-primary"></i> </a>
                         </div>
                         <?php
                         if(!empty($comments)){?>
