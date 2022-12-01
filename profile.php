@@ -1,6 +1,18 @@
 <?php
-$pageTitle = "Home Page";
-include_once "init.php";
+    $pageTitle = "Home Page";
+    //Sessions
+    if(!isset($_SESSION))
+    {
+        session_start();
+    }
+//print_r($_SESSION);
+    if(isset($_SESSION['userSession_username'])){
+        include_once "init.php";
+        // the latest users
+    }else{
+        header('Location: login.php'); //redirect to dashboard page
+        exit();
+    }
 ?>
 <!--Start Page-->
 
@@ -12,7 +24,7 @@ include_once "init.php";
                     <ol class="breadcrumb mb-0">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                         <li class="breadcrumb-item"><a href="#">User</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+                        <li class="breadcrumb-item active" aria-current="page"><?php echo $_SESSION['userSession_username']; ?></li>
                     </ol>
                 </nav>
             </div>
@@ -24,7 +36,7 @@ include_once "init.php";
                     <div class="card-body text-center">
                         <img src="https://avatars.githubusercontent.com/u/11091460?v=4" alt="avatar"
                              class="rounded-circle img-fluid" style="width: 150px;">
-                        <h5 class="my-3">John Smith</h5>
+                        <h5 class="my-3"><?php echo $_SESSION['userSession_username']; ?></h5>
                         <p class="text-muted mb-1">Full Stack Developer</p>
                         <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
                         <div class="d-flex justify-content-center mb-2">
