@@ -425,15 +425,15 @@
                                     <div class="table-responsive">
                                         <table class="table table-hover m-b-0">
                                             <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>price</th>
-                                                <th>created in</th>
-                                                <th>Category</th>
-                                                <th>Created By</th>
-                                                <th>Status</th>
-                                                <th>Rating</th>
-                                            </tr>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>price</th>
+                                                    <th>created in</th>
+                                                    <th>Category</th>
+                                                    <th>Created By</th>
+                                                    <th>Status</th>
+                                                    <th>Rating</th>
+                                                </tr>
                                             </thead>
                                             <tbody>
                                                     <?php

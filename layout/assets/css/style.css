@@ -3247,7 +3247,7 @@ progress {
     }
 }
 .btn:hover {
-    color: #777;
+    color: #fff;
 }
 .btn-check:focus + .btn, .btn:focus {
     outline: 0;
@@ -4502,7 +4502,7 @@ progress {
     flex-direction: column;
     min-width: 0;
     word-wrap: break-word;
-    background-color: #FFF;
+    background-color: #f9f9f9;
     background-clip: border-box;
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 4px;
@@ -7864,7 +7864,7 @@ progress {
 }
 
 .text-primary {
-    color: #0D6EFD !important;
+    color: #ffffff !important;
 }
 
 .text-secondary {
