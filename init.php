@@ -8,6 +8,10 @@
     ==
     ==========================================================
     */
+
+    //Error Report
+
+
     //routes
     $tpl = "includes/templates/"; //template directory
     $func = "Admin/includes/functions/"; //template directory

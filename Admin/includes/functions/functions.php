@@ -150,3 +150,10 @@ function CheckUserStatus($user){
 
     return $status;
 }
+
+function getIData($table,$where,$value){
+    global $con;
+    $count = $con->prepare("SELECT * FROM $table WHERE $where = ?");
+    $count->execute(array($value));
+    return $count->fetchAll();
+}

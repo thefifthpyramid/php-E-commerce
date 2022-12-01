@@ -12,6 +12,9 @@
         $lastElement = $con->prepare("SELECT * FROM users WHERE userName = ?");
         $lastElement->execute(array($_SESSION['userSession_username']));
         $data = $lastElement->fetch();
+
+        //Fetch all comments
+        $comments = getIData('comments','user_id',$data['id']);
     }else{
         header('Location: login.php'); //redirect to dashboard page
         exit();
@@ -233,33 +236,34 @@
                             <h4 class="">My Comments</h4>
                             <a href="#" class="btn waves-effect waves-light btn-main btn-square position-right"> Create New <i class="fa fa-plus text-primary"></i> </a>
                         </div>
+                        <?php
+                        if(!empty($comments)){?>
                         <table class="table border">
                             <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Comments</th>
+                                <th>Id</th>
+                                <th>Comment</th>
                             </tr>
                             </thead>
                             <tbody>
                             <?php
-                            $stmt = $con->prepare("
-                                                        SELECT items.*, categories.name AS cat_name FROM items
-                                                        INNER JOIN categories ON categories.id = items.cat_id
-                                                        WHERE member_id = ? ORDER BY id DESC LIMIT 5
-                                                        ");
-                            $stmt->execute(array($data['id']));
-                            $products_data = $stmt->fetchAll();
-                            foreach ($products_data as $product){
-                                ?>
+                                foreach ($comments as $comment){
+                            ?>
                                 <tr>
-                                    <td><?php echo $product['name'];?></td>
-                                    <td><?php echo $product['price'];?></td>
+                                    <td><?php echo $comment['comment'];?></td>
+                                    <td><?php echo $comment['status'];?></td>
                                 </tr>
                             <?php }?>
                             </tbody>
                         </table>
+                        <?php
+                            }else{
+                                echo "the's no Comments";
+                            }
+                        ?>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
