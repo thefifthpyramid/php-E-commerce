@@ -18,10 +18,13 @@
 
     // Register Operation
     if($_SERVER['REQUEST_METHOD'] == "POST"){
-
-        $userName = $_POST['userName'];
+        if(isset($_POST['userName'])){
+            $userName = filter_var($_POST['userName'],FILTER_SANITIZE_STRING);
+        }
+        if(isset($_POST['fullName'])){
+            $fullName = filter_var($_POST['fullName'],FILTER_SANITIZE_STRING);
+        }
         $email = $_POST['email'];
-        $fullName = $_POST['fullName'];
 
         //pass
         $pass = $_POST['password'];
