@@ -39,6 +39,7 @@
     background: linear-gradient(#141e30, #243b55);
 }
 
+/*Login Page*/
 .login-box {
     position: absolute;
     top: 50%;
@@ -200,6 +201,26 @@
         bottom: 100%;
     }
 }
+.sign-page .msg{
+    padding:20px;
+    position: relative;
+    right: 0;
+    top: 20px;
+    z-index: 2;
+    width: 400px;
+}.sign-page .msg .alert{
+     text-align: left;
+     position: absolute;
+    
+ }
+.fa-asterisk{
+    color: #df0000;
+    font-size: 14px;
+    position: absolute;
+    right: 7px;
+    top: 18px;
+}
+/*Portfilo page*/
 .profile .card-body{
     transition: all .3s ease-in-out;
 }.profile .card{

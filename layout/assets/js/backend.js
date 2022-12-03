@@ -26,5 +26,7 @@ $(function(){
         },3000); // 10 seconds
     };
     $(".readonly").readOnly;
+    $('.close').on('click',function(){
+        $(this).parents('.msg').toggle();
+    });
 });
-

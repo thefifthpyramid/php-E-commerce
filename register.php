@@ -19,7 +19,9 @@
     // Register Operation
     if($_SERVER['REQUEST_METHOD'] == "POST"){
         if(isset($_POST['userName'])){
+            /* ?>&#x2770;script>alert(1);</script><?php */
             $userName = filter_var($_POST['userName'],FILTER_SANITIZE_STRING);
+
         }
         if(isset($_POST['fullName'])){
             $fullName = filter_var($_POST['fullName'],FILTER_SANITIZE_STRING);
@@ -47,45 +49,49 @@
         if(empty($fullName)){
             $formErrors[] = 'full name can"t be empty';
         }
-        foreach ($formErrors as $error){
-            echo '
-                <div class="alert alert-danger background-danger">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <i class="icofont icofont-close-line-circled text-white"></i>
-                </button>
-                <strong>'. $error.'</strong> 
-                </div>
-            '; //end echo
-        }//end foreach
+
 
         //check if there's no error
-        if(empty($formErrors)){
-            $check = CheckItems('userName','users',$userName);
-            if($check == 1){
-                redirectHome('alert alert-danger background-danger',"Sorry, this user exists!","members.php?do=add", 3);
-            }else{
-                //check if user already exist
-
-                $stmt = $con->prepare("INSERT INTO users(userName, email, password,fullName,Reg_Status,Date) VALUES(:userName, :email, :password, :fullName,0,now()) ");
-                $stmt->execute(array(
-                    'userName'  =>$userName,
-                    'email'     =>$email,
-                    'password'  =>$hashedPass,
-                    'fullName'  =>$fullName,
-                ));
-                $_SESSION['userSession_username'] = $userName; //register session
-                header('Location: index.php'); //redirect to dashboard page
-                exit();
-                //redirect_user('alert alert-success background-success m-3 text-center',"creating Success!",'',"login.php", 4);
-                //redirect_user($class,$massage,$notifyMsg = null,$url = null,$seconds = 3);
-            }
-        } //end check function
+//        if(empty($formErrors)){
+//            $check = CheckItems('userName','users',$userName);
+//            if($check == 1){
+//                redirectHome('alert alert-danger background-danger',"Sorry, this user exists!","members.php?do=add", 3);
+//            }else{
+//                //check if user already exist
+//
+//                $stmt = $con->prepare("INSERT INTO users(userName, email, password,fullName,Reg_Status,Date) VALUES(:userName, :email, :password, :fullName,0,now()) ");
+//                $stmt->execute(array(
+//                    'userName'  =>$userName,
+//                    'email'     =>$email,
+//                    'password'  =>$hashedPass,
+//                    'fullName'  =>$fullName,
+//                ));
+//                $_SESSION['userSession_username'] = $userName; //register session
+//                header('Location: index.php'); //redirect to dashboard page
+//                exit();
+//                //redirect_user('alert alert-success background-success m-3 text-center',"creating Success!",'',"login.php", 4);
+//                //redirect_user($class,$massage,$notifyMsg = null,$url = null,$seconds = 3);
+//            }
+//        } //end check function
     }else{
         //redirectHome('danger','sorry you can"t open this page direct',4);
     }
 ?>
 <!--Start Page-->
-<div class="main-container">
+<div class="main-container sign-page">
+    <?php
+    if(!empty($formErrors)){
+        foreach ($formErrors as $error){
+    ?>
+        <div class="msg">
+            <div class="alert alert-danger background-danger m-4">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <i>x</i>
+                </button>
+                <strong><?php echo $error; ?></strong>
+            </div>
+        </div>
+    <?php } }?>
     <div class="login-box register-box">
         <h2>Register</h2>
         <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
@@ -121,6 +127,9 @@
     </div>
 </div>
 <!--End Page-->
+    <script src="layout/assets/js/vendor/jquery-3.5.1.min.js"></script>
+    <script src="layout/assets/js/vendor/bootstrap.min.js"></script>
+    <script src="layout/assets/js/backend.js"></script>
 </body>
 </html>
 <?php
