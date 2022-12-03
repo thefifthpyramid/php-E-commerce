@@ -59,27 +59,27 @@
 
 
         //check if there's no error
-//        if(empty($formErrors)){
-//            $check = CheckItems('userName','users',$userName);
-//            if($check == 1){
-//                redirectHome('alert alert-danger background-danger',"Sorry, this user exists!","members.php?do=add", 3);
-//            }else{
-//                //check if user already exist
-//
-//                $stmt = $con->prepare("INSERT INTO users(userName, email, password,fullName,Reg_Status,Date) VALUES(:userName, :email, :password, :fullName,0,now()) ");
-//                $stmt->execute(array(
-//                    'userName'  =>$userName,
-//                    'email'     =>$email,
-//                    'password'  =>$hashedPass,
-//                    'fullName'  =>$fullName,
-//                ));
-//                $_SESSION['userSession_username'] = $userName; //register session
-//                header('Location: index.php'); //redirect to dashboard page
-//                exit();
-//                //redirect_user('alert alert-success background-success m-3 text-center',"creating Success!",'',"login.php", 4);
-//                //redirect_user($class,$massage,$notifyMsg = null,$url = null,$seconds = 3);
-//            }
-//        } //end check function
+        if(empty($formErrors)){
+            $check = CheckItems('userName','users',$userName);
+            if($check == 1){
+                redirectHome('alert alert-danger background-danger',"Sorry, this user exists!","members.php?do=add", 3);
+            }else{
+                //check if user already exist
+
+                $stmt = $con->prepare("INSERT INTO users(userName, email, password,fullName,Reg_Status,Date) VALUES(:userName, :email, :password, :fullName,0,now()) ");
+                $stmt->execute(array(
+                    'userName'  =>$userName,
+                    'email'     =>$email,
+                    'password'  =>$hashedPass,
+                    'fullName'  =>$fullName,
+                ));
+                $_SESSION['userSession_username'] = $userName; //register session
+                header('Location: index.php'); //redirect to dashboard page
+                exit();
+                //redirect_user('alert alert-success background-success m-3 text-center',"creating Success!",'',"login.php", 4);
+                //redirect_user($class,$massage,$notifyMsg = null,$url = null,$seconds = 3);
+            }
+        } //end check function
     }else{
         //redirectHome('danger','sorry you can"t open this page direct',4);
     }
