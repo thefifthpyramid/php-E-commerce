@@ -15,6 +15,8 @@
     //##### Import files
     include_once "init.php";
 
+    //errors
+    $formErrors =  array();
 
     // Register Operation
     if($_SERVER['REQUEST_METHOD'] == "POST"){
@@ -23,32 +25,37 @@
             $userName = filter_var($_POST['userName'],FILTER_SANITIZE_STRING);
 
         }
-        if(isset($_POST['fullName'])){
-            $fullName = filter_var($_POST['fullName'],FILTER_SANITIZE_STRING);
-        }
-        $email = $_POST['email'];
+
 
         //pass
-        $pass = $_POST['password'];
-        $hashedPass = sha1($pass);
+        if(isset($_POST['password1']) && isset($_POST['password2'])){
+            if(empty($_POST['password1'])){
+                $formErrors[] = "Sorry Password can't be empty";
+            }
+            $hashedPass1 = sha1($_POST['password1']);
+            $hashedPass2 = sha1($_POST['password2']);
+            if($hashedPass1 !== $hashedPass2){
+
+                $formErrors[] = 'Passwords do not match ';
+
+            }
+        }
 
         //errors
-        $formErrors =  array();
         if(strlen($userName) < 4){
             $formErrors[] = 'username can"t less than four characters';
         }
         if(empty($userName)){
             $formErrors[] = 'username can"t be empty';
         }
-        if(empty($email)){
-            $formErrors[] = 'email can"t be empty';
+        if(isset($email)){
+            $filterEmail = filter_var($_POST['email'],FILTER_SANITIZE_EMAIL);
+            if(filter_var($filterEmail,FILTER_VALIDATE_EMAIL) != true){
+                $formErrors[] = 'email is not valid';
+            }
+
         }
-        if(empty($pass)){
-            $formErrors[] = 'password can"t be empty';
-        }
-        if(empty($fullName)){
-            $formErrors[] = 'full name can"t be empty';
-        }
+
 
 
         //check if there's no error
@@ -97,7 +104,7 @@
         <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
             <!-- -->
             <div class="user-box">
-                <input type="text" name="userName" required>
+                <input type="text" name="userName" pattern=".{4,}" title="UserName Must Be More Than 4 Characters" required>
                 <label>Username</label>
             </div>
             <!-- -->
@@ -107,13 +114,13 @@
             </div>
             <!-- -->
             <div class="user-box">
-                <input type="password" name="password" required>
+                <input type="password" name="password1" minlength="4" required>
                 <label>Password</label>
             </div>
             <!-- -->
             <div class="user-box">
-                <input type="text" name="fullName" required>
-                <label>full Name</label>
+                <input type="password" name="password2" minlength="4" required>
+                <label>Conferm Password</label>
             </div>
             <!-- -->
             <button type="submit">
