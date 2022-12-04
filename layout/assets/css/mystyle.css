@@ -421,15 +421,15 @@
         bottom: 100%;
     }
 }
-.sign-page .msg{
+.alert_msg{
     padding:20px;
-    position: relative;
-    right: 0;
-    top: 20px;
+    position: fixed;
+    left: 0;
+    top: 79px;
     z-index: 2;
-    width: auto;
+    min-width: 300px;
     margin-bottom: 20px;
-}.sign-page .msg .alert{
+}.alert_msg .alert{
      text-align: left;
      position: absolute;
 }.msg i{

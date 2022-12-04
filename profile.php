@@ -29,7 +29,19 @@
         header('Location: login.php'); //redirect to dashboard page
         exit();
     }
+
+
 ?>
+<?php if(isset($_GET['created_msg'])){?>
+<div class="alert_msg">
+    <div class="alert alert-success background-danger m-4">
+        <button type="button" class="close text-blue" data-dismiss="alert" aria-label="Close">
+            <i>x</i>
+        </button>
+        <strong><?php echo $created_msg; ?></strong>
+    </div>
+</div>
+<?php } ?>
 <!--Start Page-->
 
 <section class="profile" style="background-color: #eee;">
@@ -40,7 +52,7 @@
                     <ol class="breadcrumb mb-0">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                         <li class="breadcrumb-item"><a href="#">User</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"><?php echo $data['id']; ?></li>
+                        <li class="breadcrumb-item active" aria-current="page"><?php echo $_SESSION['userSession_username']; ?></li>
                     </ol>
                 </nav>
             </div>

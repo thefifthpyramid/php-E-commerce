@@ -90,7 +90,7 @@
     if(!empty($formErrors)){
         foreach ($formErrors as $error){
     ?>
-        <div class="msg">
+        <div class="alert_msg">
             <div class="alert alert-danger background-danger m-4">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <i>x</i>

@@ -31,4 +31,7 @@
         include $tpl . "header.php";
     }
 
+    $created_msg = "Created Successfully";
+
+    $deleted_msg = "Deleted Successfully";
 

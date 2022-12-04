@@ -27,6 +27,6 @@ $(function(){
     };
     $(".readonly").readOnly;
     $('.close').on('click',function(){
-        $(this).parents('.msg').toggle();
+        $(this).parents('.alert_msg').toggle();
     });
 });

@@ -2,6 +2,7 @@
 <link rel="stylesheet" type="text/css" href="Admin/layout/bower_components/bootstrap/css/bootstrap.min.css">
 
 <?php
+    ob_start();
     //Sessions
     if(!isset($_SESSION))
     {
@@ -17,15 +18,7 @@
         $lastElement->execute(array($_SESSION['userSession_username']));
         $data = $lastElement->fetch();
 
-        // fetch the products of the user
-        $stmt = $con->prepare("
-        SELECT items.*, categories.name AS cat_name FROM items
-        INNER JOIN categories ON categories.id = items.cat_id
-        WHERE member_id = ? ORDER BY id DESC LIMIT 5
-        ");
-        $stmt->execute(array($data['id']));
-        $products_data = $stmt->fetchAll();
-
+        $userId = $data['id'];
         //Fetch all comments
         $comments = getIData('comments','user_id',$data['id']);
     }else{
@@ -40,9 +33,10 @@
             <div class="col">
                 <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
                     <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">User</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"><?php echo $data['id']; ?></li>
+                        <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                        <li class="breadcrumb-item">Users</li>
+                        <li class="breadcrumb-item"><a href="profile.php"><?php echo $_SESSION['userSession_username']; ?></a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Create Product</li>
                     </ol>
                 </nav>
             </div>
@@ -97,7 +91,7 @@
                             <h4 class="">Create New Product</h4>
                             <a href="#" class="btn waves-effect waves-light btn-main btn-square position-right"> Edit <i class="fa fa-edit text-primary"></i> </a>
                         </div>
-                        <form id="second" action="?do=Insert" method="post">
+                        <form id="second" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                             <!-- Start Form Group -->
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Name</label>
@@ -181,6 +175,77 @@
                                 </div>
                             </div>
                         </form>
+                        <?php
+                        /**************************************/
+                        if($_SERVER['REQUEST_METHOD'] == "POST"){
+
+                            $Name = $_POST['name'];
+                            $description = $_POST['description'];
+                            $price = $_POST['price'];
+                            $country_made = $_POST['country_made'];
+                            $status = $_POST['status'];
+                            $image = 'imsge';
+                            $cat_id = $_POST['cat_id'];
+
+
+                            //errors
+                            $formErrors =  array();
+                            if(empty($Name)){
+                                $formErrors[] = "section name can't be empty!";
+                            }
+                            if(empty($description)){
+                                $formErrors[] = "description name can't be empty!";
+                            }
+                            if(empty($price)){
+                                $formErrors[] = "price name can't be empty!";
+                            }
+                            if(empty($country_made)){
+                                $formErrors[] = "country made name can't be empty!";
+                            }
+                            if($status === 0){
+                                $formErrors[] = "country made name can't be empty!";
+                            }
+                            if($cat_id == 0){
+                                $formErrors[] = "Category name can't be empty!";
+                            }
+                            foreach ($formErrors as $errors){
+                                echo '
+                                    <div class="alert alert-danger background-danger m-3">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <i class="icofont icofont-close-line-circled text-white"></i>
+                                    </button>
+                                    <strong>'. $errors.'</strong> 
+                                    </div>
+                                '; //end echo
+                            }//end foreach
+                            //check if there's no errors
+                            if(empty($formErrors)){
+                                //id	name	description	price	add_date	country_made	status	image	rating	cat_id	member_id
+                                $stmt = $con->prepare("INSERT INTO items(name, description, price,add_date,country_made,status,image,rating,cat_id,member_id) 
+                                                                             VALUES(:name, :description, :price, now(),:country_made,:status,:image,:rating,:cat_id,:member_id) ");
+                                $stmt->execute(array(
+                                    'name'              =>$Name,
+                                    'description'       =>$description,
+                                    'price'             =>$price,
+                                    'country_made'      =>$country_made,
+                                    'status'            =>$status,
+                                    'image'             =>$image,
+                                    'rating'            =>'...',
+                                    'cat_id'            =>$cat_id,
+                                    'member_id'         =>$userId,
+                                ));
+
+                                //redirectHome('alert alert-success background-success m-3',"creating Success!","back", 3);
+                                //header('profile.php',4);
+                                header("Location:profile.php?created_msg");
+
+                            } //end check function
+                        }else{
+                            //redirectHome('danger','sorry you can"t open this page direct',4);
+                        }
+                        /**************************************/
+
+                        ?>
                     </div>
                 </div>
 
@@ -190,4 +255,7 @@
 </section>
 
 <!--End Page-->
-<?php include "includes/templates/footer.php"; ?>
+<?php
+    include "includes/templates/footer.php";
+    ob_end_flush();
+?>
