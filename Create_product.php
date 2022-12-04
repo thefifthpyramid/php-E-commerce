@@ -96,7 +96,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="name" placeholder="name of the product" required="required">
+                                    <input type="text" class="form-control" name="name" placeholder="name of the product" required="off">
                                     <span class="messages popover-valid"></span>
                                 </div>
                             </div><!-- End Form Group -->
@@ -180,27 +180,39 @@
                         if($_SERVER['REQUEST_METHOD'] == "POST"){
 
                             $Name = $_POST['name'];
-                            $description = $_POST['description'];
-                            $price = $_POST['price'];
-                            $country_made = $_POST['country_made'];
-                            $status = $_POST['status'];
-                            $image = 'imsge';
-                            $cat_id = $_POST['cat_id'];
+                            $description        = filter_var($_POST['description'],FILTER_SANITIZE_STRING);
+                            $price              = filter_var($_POST['price'],FILTER_SANITIZE_NUMBER_INT);
+                            $country_made       = filter_var($_POST['country_made'],FILTER_SANITIZE_STRING);
+                            $status             = filter_var($_POST['status'],FILTER_SANITIZE_NUMBER_INT);
+                            $image              = 'imsge';
+                            $cat_id             = filter_var($_POST['cat_id'],FILTER_SANITIZE_NUMBER_INT);
 
 
                             //errors
                             $formErrors =  array();
+                            if(strlen($Name) < 4){
+                                $formErrors[] = "Product name can Not Be Less than 4 characters!";
+                            }
                             if(empty($Name)){
                                 $formErrors[] = "section name can't be empty!";
                             }
                             if(empty($description)){
-                                $formErrors[] = "description name can't be empty!";
+                                $formErrors[] = "description can't be empty!";
+                            }
+                            if(strlen($description) < 10){
+                                $formErrors[] = "description can Not Be Less than 10 characters!";
                             }
                             if(empty($price)){
                                 $formErrors[] = "price name can't be empty!";
                             }
+                            if(strlen($price) < 1){
+                                $formErrors[] = "Price can Not Be Less than 1 characters!";
+                            }
                             if(empty($country_made)){
                                 $formErrors[] = "country made name can't be empty!";
+                            }
+                            if(strlen($country_made) < 2){
+                                $formErrors[] = "Country name can Not Be Less than 2 characters!";
                             }
                             if($status === 0){
                                 $formErrors[] = "country made name can't be empty!";
