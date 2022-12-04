@@ -38,7 +38,227 @@
     font-family: sans-serif;
     background: linear-gradient(#141e30, #243b55);
 }
+/*Create product page*/
 
+.card {
+    border-radius: 5px;
+    -webkit-box-shadow: 0 0 5px 0 rgba(43, 43, 43, .1), 0 11px 6px -7px rgba(43, 43, 43, .1);
+    box-shadow: 0 0 5px 0 rgba(43, 43, 43, .1), 0 11px 6px -7px rgba(43, 43, 43, .1);
+    border: none;
+    margin-bottom: 30px;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out
+}
+
+.card .card-footer {
+    border-top: none;
+    padding: 15px 20px;
+    border-radius: 0 0 10px 10px
+}
+
+.card .card-header {
+    background-color: transparent;
+    border-bottom: none;
+    padding: 20px;
+    position: relative
+}
+
+.card .card-header.borderless {
+    border-bottom: 0 solid transparent
+}
+
+.card .card-header.borderless+.card-block,
+.card .card-header.borderless+.card-block-big,
+.card .card-header.borderless+.card-block-small {
+    padding-top: 0
+}
+
+.card .card-header .card-header-left {
+    display: inline-block
+}
+
+.card .card-header .card-header-right {
+    right: 10px;
+    top: 13px;
+    display: inline-block;
+    float: right;
+    padding: 7px 0;
+    position: absolute
+}
+
+@media only screen and (max-width:575px) {
+    .card .card-header .card-header-right {
+        display: none
+    }
+}
+
+.card .card-header .card-header-right i {
+    margin: 0 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    line-height: 1
+}
+
+.card .card-header .card-header-right .card-option {
+    width: 35px;
+    height: 20px;
+    overflow: hidden;
+    -webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out
+}
+
+.card .card-header .card-header-right .card-option li {
+    display: inline-block
+}
+
+.card .card-header span {
+    display: block;
+    font-size: 13px;
+    margin-top: 5px
+}
+
+.card .card-header h5 {
+    margin-bottom: 0;
+    color: #333;
+    font-size: 15px;
+    font-weight: 700;
+    display: inline-block;
+    margin-right: 10px;
+    line-height: 1.1;
+    position: relative
+}
+
+.card .card-header h5+span {
+    display: none
+}
+
+.card .card-header h5:after {
+    content: "";
+    background-color: #d2d2d2;
+    width: 60px;
+    height: 1px;
+    position: absolute;
+    bottom: -20px;
+    left: 0
+}
+
+.card .card-block {
+    padding: 1.25rem
+}
+
+.card .card-block.card-p-0 {
+    padding: 1.25rem 0 0
+}
+
+.card .card-block.p-b-0 {
+    padding-bottom: 0
+}
+
+.card .card-block table tr {
+    padding-bottom: 20px
+}
+
+.card .card-block .sub-title {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px
+}
+
+.card .card-block code {
+    background-color: #eee;
+    margin: 5px;
+    display: inline-block
+}
+
+.card .card-block .dropdown-menu {
+    top: 38px
+}
+
+.card .card-block p {
+    line-height: 1.4
+}
+
+.card .card-block a.dropdown-item {
+    margin-bottom: 0;
+    font-size: 14px;
+    -webkit-transition: .25s;
+    transition: .25s
+}
+
+.card .card-block a.dropdown-item:active,
+.card .card-block a.dropdown-item .active {
+    background-color: #4099ff
+}
+
+.card .card-block.remove-label i {
+    margin: 0;
+    padding: 0
+}
+
+.card .card-block.button-list span.badge {
+    margin-left: 5px
+}
+
+.card .card-block .dropdown-menu {
+    background-color: #fff;
+    padding: 0
+}
+
+.card .card-block .dropdown-menu .dropdown-divider {
+    background-color: #ddd;
+    margin: 3px 0
+}
+
+.card .card-block .dropdown-menu>a {
+    padding: 10px 16px;
+    line-height: 1.429
+}
+
+.card .card-block .dropdown-menu>li>a:focus,
+.card .card-block .dropdown-menu>li>a:hover {
+    background-color: rgba(202, 206, 209, .5)
+}
+
+.card .card-block .dropdown-menu>li:first-child>a:first-child {
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px
+}
+
+.card .card-block .badge-box {
+    padding: 10px;
+    margin: 12px 0
+}
+
+.card .card-block-big {
+    padding: 1.5625rem
+}
+
+.card .card-block-small {
+    padding: .9375rem
+}
+
+.card-footer {
+    background: 0 0
+}
+.create-product-page{
+
+}.create-product-page{
+
+}.create-product-page .fa-asterisk {
+      right: 25px;
+      top: 13px;
+  }
+.btn-primary, .sweet-alert button.confirm, .wizard>.actions a {
+    background-color: #4099ff;
+    border-color: #4099ff;
+    color: #fff;
+    cursor: pointer;
+    -webkit-transition: all ease-in .3s;
+    transition: all ease-in .3s;
+}
+/*End Create product page*/
 /*Login Page*/
 .login-box {
     position: absolute;

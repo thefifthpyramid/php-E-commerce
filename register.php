@@ -18,15 +18,24 @@
     //errors
     $formErrors =  array();
 
-    // Register Operation
+    /*
+        **********************  ************************
+        *  Register Operation
+        **********************  ************************
+     */
     if($_SERVER['REQUEST_METHOD'] == "POST"){
-        if(isset($_POST['userName'])){
+        //Vars
+        $userName = $_POST['userName'];
+        if(isset($userName)){
             /* ?>&#x2770;script>alert(1);</script><?php */
-            $userName = filter_var($_POST['userName'],FILTER_SANITIZE_STRING);
+            $userNameFilter = filter_var($userName,FILTER_SANITIZE_STRING);
 
+        }if(strlen($userNameFilter) < 4){
+            $formErrors[] = 'username can"t less than four characters';
         }
-
-
+        if(empty($userNameFilter)){
+            $formErrors[] = 'username can"t be empty';
+        }
         //pass
         if(isset($_POST['password1']) && isset($_POST['password2'])){
             if(empty($_POST['password1'])){
@@ -40,41 +49,32 @@
 
             }
         }
-
-        //errors
-        if(strlen($userName) < 4){
-            $formErrors[] = 'username can"t less than four characters';
-        }
-        if(empty($userName)){
-            $formErrors[] = 'username can"t be empty';
-        }
+        // email errors
+        $email = $_POST['email'];
         if(isset($email)){
             $filterEmail = filter_var($_POST['email'],FILTER_SANITIZE_EMAIL);
             if(filter_var($filterEmail,FILTER_VALIDATE_EMAIL) != true){
                 $formErrors[] = 'email is not valid';
             }
-
         }
-
-
 
         //check if there's no error
         if(empty($formErrors)){
-            $check = CheckItems('userName','users',$userName);
+            $check = CheckItems('userName','users', $userName);
             if($check == 1){
-                redirectHome('alert alert-danger background-danger',"Sorry, this user exists!","members.php?do=add", 3);
+                $formErrors[] = "This User Already Exist";
             }else{
                 //check if user already exist
 
                 $stmt = $con->prepare("INSERT INTO users(userName, email, password,fullName,Reg_Status,Date) VALUES(:userName, :email, :password, :fullName,0,now()) ");
                 $stmt->execute(array(
-                    'userName'  =>$userName,
-                    'email'     =>$email,
-                    'password'  =>$hashedPass,
-                    'fullName'  =>$fullName,
+                    'userName'  =>$userNameFilter,
+                    'email'     =>$filterEmail,
+                    'password'  =>$hashedPass1,
+                    'fullName'  =>'unKnown',
                 ));
                 $_SESSION['userSession_username'] = $userName; //register session
-                header('Location: index.php'); //redirect to dashboard page
+                header('Location: profile.php'); //redirect to dashboard page
                 exit();
                 //redirect_user('alert alert-success background-success m-3 text-center',"creating Success!",'',"login.php", 4);
                 //redirect_user($class,$massage,$notifyMsg = null,$url = null,$seconds = 3);

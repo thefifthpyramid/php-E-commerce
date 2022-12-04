@@ -39,7 +39,7 @@ function redirectHome($class,$massage,$url = null,$seconds = 3){
     echo '<div class="' . $class .'  m-3"> '.$massage.' </div>';
     echo '<p class="m-3"><i class="fa fa-bell text-c-red "></i> You will be redirected Back After <strong>' . $seconds .' </strong> seconds.</p>';
     header("refresh:$seconds;url=$url");
-    //exit();
+    exit();
 }
 
 //#########################################
@@ -158,7 +158,7 @@ function getIData($table,$where,$value){
     return $count->fetchAll();
 }
 
-
+//
 function redirect_user($class,$massage,$notifyMsg,$url = null,$seconds = 3){
     if($url === null){
         $url = 'dashboard.php';
@@ -178,5 +178,5 @@ function redirect_user($class,$massage,$notifyMsg,$url = null,$seconds = 3){
     echo '<div class="' . $class .'  m-3"> '.$massage.' </div>';
     echo '<p class="m-3"><i class="fa fa-bell text-c-red "></i> ' . $textOfNotify . '</p>';
     header("refresh:$seconds;url=$url");
-    //exit();
+    exit();
 }

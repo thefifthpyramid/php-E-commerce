@@ -1,10 +1,11 @@
 <?php
-    $pageTitle = "Home Page";
     //Sessions
     if(!isset($_SESSION))
     {
         session_start();
     }
+    $pageTitle = $_SESSION['userSession_username'] . ": Profile Page";
+
 //print_r($_SESSION);
     if(isset($_SESSION['userSession_username'])){
         include_once "init.php";
@@ -89,27 +90,31 @@
             </div>
             <div class="col-lg-8"><!-- right side -->
                 <div class="card mb-4">
-                    <div class="card-body text-center">
+                    <div class="card-body">
                         <div class="card-header">
                             <h4 class="">My Details</h4>
                             <a href="#" class="btn waves-effect waves-light btn-main btn-square position-right"> Edit <i class="fa fa-edit text-primary"></i> </a>
                         </div>
-                        <table class="table border">
+                        <table class="table border ">
                             <tr>
-                                <td>User Name</td>
+                                <td><i class="fa fa-lock fa-fw"></i> Login Name</td>
+                                <td><?php echo $data['userName']; ?></td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-envelope-o fa-fw"></i> Email</td>
+                                <td><?php echo $data['email']; ?></td>
+                            </tr>
+                            <tr>
+                                <td class="text-left"><i class="fa fa-calendar fa-fw"></i> Register Date</td>
+                                <td><?php echo $data['Date']; ?></td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-user fa-fw"></i> Full Name</td>
                                 <td><?php echo $data['fullName']; ?></td>
                             </tr>
                             <tr>
-                                <td>Email</td>
-                                <td><?php echo $data['email']; ?></td>
-                            </tr>
-                            <tr>
-                                <td>Phone</td>
-                                <td><?php echo $data['email']; ?></td>
-                            </tr>
-                            <tr>
-                                <td>Address</td>
-                                <td><?php echo $data['email']; ?></td>
+                                <td><i class="fa fa-tags fa-fw"></i> Fav Category</td>
+                                <td><?php echo $data['fullName']; ?></td>
                             </tr>
                         </table>
                     </div>
@@ -186,7 +191,7 @@
                     <div class="card-body text-center">
                         <div class="card-header">
                             <h4 class="">My Products</h4>
-                            <a href="#" class="btn waves-effect waves-light btn-main btn-square position-right"> Create New <i class="fa fa-plus text-primary"></i> </a>
+                            <a href="Create_product.php" class="btn waves-effect waves-light btn-main btn-square position-right"> Create New <i class="fa fa-plus text-primary"></i> </a>
                         </div>
                         <?php if(!empty($products_data)){?>
                         <table class="table border">
