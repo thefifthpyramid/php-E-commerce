@@ -106,11 +106,16 @@
                         <h4 class="title"><?php echo $product_data['name'];?></h4>
                         <div class="d-flex align-items-center">
                             <ul class="review-star">
-                                <li class="fill"><i class="ion-android-star"></i></li>
-                                <li class="fill"><i class="ion-android-star"></i></li>
-                                <li class="fill"><i class="ion-android-star"></i></li>
-                                <li class="fill"><i class="ion-android-star"></i></li>
-                                <li class="empty"><i class="ion-android-star"></i></li>
+                                <?php
+                                    $counter = $product_data['rating'];
+                                    $unCounter = 5 - $product_data['rating'];
+                                for ($i = 1; $i <= $counter; $i++){
+                                    echo '<i class="fa fa-star f-12 text-c-yellow"></i>';
+                                }
+                                for ($x = 1; $x <= $unCounter; $x++){
+                                    echo '<i class="fa fa-star f-12 text-default"></i>';
+                                }
+                                ?>
                             </ul>
                             <a href="#" class="customer-review ml-2">(customer review )</a>
                         </div>
