@@ -10,9 +10,7 @@
     if(isset($_SESSION['userSession_username'])){
         include_once "init.php";
         // the latest users
-        $lastElement = $con->prepare("SELECT * FROM users WHERE userName = ?");
-        $lastElement->execute(array($_SESSION['userSession_username']));
-        $data = $lastElement->fetch();
+        $data = FetchOneColum('users','userName',$_SESSION['userSession_username']);
 
         // fetch the products of the user
         $stmt = $con->prepare("

@@ -202,7 +202,7 @@
                         <!-- Start Single Sidebar Widget -->
                         <div class="sidebar-single-widget">
                             <div class="sidebar-content">
-                                <a href="product-details-default.html" class="sidebar-banner img-hover-zoom">
+                                <a href="product-details.php?product_id=<?php  echo $item['id']; ?>" class="sidebar-banner img-hover-zoom">
                                     <img class="img-fluid" src="layout/assets/images/banner/side-banner.jpg" alt="">
                                 </a>
                             </div>
@@ -276,11 +276,9 @@
                                                     <div class="product-default-single-item product-color--golden"
                                                          data-aos="fade-up" data-aos-delay="0">
                                                         <div class="image-box">
-                                                            <a href="product-details-default.html" class="image-link">
-                                                                <img src="layout/assets/images/product/default/home-1/default-9.jpg"
-                                                                     alt="">
-                                                                <img src="layout/assets/images/product/default/home-1/default-10.jpg"
-                                                                     alt="">
+                                                            <a href="product-details.php?product_id=<?php  echo $item['id']; ?>" class="image-link">
+                                                                <img src="layout/assets/images/product/default/home-1/default-9.jpg" alt="">
+                                                                <img src="layout/assets/images/product/default/home-1/default-10.jpg" alt="">
                                                             </a>
                                                             <div class="action-link">
                                                                 <div class="action-link-left">
@@ -300,8 +298,7 @@
                                                         </div>
                                                         <div class="content">
                                                             <div class="content-left">
-                                                                <h6 class="title"><a
-                                                                            href="product-details-default.html"><?php echo $item['name']; ?></a></h6>
+                                                                <h6 class="title"><a href="product-details.php?product_id=<?php  echo $item['id']; ?>"><?php echo $item['name']; ?></a></h6>
                                                                 <ul class="review-star">
                                                                     <?php
                                                                         $counter = $item['rating'];
@@ -339,7 +336,7 @@
                                                     <div class="col-12">
                                                             <!-- Start Product Defautlt Single -->
                                                             <div class="product-list-single product-color--golden">
-                                                                <a href="product-details-default.html"
+                                                                <a href="product-details.php?product_id=<?php  echo $item['id']; ?>"
                                                                    class="product-list-img-link">
                                                                     <img class="img-fluid"
                                                                          src="layout/assets/images/product/default/home-1/default-5.jpg"
@@ -349,7 +346,7 @@
                                                                          alt="">
                                                                 </a>
                                                                 <div class="product-list-content">
-                                                                    <h5 class="product-list-link"><a  href="product-details-default.html"><?php  echo $item['name']; ?></a></h5>
+                                                                    <h5 class="product-list-link"><a  href="product-details.php?product_id=<?php  echo $item['id']; ?>"><?php  echo $item['name']; ?></a></h5>
                                                                     <ul class="review-star">
                                                                         <li class="fill"><i class="ion-android-star"></i></li>
                                                                         <li class="fill"><i class="ion-android-star"></i></li>

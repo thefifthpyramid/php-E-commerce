@@ -245,11 +245,11 @@
                                     'cat_id'            =>$cat_id,
                                     'member_id'         =>$userId,
                                 ));
-
-                                //redirectHome('alert alert-success background-success m-3',"creating Success!","back", 3);
-                                //header('profile.php',4);
-                                header("Location:profile.php?created_msg");
-
+                                if($stmt){
+                                    //redirectHome('alert alert-success background-success m-3',"creating Success!","back", 3);
+                                    //header('profile.php',4);
+                                    header("Location:profile.php?created_msg");
+                                }
                             } //end check function
                         }else{
                             //redirectHome('danger','sorry you can"t open this page direct',4);

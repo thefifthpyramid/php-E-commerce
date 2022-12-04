@@ -158,6 +158,13 @@ function getIData($table,$where,$value){
     return $count->fetchAll();
 }
 
+function FetchOneColum($table,$where,$value){
+    global $con;
+    $lastElement = $con->prepare("SELECT * FROM $table WHERE $where = ?");
+    $lastElement->execute(array($value));
+    return $lastElement->fetch();
+}
+
 //
 function redirect_user($class,$massage,$notifyMsg,$url = null,$seconds = 3){
     if($url === null){
