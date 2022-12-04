@@ -2,11 +2,15 @@
     ob_start();
     $pageTitle = "Details";
     include_once "init.php";
+    //$category_name = isset($_GET['category_name']) ? intval($_GET['category_name']) : 'none' ;
+    //$category_name = FetchOneColum('categories','id',$product_data['cat_id']);
     $product_id = isset($_GET['product_id']) && is_numeric($_GET['product_id']) ? intval($_GET['product_id']) : 0 ;
     if($product_id == 0){
         header("Location:shop.php?category_id=000&cat_name=All-Products");
     }
+
     $product_data = FetchOneColum('items','id',$product_id);
+    $category_name = FetchOneColum('categories','id',$product_data['cat_id']);
 ?>
 <!--Start Page-->
 
@@ -204,9 +208,7 @@
                     <div class="product-details-catagory mb-2">
                         <span class="title">CATEGORIES:</span>
                         <ul>
-                            <li><a href="#">BAR STOOL</a></li>
-                            <li><a href="#">KITCHEN UTENSILS</a></li>
-                            <li><a href="#">TENNIS</a></li>
+                            <li><a href="shop.php?category_id=<?php echo $category_name['id'];?>&cat_name=<?php echo $category_name['name'];?>"><?php echo $category_name['name'];?></a></li>
                         </ul>
                     </div> <!-- End  Product Details Catagories Area-->
 
@@ -262,17 +264,22 @@
                                 <div class="single-tab-content-item">
                                     <table class="table table-bordered mb-20">
                                         <tbody>
-                                        <tr>
-                                            <th scope="row">Compositions</th>
-                                            <td>Polyester</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Styles</th>
-                                            <td>Girly</td>
-                                        <tr>
-                                            <th scope="row">Properties</th>
-                                            <td>Short Dress</td>
-                                        </tr>
+                                            <tr>
+                                                <th scope="row">Owner</th>
+                                                <td><?php echo $product_data['country_made'];?></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Styles</th>
+                                                <td>Girly</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Properties</th>
+                                                <td>Short Dress</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Country</th>
+                                                <td>Made In <?php echo $product_data['country_made'];?></td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                     <p>Fashion has been creating well-designed collections since 2010. The brand
