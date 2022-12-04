@@ -96,7 +96,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="name" placeholder="name of the product" required="off">
+                                    <input type="text" class="form-control" name="name" placeholder="name of the product" required="off"  pattern=".{4,}" title="UserName Must Be More Than 4 Characters">
                                     <span class="messages popover-valid"></span>
                                 </div>
                             </div><!-- End Form Group -->
@@ -104,7 +104,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Description</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="password form-control" name="description" placeholder="product description" required="required">
+                                    <input type="text" class="password form-control" name="description" placeholder="product description" required="required" pattern=".{10,}" title="UserName Must Be More Than 10 Characters">
                                     <span class="messages popover-valid"></span>
                                 </div>
                             </div><!-- End Form Group -->
@@ -113,10 +113,10 @@
                                 <label class="col-sm-2 col-form-label">Price</label>
                                 <div class="col-sm-10">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" name="price" placeholder="product price">
+                                        <input type="text" class="form-control price-field" name="price" placeholder="product price" required  pattern=".{1,}" title="UserName Must Be More Than 1 Characters">
                                         <span class="input-group-append" id="basic-addon3">
-                                                        <label class="input-group-text">$</label>
-                                                     </span>
+                                            <label class="input-group-text">$</label>
+                                         </span>
                                     </div>
                                 </div>
                             </div><!-- End Form Group -->
@@ -142,7 +142,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Status</label>
                                 <div class="col-sm-10">
-                                    <select name="status" class="form-control">
+                                    <select name="status" class="form-control" >
                                         <option value="0">...</option>
                                         <option value="1">New</option>
                                         <option value="2">Like New</option>
@@ -187,38 +187,37 @@
                             $image              = 'imsge';
                             $cat_id             = filter_var($_POST['cat_id'],FILTER_SANITIZE_NUMBER_INT);
 
-
                             //errors
                             $formErrors =  array();
                             if(strlen($Name) < 4){
                                 $formErrors[] = "Product name can Not Be Less than 4 characters!";
                             }
                             if(empty($Name)){
-                                $formErrors[] = "section name can't be empty!";
+                                $formErrors[] = "Product name can't be empty!";
                             }
                             if(empty($description)){
-                                $formErrors[] = "description can't be empty!";
+                                $formErrors[] = "Description Field can't be empty!";
                             }
                             if(strlen($description) < 10){
-                                $formErrors[] = "description can Not Be Less than 10 characters!";
+                                $formErrors[] = "Description Field can Not Be Less than 10 characters!";
                             }
                             if(empty($price)){
-                                $formErrors[] = "price name can't be empty!";
+                                $formErrors[] = "Price Field can't be empty!";
                             }
                             if(strlen($price) < 1){
-                                $formErrors[] = "Price can Not Be Less than 1 characters!";
+                                $formErrors[] = "Price Field can Not Be Less than 1 characters!";
                             }
                             if(empty($country_made)){
-                                $formErrors[] = "country made name can't be empty!";
+                                $formErrors[] = "Country made can't be empty!";
                             }
                             if(strlen($country_made) < 2){
-                                $formErrors[] = "Country name can Not Be Less than 2 characters!";
+                                $formErrors[] = "Country name Field can Not Be Less than 2 characters!";
                             }
-                            if($status === 0){
-                                $formErrors[] = "country made name can't be empty!";
+                            if($status == 0){
+                                $formErrors[] = "Status Field can't be empty!";
                             }
                             if($cat_id == 0){
-                                $formErrors[] = "Category name can't be empty!";
+                                $formErrors[] = "Category Field can't be empty!";
                             }
                             foreach ($formErrors as $errors){
                                 echo '
