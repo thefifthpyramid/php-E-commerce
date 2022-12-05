@@ -30,6 +30,13 @@
     margin: auto;
     margin-bottom: 20px;
 }
+.active-link{
+    color: #b19361;
+    font-weight: bold;
+    translate: .3s ease-in-out;
+}.active-link:hover{
+     color: #67502a;
+ }
 /* Login And Register Page */
 
 .main-container {

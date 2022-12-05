@@ -1,10 +1,13 @@
 <?php
     ob_start();
-    if(!isset($_SESSION))
-    {
+    if(!isset($_SESSION)){
         session_start();
     }
-    $userName = $_SESSION['userSession_username'];
+    $userNameSession = '';
+    if(isset($_SESSION['userSession_username'])){
+        $userNameSession = $_SESSION['userSession_username'];
+    }
+
     $pageTitle = "Details";
     include_once "init.php";
     //$category_name = isset($_GET['category_name']) ? intval($_GET['category_name']) : 'none' ;
@@ -297,9 +300,11 @@
                             <div class="tab-pane" id="review">
                                 <div class="single-tab-content-item">
                                     <!-- Start - Review Comment -->
+
                                     <ul class="comment">
                                         <!-- Start - Review Comment list-->
                                         <?php
+
                                         /* ********************************************************** */
                                             $comments = getIData('comments','item_id', $product_data['id']);
                                             foreach($comments as $comment){
@@ -339,7 +344,9 @@
                                             </div>
                                         </li> <!-- End - Review Comment list-->
                                     </ul> <!-- End - Review Comment -->
-                                    <?php }?>
+                                    <?php }
+                                    if ($userNameSession != '') {
+                                        ?>
                                     <div class="review-form">
                                         <div class="review-form-text-top">
                                             <h5>ADD A REVIEW</h5>
@@ -376,6 +383,9 @@
                                             }
                                         ?>
                                     </div>
+                                <?php }else{?>
+                                        <div class="text-center pt-5">You Have To Sign Up To See the Comments <a href="login.php" class="active-link">Login</a> / <a href="register.php" class="active-link">Register</a> </div>
+                                    <?php }?>
                                 </div>
                             </div> <!-- End Product Details Tab Content Singel -->
                         </div>
