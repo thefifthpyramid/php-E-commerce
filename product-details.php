@@ -1,5 +1,10 @@
 <?php
     ob_start();
+    if(!isset($_SESSION))
+    {
+        session_start();
+    }
+    $userName = $_SESSION['userSession_username'];
     $pageTitle = "Details";
     include_once "init.php";
     //$category_name = isset($_GET['category_name']) ? intval($_GET['category_name']) : 'none' ;
@@ -208,7 +213,7 @@
                     <div class="product-details-catagory mb-2">
                         <span class="title">CATEGORIES:</span>
                         <ul>
-                            <li><a href="shop.php?category_id=<?php echo $category_name['id'];?>&cat_name=<?php echo $category_name['name'];?>"><?php echo $category_name['name'];?></a></li>
+                            <li><a href="shop.php?category_id=<?php echo $category_name['id'];?>&cat_name=<?php echo str_replace(' ','-',$category_name['name']);?>"><?php echo $category_name['name'];?></a></li>
                         </ul>
                     </div> <!-- End  Product Details Catagories Area-->
 
@@ -265,16 +270,12 @@
                                     <table class="table table-bordered mb-20">
                                         <tbody>
                                             <tr>
+                                                <th scope="row">Category</th>
+                                                <td><?php echo $category_name['name'];?></td>
+                                            </tr>
+                                            <tr>
                                                 <th scope="row">Owner</th>
                                                 <td><?php echo $product_data['country_made'];?></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Styles</th>
-                                                <td>Girly</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Properties</th>
-                                                <td>Short Dress</td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">Country</th>
@@ -298,82 +299,12 @@
                                     <!-- Start - Review Comment -->
                                     <ul class="comment">
                                         <!-- Start - Review Comment list-->
-                                        <li class="comment-list">
-                                            <div class="comment-wrapper">
-                                                <div class="comment-img">
-                                                    <img src="layout/assets/images/user/image-1.png" alt="">
-                                                </div>
-                                                <div class="comment-content">
-                                                    <div class="comment-content-top">
-                                                        <div class="comment-content-left">
-                                                            <h6 class="comment-name">Kaedyn Fraser</h6>
-                                                            <ul class="review-star">
-                                                                <li class="fill"><i class="ion-android-star"></i>
-                                                                </li>
-                                                                <li class="fill"><i class="ion-android-star"></i>
-                                                                </li>
-                                                                <li class="fill"><i class="ion-android-star"></i>
-                                                                </li>
-                                                                <li class="fill"><i class="ion-android-star"></i>
-                                                                </li>
-                                                                <li class="empty"><i class="ion-android-star"></i>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="comment-content-right">
-                                                            <a href="#"><i class="fa fa-reply"></i>Reply</a>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="para-content">
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                            Tempora inventore dolorem a unde modi iste odio amet,
-                                                            fugit fuga aliquam, voluptatem maiores animi dolor nulla
-                                                            magnam ea! Dignissimos aspernatur cumque nam quod sint
-                                                            provident modi alias culpa, inventore deserunt
-                                                            accusantium amet earum soluta consequatur quasi eum eius
-                                                            laboriosam, maiores praesentium explicabo enim dolores
-                                                            quaerat! Voluptas ad ullam quia odio sint sunt. Ipsam
-                                                            officia, saepe repellat. </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Start - Review Comment Reply-->
-                                            <ul class="comment-reply">
-                                                <li class="comment-reply-list">
-                                                    <div class="comment-wrapper">
-                                                        <div class="comment-img">
-                                                            <img src="layout/assets/images/user/image-2.png" alt="">
-                                                        </div>
-                                                        <div class="comment-content">
-                                                            <div class="comment-content-top">
-                                                                <div class="comment-content-left">
-                                                                    <h6 class="comment-name">Oaklee Odom</h6>
-                                                                </div>
-                                                                <div class="comment-content-right">
-                                                                    <a href="#"><i class="fa fa-reply"></i>Reply</a>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="para-content">
-                                                                <p>Lorem ipsum dolor sit amet, consectetur
-                                                                    adipisicing elit. Tempora inventore dolorem a
-                                                                    unde modi iste odio amet, fugit fuga aliquam,
-                                                                    voluptatem maiores animi dolor nulla magnam ea!
-                                                                    Dignissimos aspernatur cumque nam quod sint
-                                                                    provident modi alias culpa, inventore deserunt
-                                                                    accusantium amet earum soluta consequatur quasi
-                                                                    eum eius laboriosam, maiores praesentium
-                                                                    explicabo enim dolores quaerat! Voluptas ad
-                                                                    ullam quia odio sint sunt. Ipsam officia, saepe
-                                                                    repellat. </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul> <!-- End - Review Comment Reply-->
-                                        </li> <!-- End - Review Comment list-->
-                                        <!-- Start - Review Comment list-->
+                                        <?php
+                                        /* ********************************************************** */
+                                            $comments = getIData('comments','item_id', $product_data['id']);
+                                            foreach($comments as $comment){
+                                        /* ********************************************************** */
+                                        ?>
                                         <li class="comment-list">
                                             <div class="comment-wrapper">
                                                 <div class="comment-img">
@@ -402,57 +333,48 @@
                                                     </div>
 
                                                     <div class="para-content">
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                            Tempora inventore dolorem a unde modi iste odio amet,
-                                                            fugit fuga aliquam, voluptatem maiores animi dolor nulla
-                                                            magnam ea! Dignissimos aspernatur cumque nam quod sint
-                                                            provident modi alias culpa, inventore deserunt
-                                                            accusantium amet earum soluta consequatur quasi eum eius
-                                                            laboriosam, maiores praesentium explicabo enim dolores
-                                                            quaerat! Voluptas ad ullam quia odio sint sunt. Ipsam
-                                                            officia, saepe repellat. </p>
+                                                        <p><?php echo $comment['comment']; ?></p>
                                                     </div>
                                                 </div>
                                             </div>
                                         </li> <!-- End - Review Comment list-->
                                     </ul> <!-- End - Review Comment -->
+                                    <?php }?>
                                     <div class="review-form">
                                         <div class="review-form-text-top">
                                             <h5>ADD A REVIEW</h5>
-                                            <p>Your email address will not be published. Required fields are marked
-                                                *</p>
                                         </div>
 
-                                        <form action="#" method="post">
+                                        <form action="<?php $_SERVER['PHP_SELF'];?>" method="post">
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-12">
                                                     <div class="default-form-box">
-                                                        <label for="comment-name">Your name <span>*</span></label>
-                                                        <input id="comment-name" type="text"
-                                                               placeholder="Enter your name" required>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="default-form-box">
-                                                        <label for="comment-email">Your Email <span>*</span></label>
-                                                        <input id="comment-email" type="email"
-                                                               placeholder="Enter your email" required>
+                                                        <textarea id="comment-review-text" placeholder="Write a review" name="comment" required></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
-                                                    <div class="default-form-box">
-                                                        <label for="comment-review-text">Your review
-                                                            <span>*</span></label>
-                                                        <textarea id="comment-review-text"
-                                                                  placeholder="Write a review" required></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12">
-                                                    <button class="btn btn-md btn-black-default-hover"
-                                                            type="submit">Submit</button>
+                                                    <button class="btn btn-md btn-black-default-hover" type="submit">Submit</button>
                                                 </div>
                                             </div>
                                         </form>
+                                        <?php
+                                            /* ******************************************** */
+                                            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                                                $comment = filter_var($_POST['comment'],FILTER_SANITIZE_STRING);;
+                                                $userName = $_SESSION['userSession_username'];
+                                                $item_id = $product_id;
+                                                $stmt = $con->prepare("INSERT INTO comments(comment, user_id, item_id,comment_date) 
+                                                                             VALUES(:comment, :user_id, :item_id, now()) ");
+                                                $stmt->execute(array(
+                                                    'comment'      =>$comment,
+                                                    'user_id'      =>1,
+                                                    'item_id'      =>$item_id,
+                                                ));
+                                                if($stmt){
+                                                    echo 'Done,Your Comment Is Uploading';
+                                                }
+                                            }
+                                        ?>
                                     </div>
                                 </div>
                             </div> <!-- End Product Details Tab Content Singel -->
