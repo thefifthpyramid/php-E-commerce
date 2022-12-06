@@ -3,10 +3,6 @@
     if(!isset($_SESSION)){
         session_start();
     }
-    $userNameSession = '';
-    if(isset($_SESSION['userSession_username'])){
-        $userNameSession = $_SESSION['userSession_username'];
-    }
 
     $pageTitle = "Details";
     include_once "init.php";
@@ -306,8 +302,19 @@
                                         <?php
 
                                         /* ********************************************************** */
-                                            $comments = getIData('comments','item_id', $product_data['id']);
-                                            foreach($comments as $comment){
+                                        $stmt = $con->prepare("SELECT 
+                                                                        comments.* ,users.userName AS member
+                                                                    FROM 
+                                                                        comments
+                                                                    inner join 
+                                                                        users
+                                                                    on users.id = comments.user_id 
+                                                                    WHERE item_id = ?
+                                                                    AND status = 1
+                                                                    ORDER BY id DESC");
+                                        $stmt->execute(array($product_data['id']));
+                                        $comments = $stmt->fetchAll();
+                                        foreach($comments as $comment){
                                         /* ********************************************************** */
                                         ?>
                                         <li class="comment-list">
@@ -318,7 +325,7 @@
                                                 <div class="comment-content">
                                                     <div class="comment-content-top">
                                                         <div class="comment-content-left">
-                                                            <h6 class="comment-name">Jaydin Jones</h6>
+                                                            <h6 class="comment-name"><?php echo $comment['member']; ?></h6>
                                                             <ul class="review-star">
                                                                 <li class="fill"><i class="ion-android-star"></i>
                                                                 </li>
@@ -345,14 +352,15 @@
                                         </li> <!-- End - Review Comment list-->
                                     </ul> <!-- End - Review Comment -->
                                     <?php }
-                                    if ($userNameSession != '') {
+                                    /*********check up the session of the user**********/
+                                    if(isset($_SESSION['userSession_username'])){
                                         ?>
                                     <div class="review-form">
                                         <div class="review-form-text-top">
                                             <h5>ADD A REVIEW</h5>
                                         </div>
 
-                                        <form action="<?php $_SERVER['PHP_SELF'];?>" method="post">
+                                        <form action="<?php $_SERVER['PHP_SELF'] . '?product_id=' . $product_data['id'];?>" method="post">
                                             <div class="row">
                                                 <div class="col-12">
                                                     <div class="default-form-box">
@@ -370,22 +378,31 @@
                                                 $comment = filter_var($_POST['comment'],FILTER_SANITIZE_STRING);;
                                                 $userName = $_SESSION['userSession_username'];
                                                 $item_id = $product_id;
-                                                $stmt = $con->prepare("INSERT INTO comments(comment, user_id, item_id,comment_date) 
-                                                                             VALUES(:comment, :user_id, :item_id, now()) ");
-                                                $stmt->execute(array(
-                                                    'comment'      =>$comment,
-                                                    'user_id'      =>1,
-                                                    'item_id'      =>$item_id,
-                                                ));
-                                                if($stmt){
-                                                    echo 'Done,Your Comment Is Uploading';
-                                                }
-                                            }
+                                                if(!empty($comment)){
+                                                    $stmt = $con->prepare("INSERT INTO comments(comment,status, user_id, item_id,comment_date) 
+                                                                                 VALUES(:comment,0, :user_id, :item_id, now()) ");
+                                                    $stmt->execute(array(
+                                                        'comment'      =>$comment,
+                                                        'user_id'      =>1,
+                                                        'item_id'      =>$item_id,
+                                                    ));
+                                                    if($stmt){?>
+                                                        <div class="alert_msg">
+                                                            <div class="alert alert-success background-danger m-4">
+                                                                <button type="button" class="close text-blue" data-dismiss="alert" aria-label="Close">
+                                                                    <i>x</i>
+                                                                </button>
+                                                                <strong>Done,Your Comment Is Uploading</strong>
+                                                            </div>
+                                                        </div>
+                                                <?php }
+                                            }//end if not empty
+                                        }//end request
                                         ?>
                                     </div>
                                 <?php }else{?>
                                         <div class="text-center pt-5">You Have To Sign Up To See the Comments <a href="login.php" class="active-link">Login</a> / <a href="register.php" class="active-link">Register</a> </div>
-                                    <?php }?>
+                                    <?php } //end check up the session of the user?>
                                 </div>
                             </div> <!-- End Product Details Tab Content Singel -->
                         </div>
