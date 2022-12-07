@@ -388,8 +388,11 @@
         <ul class="widget-sideBar-menu">
             <?php
             if(isset($_SESSION['userSession_username'])){
-                echo '<li><a href="profile.php">My Profile</a></li>';
-                echo '<li><a href="auth/logout.php">Sign Out</a></li>';
+                ?>
+                <li><a href="profile.php">My Profile</a></li>
+                <li><a href="Create_product.php">New Product</a></li>
+                <li><a href="auth/logout.php">Sign Out</a></li>
+            <?php
             }else{
                 echo '
                     <li><a href="login.php">Login</a></li>

@@ -29,4 +29,5 @@ $(function(){
     $('.close').on('click',function(){
         $(this).parents('.alert_msg').toggle();
     });
+
 });

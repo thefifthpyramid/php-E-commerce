@@ -486,6 +486,27 @@
     opacity: 1;
     transform: rotate(360deg);
     transition: all .5s ease-in-out;
+}.profile .form-group{
+    margin: 25px 0;
+    position: relative;
+}.profile .input-group-text {
+      padding: 9px 12px;
+}.profile .form-control[type=file]:not(:disabled):not([readonly]) {
+     cursor: pointer;
+}.profile .form-control[type=file] {
+      overflow: hidden;
+}.btn-file {
+     position: relative;
+     overflow: hidden;
+ }
+input[type="file"] {
+    display: none;
+}
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
 }
 .user-avatar{
     margin-top:20px;

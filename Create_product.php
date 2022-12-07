@@ -1,5 +1,5 @@
 
-<link rel="stylesheet" type="text/css" href="Admin/layout/bower_components/bootstrap/css/bootstrap.min.css">
+
 
 <?php
     ob_start();
@@ -132,10 +132,10 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">image</label>
                                 <div class="col-sm-10">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                                    </div>
+                                    <label for="file-upload" class="custom-file-upload">
+                                        <i class="fa fa-cloud-upload"></i> Custom Upload
+                                    </label>
+                                    <input id="file-upload" type="file"/>
                                 </div>
                             </div><!-- End Form Group -->
                             <!-- Start Form Group -->
