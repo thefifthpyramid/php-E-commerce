@@ -12,8 +12,11 @@
     if($product_id == 0){
         header("Location:shop.php?category_id=000&cat_name=All-Products");
     }
-
-    $product_data = FetchOneColum('items','id',$product_id);
+    $lastElement = $con->prepare("SELECT * FROM items WHERE id = ? And approve = 1");
+    $lastElement->execute(array($product_id));
+    $product_data = $lastElement->fetch();
+    //$product_data = FetchOneColum('items','id',$product_id);
+    if($product_data != NULL){
     $category_name = FetchOneColum('categories','id',$product_data['cat_id']);
 ?>
 <!--Start Page-->
@@ -507,6 +510,9 @@
 
 <!--End Page-->
 <?php
+    }else{
+        echo "<div class='alert alert-danger m-5 text-center'>There is No Such Id Or The Product Under Approved</div>";
+    }
     include "includes/templates/footer.php";
     ob_end_flush();
 ?>

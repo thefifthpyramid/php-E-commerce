@@ -221,12 +221,12 @@
                             foreach ($products_data as $product){
                                 ?>
                                 <tr>
-                                    <td><?php echo $product['name'];?></td>
+                                    <td><?php echo '<a href="product-details.php?product_id='. $product['id'] .'">' . $product['name'] . '</a>'; ?></td>
                                     <td><?php echo $product['price'];?></td>
                                     <td><?php echo $product['add_date'];?></td>
                                     <td><?php echo $product['cat_name'];?></td>
                                     <td>
-                                        <label class="label label-danger">Out Stock</label>
+                                        <label class="label label-danger"><?php if($product['approve'] == 0){echo "Under Approved";}else{echo "Approving";}?></label>
                                         <!-- <label class="label label-success">In Stock</label>-->
                                     </td>
                                     <td>
@@ -273,8 +273,8 @@
                                 foreach ($comments as $comment){
                             ?>
                                 <tr>
-                                    <td><?php echo $comment['comment'];?></td>
                                     <td><?php echo $comment['status'];?></td>
+                                    <td><?php echo $comment['comment'];?></td>
                                 </tr>
                             <?php }?>
                             </tbody>

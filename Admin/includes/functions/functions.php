@@ -135,7 +135,7 @@ function GetDataTable($item,$table,$order){
 
 function getCatCount($item,$table,$where){
     global $con;
-    $count = $con->prepare("SELECT count($item) FROM $table WHERE cat_id = ?");
+    $count = $con->prepare("SELECT count($item) FROM $table WHERE cat_id = ? AND approve = 1");
     $count->execute(array($where));
     return $count->fetchColumn();
 }
@@ -186,4 +186,20 @@ function redirect_user($class,$massage,$notifyMsg,$url = null,$seconds = 3){
     echo '<p class="m-3"><i class="fa fa-bell text-c-red "></i> ' . $textOfNotify . '</p>';
     header("refresh:$seconds;url=$url");
     exit();
+}
+
+/*
+ ***********************************************
+ * getProduct
+ ***********************************************
+ */
+function getProduct($where,$value,$approve = null){
+    if($approve == null){
+        $sql = 'And approve = 1';
+    }
+    global $con;
+    $product = $con->prepare("SELECT * FROM items WHERE $where = ? $sql ORDER By id DESC");
+    $product->execute(array($value));
+    return $product->fetch();
+
 }
