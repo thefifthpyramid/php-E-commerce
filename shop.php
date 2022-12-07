@@ -58,7 +58,7 @@
                                 <ul class="sidebar-menu">
 
                                     <?php
-                                        $dataCat = getLatest('*','categories','sort',7);
+                                        $dataCat = getIData('categories','parent',0);
                                         foreach ($dataCat as $item){
                                     ?>
                                     <li>
@@ -69,7 +69,21 @@
                                             </span>
                                         </a>
                                     </li>
-                                    <?php } ?>
+                                        <?php
+                                            //Get Sub Category
+                                            $subCategoy = getIData('categories','parent', $item['id']);
+                                            foreach ($subCategoy as $sub){
+                                        ?>
+                                    <ul class="sidebar-menu">
+                                        <li class="sub-link">
+                                            <a href="?category_id=<?php echo $sub['id']; ?>&cat_name=<?php echo str_replace(' ','-',$sub['name']); ?>" class="<?php if($sub['name'] == str_replace('-',' ',$cat_name)){ echo 'active';}?>" ><?php echo $sub['name']; ?>
+                                                <span class="Category_counter float-right">
+                                                    <?php echo getCatCount('cat_id','items',$sub['id']); ?>
+                                                </span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <?php }} ?>
                                 </ul>
                             </div>
                         </div> <!-- End Single Sidebar Widget -->

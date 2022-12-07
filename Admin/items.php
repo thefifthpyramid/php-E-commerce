@@ -74,7 +74,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                             ?><!--   Edit Page  -->
                             <div class="card">
                                 <div class="card-header">
-                                    <h5>Tooltip Validation</h5>
+                                    <h5>Edit Product</h5>
                                     <a href="?do=Manage" class="btn waves-effect waves-light btn-primary btn-square position-right">Show all Products <i class="fa fa-items"></i> </a>
                                 </div>
                                 <div class="card-block">

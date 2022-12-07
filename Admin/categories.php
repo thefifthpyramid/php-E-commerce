@@ -176,12 +176,13 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                             <label class="col-sm-2 col-form-label">parent</label>
                                             <div class="col-sm-10">
                                                 <select name="parent" class="form-control">
-                                                    <option value="0">no parent</option>
+                                                    <option value="0" <?php if($row['parent'] == 0){ echo 'selected';}?> >no parent</option>
                                                     <?php
-                                                    $data = getIData('categories','parent',0);
-                                                    foreach ($data as $row){
-                                                        echo "<option value=". $row['id'] .">" .$row['name']. "</option>";
-                                                    }
+                                                        $data = getIData('categories','parent',0);
+                                                        foreach ($data as $category){
+                                                            ?>
+                                                            <option value="<?php echo $category['id'];?>" <?php if($row['parent'] == $category['id']){ echo 'selected';}?> ><?php echo $category['name'] ?></option>
+                                                      <?php   }
                                                     ?>
                                                 </select>
                                             </div>
@@ -219,7 +220,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                         $visibility     = $_POST['visibility'];
                                         $allow_comment  = $_POST['allow_comment'];
                                         $allow_ads      = $_POST['allow_ads'];
-                                        $parent      = $_POST['parent'];
+                                        $parent         = $_POST['parent'];
 
                                         //validate the form
                                         $formErrors =  array();
@@ -235,8 +236,8 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                         //check if there's no error
                                         if(empty($formErrors)){
                                             //id name description sort visibility allow_comment allow_ads
-                                            $stmt = $con->prepare("UPDATE categories SET name = ?, description = ?, sort = ? ,visibility = ?,allow_comment = ?,allow_ads = ?,parent = ? WHERE id = ?");
-                                            $stmt->execute(array($name,$description,$sort,$visibility,$allow_comment,$allow_ads,$parent,$id));
+                                            $stmt = $con->prepare("UPDATE categories SET name = ?, description = ?,parent = ?, sort = ? ,visibility = ?,allow_comment = ?,allow_ads = ? WHERE id = ?");
+                                            $stmt->execute(array($name,$description,$parent,$sort,$visibility,$allow_comment,$allow_ads,$id));
                                             redirectHome('alert alert-success background-success','Updating Success!','categories.php');
                                         }
                                     }else{
@@ -455,7 +456,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                     <th>#ID</th>
                                                     <th>Name</th>
                                                     <th>description</th>
-                                                    <th>sort</th>
+                                                    <th>Parent</th>
                                                     <th>visibility</th>
                                                     <th>allow comment</th>
                                                     <th>allow ads</th>
@@ -470,7 +471,17 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                         <td><?php echo $row['id']?></td>
                                                         <td><?php echo $row['name']?></td>
                                                         <td><?php echo $row['description']?></td>
-                                                        <td><?php echo $row['sort']?></td>
+                                                        <td><?php
+                                                            if($row['parent'] == 0){
+                                                                echo "Main ";
+                                                            }else{
+                                                                $subName = getIData('categories','id',$row['parent']);
+                                                                foreach ($subName as $sub) {
+                                                                    echo "Sub Of: <span class='text-c-red'>" . $sub['name'].'<span>';
+                                                                }
+                                                            }
+
+                                                            ?></td>
                                                         <td>
                                                             <?php
                                                             if($row['visibility'] == 0){

@@ -508,7 +508,9 @@ input[type="file"] {
     padding: 6px 12px;
     cursor: pointer;
     width: 100%;
-}
+}.sub-link{
+     /*margin-left: 10px;*/
+ }
 .user-avatar{
     margin-top:20px;
     opacity: .8;
