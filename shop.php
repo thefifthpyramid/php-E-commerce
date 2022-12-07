@@ -4,7 +4,9 @@
     $cat_id = $userid = isset($_GET['category_id']) && is_numeric($_GET['category_id']) ? intval($_GET['category_id']) : 0 ;
     $WhereVar =  '';
     if($cat_id != 000){
-        $WhereVar =  "WHERE cat_id = ?";
+        $WhereVar =  "WHERE cat_id = ? AND approve = 1";
+    }else{
+        $WhereVar =  "WHERE approve = 1";
     }
     $cat_name = $_GET['cat_name'];
 
@@ -54,22 +56,7 @@
                             <h6 class="sidebar-title">CATEGORIES</h6>
                             <div class="sidebar-content">
                                 <ul class="sidebar-menu">
-                                    <!--<li>
-                                        <ul class="sidebar-menu-collapse">
-                                            <li class="sidebar-menu-collapse-list">
-                                                <div class="accordion">
-                                                    <a href="#" class="accordion-title collapsed" data-bs-toggle="collapse" data-bs-target="#men-fashion" aria-expanded="false">Men <i class="ion-ios-arrow-right"></i></a>
-                                                    <div id="men-fashion" class="collapse">
-                                                        <ul class="accordion-category-list">
-                                                            <li><a href="#">Dresses</a></li>
-                                                            <li><a href="#">Jackets &amp; Coats</a></li>
 
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </li>-->
                                     <?php
                                         $dataCat = getLatest('*','categories','sort',7);
                                         foreach ($dataCat as $item){
