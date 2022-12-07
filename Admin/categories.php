@@ -109,7 +109,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                             <label class="col-sm-2 col-form-label">visible</label>
                                             <div class="col-sm-10">
                                                 <div class="input-group">
-                                                    <div class="input-group-prepend">
+                                                    <div class="input-group-prepend ">
                                                         <div class="input-group-text">
                                                             <input id="visibility:No" type="radio" value="0" name="visibility" <?php if($row['visibility'] == 0){ echo 'checked'; } ?> />
                                                         </div>
@@ -172,7 +172,20 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                 </div>
                                             </div>
                                         </div><!-- End Form Group -->
-
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">parent</label>
+                                            <div class="col-sm-10">
+                                                <select name="parent" class="form-control">
+                                                    <option value="0">no parent</option>
+                                                    <?php
+                                                    $data = getIData('categories','parent',0);
+                                                    foreach ($data as $row){
+                                                        echo "<option value=". $row['id'] .">" .$row['name']. "</option>";
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div><!-- End Form Group -->
                                         <div class="row">
                                             <label class="col-sm-2"></label>
                                             <div class="col-sm-10">
@@ -206,6 +219,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                         $visibility     = $_POST['visibility'];
                                         $allow_comment  = $_POST['allow_comment'];
                                         $allow_ads      = $_POST['allow_ads'];
+                                        $parent      = $_POST['parent'];
 
                                         //validate the form
                                         $formErrors =  array();
@@ -221,8 +235,8 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                         //check if there's no error
                                         if(empty($formErrors)){
                                             //id name description sort visibility allow_comment allow_ads
-                                            $stmt = $con->prepare("UPDATE categories SET name = ?, description = ?, sort = ? ,visibility = ?,allow_comment = ?,allow_ads = ? WHERE id = ?");
-                                            $stmt->execute(array($name,$description,$sort,$visibility,$allow_comment,$allow_ads,$id));
+                                            $stmt = $con->prepare("UPDATE categories SET name = ?, description = ?, sort = ? ,visibility = ?,allow_comment = ?,allow_ads = ?,parent = ? WHERE id = ?");
+                                            $stmt->execute(array($name,$description,$sort,$visibility,$allow_comment,$allow_ads,$parent,$id));
                                             redirectHome('alert alert-success background-success','Updating Success!','categories.php');
                                         }
                                     }else{
@@ -339,6 +353,21 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                 </div>
                                             </div>
                                         </div><!-- End Form Group -->
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Parent</label>
+                                            <div class="col-sm-10">
+                                                <select name="parent" class="form-control">
+                                                    <option value="0">No Parent</option>
+                                                    <?php
+                                                    $data = getIData('categories','parent',0);
+                                                    foreach ($data as $row){
+                                                        echo "<option value=". $row['id'] .">" .$row['name']. "</option>";
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div><!-- End Form Group -->
                                         <div class="row">
                                             <label class="col-sm-2"></label>
                                             <div class="col-sm-10">
@@ -358,6 +387,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                         $visibility = $_POST['visibility'];
                                         $allow_comment = $_POST['allow_comment'];
                                         $allow_ads = $_POST['allow_ads'];
+                                        $parent = $_POST['parent'];
 
 
                                         //errors
@@ -370,9 +400,9 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                         foreach ($formErrors as $error){
                                             echo '
                                                 <div class="alert alert-danger background-danger">
-                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <i class="icofont icofont-close-line-circled text-white"></i>
-                                                </button>
+                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                        <i class="icofont icofont-close-line-circled text-white"></i>
+                                                    </button>
                                                 <strong>'. $error.'</strong> 
                                                 </div>
                                             '; //end echo
@@ -386,7 +416,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                             }else{
                                                 //check if category already exist
                                                 //id	name	description	sort	visibility	allow_comment	allow_ads
-                                                $stmt = $con->prepare("INSERT INTO categories(name, description, sort,visibility,allow_comment,allow_ads) VALUES(:name, :description, :sort, :visibility,:allow_comment,:allow_ads) ");
+                                                $stmt = $con->prepare("INSERT INTO categories(name, description, sort,visibility,allow_comment,allow_ads,parent) VALUES(:name, :description, :sort, :visibility,:allow_comment,:allow_ads,:parent) ");
                                                 $stmt->execute(array(
                                                     'name'          =>$Name,
                                                     'description'   =>$description,
@@ -394,6 +424,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                     'visibility'    =>$visibility,
                                                     'allow_comment' =>$allow_comment,
                                                     'allow_ads'     =>$allow_ads,
+                                                    'parent'     =>$parent,
 
                                                 ));
                                                 redirectHome('alert alert-success background-success m-3',"creating Success!","categories.php?do=add", 3);

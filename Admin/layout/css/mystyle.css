@@ -20,7 +20,11 @@ body{
 }
 .form-control{
     position: relative;
-}.fa-asterisk{
+}.form-group .input-group{
+    margin-bottom: 20px;
+}
+
+.fa-asterisk{
      color: #df0000;
      font-size: 14px;
      position: absolute;
