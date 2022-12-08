@@ -292,7 +292,9 @@
                                         $avatarSize = $Material['size'];
                                         $avatarTmp = $Material['tmp_name'];
                                         $avatarType = $Material['type'];
-                                        $TypeOfFiles = array("jpg","jpeg","png","gif");
+                                        $AvatarAllowExtension = array("jpg","jpeg","png","gif");
+                                        $explodeName = explode('.', $avatarName);
+                                        $avatarExtension = strtolower(end($explodeName));
 
                                         //Vars
                                         $userName   = $_POST['userName'];
@@ -319,9 +321,9 @@
                                         if(empty($fullName)){
                                             $formErrors[] = 'full name can"t be empty';
                                         }
-//                                        if(!empty($avatarName) && !in_array($avatarType,$TypeOfFiles)){
-//                                            $formErrors[] = 'Sorry, You Can Not Upload File Bigger Than 4 M';
-//                                        }
+                                        if(!empty($avatarName) && !in_array($avatarExtension,$AvatarAllowExtension)){
+                                            $formErrors[] = 'Sorry, You Have The Ability To Upload Image Only';
+                                        }
                                         if($avatarSize > 4194304){
                                             $formErrors[] = 'Sorry, You Can Not Upload File Bigger Than 4 M';
                                         }
@@ -346,8 +348,10 @@
                                                 redirectHome('alert alert-danger background-danger',"Sorry, this user exists!","members.php?do=add", 3);
                                             }else{
                                             //check if user already exist
+                                                //upload Avatar
                                             $avatar = rand(0,1000000) . '__' . $avatarName;
                                             move_uploaded_file($avatarTmp,'../uploads/avatars/'.$avatar);
+
                                             $stmt = $con->prepare("INSERT INTO users(userName, email, password,fullName,Reg_Status,Date,avatar) VALUES(:userName, :email, :password, :fullName,0,now(),:avatar) ");
                                             $stmt->execute(array(
                                                 'userName'  =>$userName,

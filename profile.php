@@ -60,7 +60,7 @@
             <div class="col-lg-4"><!-- Left side -->
                 <div class="card mb-4">
                     <div class="card-body text-center">
-                        <img src="Admin/layout/images/avatar-4.jpg" alt="avatar"
+                        <img src="uploads/avatars/<?php echo $data['avatar']; ?>" alt="avatar"
                              class="rounded-circle img-fluid user-avatar" style="width: 150px;">
                         <h5 class="my-3"><?php echo $_SESSION['userSession_username']; ?></h5>
                         <p class="text-muted mb-1">Full Stack Developer</p>

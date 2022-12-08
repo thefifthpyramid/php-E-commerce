@@ -1,4 +1,6 @@
-
+<?php
+    $userData = FetchOneColum('users','id',$_SESSION['id']);
+?>
 <nav class="navbar header-navbar pcoded-header">
      <div class="navbar-wrapper">
         <div class="navbar-logo">
@@ -96,9 +98,9 @@
                 <li class="user-profile header-notification">
                     <div class="dropdown-primary dropdown">
                         <div class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="layout/images/avatar-4.jpg" class="img-radius"
+                            <img src="../uploads/avatars/<?php echo $userData['avatar']; ?>" class="img-radius"
                                  alt="User-Profile-Image">
-                            <span><?php echo $_SESSION['username'] ?></span>
+                            <span><?php echo $userData['userName']; ?></span>
                             <i class="feather icon-chevron-down"></i>
                         </div>
                         <ul class="show-notification profile-notification dropdown-menu"
