@@ -283,6 +283,18 @@
                                                 <th scope="row">Country</th>
                                                 <td>Made In <?php echo $product_data['country_made'];?></td>
                                             </tr>
+                                            <tr>
+                                                <th scope="row">Tags</th>
+                                                <td>
+                                                    <?php
+                                                        $allTags = explode(",", $product_data['tags']);
+                                                        foreach($allTags as $tag){
+                                                            $tag = str_replace(' ','',$tag);
+                                                    ?>
+                                                    <a href="tags.php?name=<?php echo $tag;?>"><?php echo $tag;?></a>
+                                                    <?php }?>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                     <p>Fashion has been creating well-designed collections since 2010. The brand

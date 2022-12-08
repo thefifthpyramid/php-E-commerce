@@ -227,7 +227,8 @@
                                         <a href="?do=Manage" class="btn waves-effect waves-light btn-primary btn-square position-right">Show all members <i class="fa fa-users"></i> </a>
                                     </div>
                                     <div class="card-block">
-                                        <form id="second" action="?do=Insert" method="post">
+                                        <form id="second" action="?do=Insert" method="post" enctype="multipart/form-data">
+                                            <!-- Start Form Group -->
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">user name</label>
                                                 <div class="col-sm-10">
@@ -235,6 +236,7 @@
                                                     <span class="messages popover-valid"></span>
                                                 </div>
                                             </div>
+                                            <!-- Start Form Group -->
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">Password</label>
                                                 <div class="col-sm-10">
@@ -243,6 +245,7 @@
                                                     <span class="messages popover-valid"></span>
                                                 </div>
                                             </div>
+                                            <!-- Start Form Group -->
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">Email</label>
                                                 <div class="col-sm-10">
@@ -250,6 +253,7 @@
                                                     <span class="messages popover-valid"></span>
                                                 </div>
                                             </div>
+                                            <!-- Start Form Group -->
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">Full Name</label>
                                                 <div class="col-sm-10">
@@ -257,6 +261,16 @@
                                                     <span class="messages popover-valid"></span>
                                                 </div>
                                             </div>
+                                            <!-- Start Form Group -->
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label">User Avatar</label>
+                                                <div class="col-sm-10">
+                                                    <div class="custom-file">
+                                                        <input type="file" name="avatar" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                                                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                                    </div>
+                                                </div>
+                                            </div><!-- End Form Group -->
                                             <div class="row">
                                                 <label class="col-sm-2"></label>
                                                 <div class="col-sm-10">
@@ -270,12 +284,22 @@
                                     }elseif($do == 'Insert'){
                                     if($_SERVER['REQUEST_METHOD'] == "POST"){
 
-                                        $userName = $_POST['userName'];
-                                        $email = $_POST['email'];
-                                        $fullName = $_POST['fullName'];
+                                        //Upload File
+                                        //print_r($_FILES['avatar']);
+                                        $Material = $_FILES['avatar'];
 
+                                        $avatarName = $Material['name'];
+                                        $avatarSize = $Material['size'];
+                                        $avatarTmp = $Material['tmp_name'];
+                                        $avatarType = $Material['type'];
+                                        $TypeOfFiles = array("jpg","jpeg","png","gif");
+
+                                        //Vars
+                                        $userName   = $_POST['userName'];
+                                        $email      = $_POST['email'];
+                                        $fullName   = $_POST['fullName'];
                                         //pass
-                                        $pass = $_POST['password'];
+                                        $pass       = $_POST['password'];
                                         $hashedPass = sha1($pass);
 
                                         //errors
@@ -295,9 +319,18 @@
                                         if(empty($fullName)){
                                             $formErrors[] = 'full name can"t be empty';
                                         }
+//                                        if(!empty($avatarName) && !in_array($avatarType,$TypeOfFiles)){
+//                                            $formErrors[] = 'Sorry, You Can Not Upload File Bigger Than 4 M';
+//                                        }
+                                        if($avatarSize > 4194304){
+                                            $formErrors[] = 'Sorry, You Can Not Upload File Bigger Than 4 M';
+                                        }
+//                                        if(in_array($TypeOfFiles,) > 20){
+//                                            $formErrors[] = 'Sorry, You Can Not Upload File Bigger Than 4 M';
+//                                        }
                                         foreach ($formErrors as $error){
                                             echo '
-                                                <div class="alert alert-danger background-danger">
+                                                <div class="alert alert-danger background-danger m-3">
                                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <i class="icofont icofont-close-line-circled text-white"></i>
                                                 </button>
@@ -313,13 +346,15 @@
                                                 redirectHome('alert alert-danger background-danger',"Sorry, this user exists!","members.php?do=add", 3);
                                             }else{
                                             //check if user already exist
-
-                                            $stmt = $con->prepare("INSERT INTO users(userName, email, password,fullName,Reg_Status,Date) VALUES(:userName, :email, :password, :fullName,0,now()) ");
+                                            $avatar = rand(0,1000000) . '__' . $avatarName;
+                                            move_uploaded_file($avatarTmp,'../uploads/avatars/'.$avatar);
+                                            $stmt = $con->prepare("INSERT INTO users(userName, email, password,fullName,Reg_Status,Date,avatar) VALUES(:userName, :email, :password, :fullName,0,now(),:avatar) ");
                                             $stmt->execute(array(
                                                 'userName'  =>$userName,
                                                 'email'     =>$email,
                                                 'password'  =>$hashedPass,
                                                 'fullName'  =>$fullName,
+                                                'avatar'    =>$avatar,
                                             ));
                                                 redirectHome('alert alert-success background-success m-3',"creating Success!","members.php?do=add", 3);
                                             }
@@ -356,9 +391,9 @@
                                                 <tr>
                                                     <th>#ID</th>
                                                     <th>User Name</th>
+                                                    <th>avatar</th>
                                                     <th>Email</th>
                                                     <th>full Name</th>
-                                                    <th>Registerd date</th>
                                                     <th>Control</th>
                                                 </tr>
                                                 </thead>
@@ -369,9 +404,9 @@
                                                 <tr>
                                                     <td><?php echo $row['id']?></td>
                                                     <td><?php echo $row['userName']?></td>
+                                                    <td><img class="avatar" src="../uploads/avatars/<?php echo $row['avatar']?>"></td>
                                                     <td><?php echo $row['email']?></td>
                                                     <td><?php echo $row['fullName']?></td>
-                                                    <td><?php echo $row['Date']?></td>
                                                     <td class="text-center">
                                                         <div class="col-12">
                                                             <div class="input-group-dropdown">

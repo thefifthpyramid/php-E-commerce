@@ -172,6 +172,17 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                             </div>
                                         </div><!-- End Form Group -->
 
+
+                                        <!-- Start Form Group -->
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Tags</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="tags" value="<?php echo $row['tags']; ?>" placeholder="product country" required="required">
+                                                <span class="messages popover-valid"></span>
+                                            </div>
+                                        </div><!-- End Form Group -->
+
+
                                         <div class="row">
                                             <label class="col-sm-2"></label>
                                             <div class="col-sm-10">
@@ -354,7 +365,14 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                 </select>
                                             </div>
                                         </div><!-- End Form Group -->
-
+                                        <!-- Start Form Group -->
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Tags</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="tags" placeholder="Product Tags" required="required">
+                                                <span class="messages popover-valid"></span>
+                                            </div>
+                                        </div><!-- End Form Group -->
                                         <div class="row">
                                             <label class="col-sm-2"></label>
                                             <div class="col-sm-10">
@@ -376,6 +394,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                         $image = 'imsge';
                                         $cat_id = $_POST['cat_id'];
                                         $member_id = $_POST['member_id'];
+                                        $tags = $_POST['tags'];
 
 
                                         //errors
@@ -414,8 +433,8 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                         //check if there's no errors
                                         if(empty($formErrors)){
                                             //id	name	description	price	add_date	country_made	status	image	rating	cat_id	member_id
-                                                $stmt = $con->prepare("INSERT INTO items(name, description, price,add_date,country_made,status,image,rating,cat_id,member_id) 
-                                                                             VALUES(:name, :description, :price, now(),:country_made,:status,:image,:rating,:cat_id,:member_id) ");
+                                                $stmt = $con->prepare("INSERT INTO items(name, description, price,add_date,country_made,status,image,rating,cat_id,member_id,tags) 
+                                                                             VALUES(:name, :description, :price, now(),:country_made,:status,:image,:rating,:cat_id,:member_id,tags) ");
                                                 $stmt->execute(array(
                                                     'name'              =>$Name,
                                                     'description'       =>$description,
@@ -426,6 +445,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                     'rating'            =>'...',
                                                     'cat_id'            =>$cat_id,
                                                     'member_id'         =>$member_id,
+                                                    'tags'         =>$tags,
                                                 ));
                                                 redirectHome('alert alert-success background-success m-3',"creating Success!","items.php?do=add", 3);
                                         } //end check function

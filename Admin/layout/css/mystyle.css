@@ -22,7 +22,9 @@ body{
     position: relative;
 }.form-group .input-group{
     margin-bottom: 20px;
-}
+}.avatar{
+     width: 50px;
+ }
 
 .fa-asterisk{
      color: #df0000;
