@@ -66,16 +66,16 @@
             }else{
                 //check if user already exist
 
-                $stmt = $con->prepare("INSERT INTO users(userName, email, password,fullName,Reg_Status,Date) VALUES(:userName, :email, :password, :fullName,0,now()) ");
-                $stmt->execute(array(
-                    'userName'  =>$userNameFilter,
-                    'email'     =>$filterEmail,
-                    'password'  =>$hashedPass1,
-                    'fullName'  =>'unKnown',
-                ));
-                $_SESSION['userSession_username'] = $userName; //register session
-                header('Location: profile.php'); //redirect to dashboard page
-                exit();
+//                $stmt = $con->prepare("INSERT INTO users(userName, email, password,fullName,Reg_Status,Date) VALUES(:userName, :email, :password, :fullName,0,now()) ");
+//                $stmt->execute(array(
+//                    'userName'  =>$userNameFilter,
+//                    'email'     =>$filterEmail,
+//                    'password'  =>$hashedPass1,
+//                    'fullName'  =>'unKnown',
+//                ));
+//                $_SESSION['userSession_username'] = $userName; //register session
+//                header('Location: profile.php'); //redirect to dashboard page
+//                exit();
                 //redirect_user('alert alert-success background-success m-3 text-center',"creating Success!",'',"login.php", 4);
                 //redirect_user($class,$massage,$notifyMsg = null,$url = null,$seconds = 3);
             }
@@ -101,12 +101,23 @@
     <?php } }?>
     <div class="login-box register-box">
         <h2>Register</h2>
-        <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
+        <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>" enctype="multipart/form-data">
             <!-- -->
-            <div class="user-box">
-                <input type="text" name="userName" pattern=".{4,}" title="UserName Must Be More Than 4 Characters" required>
-                <label>Username</label>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="user-box">
+                        <input type="text" name="userName" pattern=".{4,}" title="UserName Must Be More Than 4 Characters" required>
+                        <label>Username</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="file-upload" class="custom-file-upload">
+                        <i class="fa fa-cloud-upload"></i> Custom Upload
+                    </label>
+                    <input id="file-upload" type="file" name="avatar">
+                </div>
             </div>
+
             <!-- -->
             <div class="user-box">
                 <input type="email" name="email" required>

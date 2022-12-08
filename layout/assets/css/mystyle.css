@@ -282,12 +282,16 @@
     box-shadow: 0 15px 25px rgba(0,0,0,.6);
     border-radius: 10px;
 }
-
 .register-box {
     width: 600px;
-}
-
-.login-box h2 {
+}.register-box .custom-file-upload {
+     border: 1px solid #ff365d;
+     height: 48px;
+     padding: 11px 12px;
+     color: #ff365d;
+     background: #dee7f7;
+ }
+ .login-box h2 {
     margin: 0 0 30px;
     padding: 0;
     color: #fff;
