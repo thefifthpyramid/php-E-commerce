@@ -121,7 +121,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                             <label class="col-sm-2 col-form-label">image</label>
                                             <div class="col-sm-10">
                                                 <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                                                    <input type="file" name="image" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
                                                     <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                                                 </div>
                                             </div>
@@ -273,7 +273,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                     <a href="?do=Manage" class="btn waves-effect waves-light btn-primary btn-square position-right"> Show all items <i class="fa fa-items"></i> </a>
                                 </div>
                                 <div class="card-block">
-                                    <form id="second" action="?do=Insert" method="post">
+                                    <form id="second" action="?do=Insert" method="post" enctype="multipart/form-data">
                                         <!-- Start Form Group -->
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Name</label>
@@ -315,7 +315,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                             <label class="col-sm-2 col-form-label">image</label>
                                             <div class="col-sm-10">
                                                 <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                                                    <input type="file" name="product_image" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
                                                     <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                                                 </div>
                                             </div>
@@ -391,12 +391,24 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                         $price = $_POST['price'];
                                         $country_made = $_POST['country_made'];
                                         $status = $_POST['status'];
-                                        $image = 'imsge';
                                         $cat_id = $_POST['cat_id'];
                                         $member_id = $_POST['member_id'];
                                         $tags = $_POST['tags'];
-
-
+                                        echo $tags;
+                                        echo $member_id;
+                                        /* ******************************************************** */
+                                        $file_input = $_FILES['product_image'];
+                                        $file_name      = $file_input['name'];
+                                        $file_full_path = $file_input['full_path'];
+                                        $file_type      = $file_input['type'];
+                                        $file_tmp_name  = $file_input['tmp_name'];
+                                        $file_size      = $file_input['size']; //input file size
+                                
+                                        $AvatarAllowExtension = array('jpg','jpeg','png','gif');
+                                        $explodeName = explode('.', $file_name);
+                                        $avatarExtension = strtolower(end($explodeName));
+        
+                        
                                         //errors
                                         $formErrors =  array();
                                         if(empty($Name)){
@@ -420,6 +432,12 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                         if($member_id == 0){
                                             $formErrors[] = "created By can't be empty!";
                                         }
+                                        if($file_size > 4194304){
+                                            $formErrors[] = 'Sorry, You Can Not Upload File Bigger Than 4 M';
+                                        }
+                                        if(!empty($file_name) && !in_array($avatarExtension,$AvatarAllowExtension)){
+                                            $formErrors[] = 'Sorry, You Have The Ability To Upload Image Only';
+                                        }
                                         foreach ($formErrors as $errors){
                                             echo '
                                                 <div class="alert alert-danger background-danger m-3">
@@ -432,6 +450,9 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                         }//end foreach
                                         //check if there's no errors
                                         if(empty($formErrors)){
+                                            $image_name = rand(0,10000000) . '__' .rand(0,10000000) . '___' . $file_name;
+                                            move_uploaded_file($file_tmp_name,'../uploads/products/' . $image_name);
+
                                             //id	name	description	price	add_date	country_made	status	image	rating	cat_id	member_id
                                                 $stmt = $con->prepare("INSERT INTO items(name, description, price,add_date,country_made,status,image,rating,cat_id,member_id,tags) 
                                                                              VALUES(:name, :description, :price, now(),:country_made,:status,:image,:rating,:cat_id,:member_id,tags) ");
@@ -441,13 +462,13 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                     'price'             =>$price,
                                                     'country_made'      =>$country_made,
                                                     'status'            =>$status,
-                                                    'image'             =>$image,
+                                                    'image'             =>$image_name,
                                                     'rating'            =>'...',
                                                     'cat_id'            =>$cat_id,
                                                     'member_id'         =>$member_id,
-                                                    'tags'         =>$tags,
+                                                    'tags'              =>$tags,
                                                 ));
-                                                redirectHome('alert alert-success background-success m-3',"creating Success!","items.php?do=add", 3);
+                                            //     redirectHome('alert alert-success background-success m-3',"creating Success!","items.php?do=add", 3);
                                         } //end check function
                                     }else{
                                         redirectHome('danger','sorry you can"t open this page direct',4);
