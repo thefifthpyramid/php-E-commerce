@@ -16,6 +16,8 @@
     $lastElement->execute(array($product_id));
     $product_data = $lastElement->fetch();
     //$product_data = FetchOneColum('items','id',$product_id);
+    $user_id = FetchOneColum('users','userName',$_SESSION['userSession_username']);
+
     if($product_data != NULL){
     $category_name = FetchOneColum('categories','id',$product_data['cat_id']);
 ?>
@@ -53,7 +55,7 @@
                     <div class="product-large-image product-large-image-horaizontal swiper-container">
                         <div class="swiper-wrapper">
                             <div class="product-image-large-image swiper-slide zoom-image-hover img-responsive">
-                                <img src="layout/assets/images/product/default/home-1/default-1.jpg" alt="">
+                            <img src="uploads/products/<?php echo $product_data['image']; ?>" alt="<?php echo $product_data['name']; ?>">
                             </div>
                             <div class="product-image-large-image swiper-slide zoom-image-hover img-responsive">
                                 <img src="layout/assets/images/product/default/home-1/default-2.jpg" alt="">
@@ -78,7 +80,7 @@
                         class="product-image-thumb product-image-thumb-horizontal swiper-container pos-relative mt-5">
                         <div class="swiper-wrapper">
                             <div class="product-image-thumb-single swiper-slide">
-                                <img class="img-fluid" src="layout/assets/images/product/default/home-1/default-1.jpg"
+                                <img class="img-fluid" src="uploads/products/<?php echo $product_data['image']; ?>"
                                      alt="">
                             </div>
                             <div class="product-image-thumb-single swiper-slide">
@@ -318,7 +320,7 @@
 
                                         /* ********************************************************** */
                                         $stmt = $con->prepare("SELECT 
-                                                                        comments.* ,users.userName AS member
+                                                                        comments.* ,users.userName AS member,users.avatar AS Avatar
                                                                     FROM 
                                                                         comments
                                                                     inner join 
@@ -335,7 +337,7 @@
                                         <li class="comment-list">
                                             <div class="comment-wrapper">
                                                 <div class="comment-img">
-                                                    <img src="layout/assets/images/user/image-3.png" alt="">
+                                                    <img src="uploads/avatars/<?php echo $comment['Avatar']; ?>" alt="">
                                                 </div>
                                                 <div class="comment-content">
                                                     <div class="comment-content-top">
@@ -391,14 +393,14 @@
                                             /* ******************************************** */
                                             if($_SERVER['REQUEST_METHOD'] == 'POST'){
                                                 $comment = filter_var($_POST['comment'],FILTER_SANITIZE_STRING);;
-                                                $userName = $_SESSION['userSession_username'];
+
                                                 $item_id = $product_id;
                                                 if(!empty($comment)){
                                                     $stmt = $con->prepare("INSERT INTO comments(comment,status, user_id, item_id,comment_date) 
                                                                                  VALUES(:comment,0, :user_id, :item_id, now()) ");
                                                     $stmt->execute(array(
                                                         'comment'      =>$comment,
-                                                        'user_id'      =>1,
+                                                        'user_id'      =>$user_id['id'],
                                                         'item_id'      =>$item_id,
                                                     ));
                                                     if($stmt){?>
@@ -465,7 +467,7 @@
                                 <div class="product-default-single-item product-color--golden swiper-slide">
                                     <div class="image-box">
                                         <a href="product-details.php?product_id=<?php  echo $product['id']; ?>" class="image-link">
-                                            <img src="layout/assets/images/product/default/home-1/default-9.jpg" alt="">
+                                        <img src="uploads/products/<?php echo $product['image']; ?>" alt="<?php echo $product['name']; ?>">
                                             <img src="layout/assets/images/product/default/home-1/default-10.jpg" alt="">
                                         </a>
                                         <div class="action-link">
