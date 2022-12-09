@@ -26,6 +26,23 @@
     if($_SERVER['REQUEST_METHOD'] == "POST"){
         //Vars
         $userName = $_POST['userName'];
+        $email = $_POST['email'];
+        $hashedPass1 = sha1($_POST['password1']);
+        $hashedPass2 = sha1($_POST['password2']);
+
+        $file_input = $_FILES['avatar'];
+
+        $file_name      = $file_input['name'];
+        $file_full_path = $file_input['full_path'];
+        $file_type      = $file_input['type'];
+        $file_tmp_name  = $file_input['tmp_name'];
+        $file_size      = $file_input['size']; //input file size
+
+        $AvatarAllowExtension = array('jpg','jpeg','png','gif');
+        $explodeName = explode('.', $file_name);
+        $avatarExtension = strtolower(end($explodeName));
+
+
         if(isset($userName)){
             /* ?>&#x2770;script>alert(1);</script><?php */
             $userNameFilter = filter_var($userName,FILTER_SANITIZE_STRING);
@@ -36,13 +53,17 @@
         if(empty($userNameFilter)){
             $formErrors[] = 'username can"t be empty';
         }
+        if($file_size > 4194304){
+            $formErrors[] = 'Sorry, You Can Not Upload File Bigger Than 4 M';
+        }
+        if(!empty($file_name) && !in_array($avatarExtension,$AvatarAllowExtension)){
+            $formErrors[] = 'Sorry, You Have The Ability To Upload Image Only';
+        }
         //pass
         if(isset($_POST['password1']) && isset($_POST['password2'])){
             if(empty($_POST['password1'])){
                 $formErrors[] = "Sorry Password can't be empty";
             }
-            $hashedPass1 = sha1($_POST['password1']);
-            $hashedPass2 = sha1($_POST['password2']);
             if($hashedPass1 !== $hashedPass2){
 
                 $formErrors[] = 'Passwords do not match ';
@@ -50,7 +71,6 @@
             }
         }
         // email errors
-        $email = $_POST['email'];
         if(isset($email)){
             $filterEmail = filter_var($_POST['email'],FILTER_SANITIZE_EMAIL);
             if(filter_var($filterEmail,FILTER_VALIDATE_EMAIL) != true){
@@ -64,18 +84,21 @@
             if($check == 1){
                 $formErrors[] = "This User Already Exist";
             }else{
-                //check if user already exist
+                //Upload user Avatar
+                $NewAvatar_name = rand(0,10000000) . '__' .rand(0,10000000) . '___' . $file_name;
+                move_uploaded_file($file_tmp_name,'uploads/avatars/' . $NewAvatar_name);
 
-//                $stmt = $con->prepare("INSERT INTO users(userName, email, password,fullName,Reg_Status,Date) VALUES(:userName, :email, :password, :fullName,0,now()) ");
-//                $stmt->execute(array(
-//                    'userName'  =>$userNameFilter,
-//                    'email'     =>$filterEmail,
-//                    'password'  =>$hashedPass1,
-//                    'fullName'  =>'unKnown',
-//                ));
-//                $_SESSION['userSession_username'] = $userName; //register session
-//                header('Location: profile.php'); //redirect to dashboard page
-//                exit();
+                $stmt = $con->prepare("INSERT INTO users(userName, email, password,fullName,Reg_Status,Date,avatar) VALUES(:userName, :email, :password, :fullName,0,now(),:avatar) ");
+                $stmt->execute(array(
+                    'userName'  =>$userNameFilter,
+                    'email'     =>$filterEmail,
+                    'password'  =>$hashedPass1,
+                    'fullName'  =>'unKnown',
+                    'avatar'    =>$NewAvatar_name,
+                ));
+                $_SESSION['userSession_username'] = $userName; //register session
+                header('Location: profile.php'); //redirect to dashboard page
+                exit();
                 //redirect_user('alert alert-success background-success m-3 text-center',"creating Success!",'',"login.php", 4);
                 //redirect_user($class,$massage,$notifyMsg = null,$url = null,$seconds = 3);
             }
