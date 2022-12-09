@@ -91,7 +91,7 @@
                             <h4 class="">Create New Product</h4>
                             <a href="#" class="btn waves-effect waves-light btn-main btn-square position-right"> Edit <i class="fa fa-edit text-primary"></i> </a>
                         </div>
-                        <form id="second" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                        <form id="second" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
                             <!-- Start Form Group -->
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Name</label>
@@ -135,7 +135,7 @@
                                     <label for="file-upload" class="custom-file-upload">
                                         <i class="fa fa-cloud-upload"></i> Custom Upload
                                     </label>
-                                    <input id="file-upload" type="file"/>
+                                    <input id="file-upload" type="file" name="product_image"/>
                                 </div>
                             </div><!-- End Form Group -->
                             <!-- Start Form Group -->
@@ -187,6 +187,20 @@
                             $image              = 'imsge';
                             $cat_id             = filter_var($_POST['cat_id'],FILTER_SANITIZE_NUMBER_INT);
 
+                            /* ******************************************************** */
+                            $file_input = $_FILES['product_image'];
+                            $file_name      = $file_input['name'];
+                            $file_full_path = $file_input['full_path'];
+                            $file_type      = $file_input['type'];
+                            $file_tmp_name  = $file_input['tmp_name'];
+                            $file_size      = $file_input['size']; //input file size
+                    
+                            $AvatarAllowExtension = array('jpg','jpeg','png','gif');
+                            $explodeName = explode('.', $file_name);
+                            $avatarExtension = strtolower(end($explodeName));
+
+            
+
                             //errors
                             $formErrors =  array();
                             if(strlen($Name) < 4){
@@ -218,6 +232,11 @@
                             }
                             if($cat_id == 0){
                                 $formErrors[] = "Category Field can't be empty!";
+                            }if($file_size > 4194304){
+                                $formErrors[] = 'Sorry, You Can Not Upload File Bigger Than 4 M';
+                            }
+                            if(!empty($file_name) && !in_array($avatarExtension,$AvatarAllowExtension)){
+                                $formErrors[] = 'Sorry, You Have The Ability To Upload Image Only';
                             }
                             foreach ($formErrors as $errors){
                                 echo '
@@ -231,6 +250,9 @@
                             }//end foreach
                             //check if there's no errors
                             if(empty($formErrors)){
+                                $image_name = rand(0,10000000) . '__' .rand(0,10000000) . '___' . $file_name;
+                                move_uploaded_file($file_tmp_name,'uploads/products/' . $image_name);
+
                                 //id	name	description	price	add_date	country_made	status	image	rating	cat_id	member_id
                                 $stmt = $con->prepare("INSERT INTO items(name, description, price,add_date,country_made,status,image,rating,cat_id,member_id) 
                                                                              VALUES(:name, :description, :price, now(),:country_made,:status,:image,:rating,:cat_id,:member_id) ");
@@ -240,7 +262,7 @@
                                     'price'             =>$price,
                                     'country_made'      =>$country_made,
                                     'status'            =>$status,
-                                    'image'             =>$image,
+                                    'image'             =>$image_name,
                                     'rating'            =>'...',
                                     'cat_id'            =>$cat_id,
                                     'member_id'         =>$userId,
