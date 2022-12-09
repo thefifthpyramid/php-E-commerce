@@ -1,6 +1,3 @@
-
-
-
 <?php
     ob_start();
     //Sessions
@@ -11,16 +8,17 @@
     $pageTitle = "New Product Page";
 
     //print_r($_SESSION);
-    if(isset($_SESSION['userSession_username'])){
+    if(isset($_SESSION['userSession_username']) OR isset($_SESSION['userSession_id']) ){
         include_once "init.php";
         // the latest users
-        $lastElement = $con->prepare("SELECT * FROM users WHERE userName = ?");
-        $lastElement->execute(array($_SESSION['userSession_username']));
-        $data = $lastElement->fetch();
+        if(isset($_SESSION['userSession_username']) ){
+            $data = FetchOneColum('users','userName',$_SESSION['userSession_username']);
+        }
+        if(isset($_SESSION['userSession_id'])){
+            $data = FetchOneColum('users','id',$_SESSION['userSession_id']);
+            $_SESSION['userSession_username'] = $data['userName'];
+        }
 
-        $userId = $data['id'];
-        //Fetch all comments
-        $comments = getIData('comments','user_id',$data['id']);
     }else{
         header('Location: login.php'); //redirect to dashboard page
         exit();
@@ -35,8 +33,8 @@
                     <ol class="breadcrumb mb-0">
                         <li class="breadcrumb-item"><a href="index.php">Home</a></li>
                         <li class="breadcrumb-item">Users</li>
-                        <li class="breadcrumb-item"><a href="profile.php"><?php echo $_SESSION['userSession_username']; ?></a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Create Product</li>
+                        <li class="breadcrumb-item"><a href="profile.php"><?php echo $data['userName'] ?></a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit My Profile</li>
                     </ol>
                 </nav>
             </div>
@@ -46,9 +44,8 @@
             <div class="col-lg-4"><!-- Left side -->
                 <div class="card mb-4">
                     <div class="card-body text-center">
-                        <img src="Admin/layout/images/avatar-4.jpg" alt="avatar"
-                             class="rounded-circle img-fluid user-avatar" style="width: 150px;">
-                        <h5 class="my-3"><?php echo $_SESSION['userSession_username']; ?></h5>
+                        <img src="uploads/avatars/<?php echo $data['avatar']; ?>" alt="<?php echo $data['userName']; ?>" class="rounded-circle img-fluid user-avatar">
+                        <h5 class="my-3"><?php echo $data['userName']; ?></h5>
                         <p class="text-muted mb-1">Full Stack Developer</p>
                         <p class="text-muted mb-4"><?php echo $data['email']; ?></p>
                         <div class="d-flex justify-content-center mb-2">
@@ -88,171 +85,158 @@
                 <div class="card mb-4 create-product-page">
                     <div class="card-body">
                         <div class="card-header">
-                            <h4 class="">Create New Product</h4>
-                            <a href="#" class="btn waves-effect waves-light btn-main btn-square position-right"> Edit <i class="fa fa-edit text-primary"></i> </a>
+                            <h4 class="">Store New Information</h4>
+                            <a href="profile.php" class="btn waves-effect waves-light btn-main btn-square position-right"> Back <i class="fa fa-angle-double-left text-primary"></i> </a>
                         </div>
-                        <form id="second" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                            <!-- Start Form Group -->
+                        <form id="second" action="?do=Update" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="id" value="<?php echo $data['id']; ?>">
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Name</label>
+                                <label class="col-sm-2 col-form-label">user name</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="name" placeholder="name of the product" required="off"  pattern=".{4,}" title="UserName Must Be More Than 4 Characters">
+                                    <input type="text" class="form-control" value="<?php echo $data['userName']; ?>" name="userName" placeholder="Enter Username" autocomplete="off" required="required">
                                     <span class="messages popover-valid"></span>
                                 </div>
-                            </div><!-- End Form Group -->
-                            <!-- Start Form Group -->
+                            </div>
+                            <!--  -->
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Description</label>
+                                <label class="col-sm-2 col-form-label">Password</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="password form-control" name="description" placeholder="product description" required="required" pattern=".{10,}" title="UserName Must Be More Than 10 Characters">
+                                    <input type="hidden"  value="<?php echo $data['password']; ?>" name="oldPassword">
+                                    <input type="password" class="form-control" name="newPassword" placeholder="Leave This Input Blank If You Dont want to change">
                                     <span class="messages popover-valid"></span>
                                 </div>
-                            </div><!-- End Form Group -->
-                            <!-- Start Form Group -->
+                            </div>
+                            <!--  -->
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Price</label>
+                                <label class="col-sm-2 col-form-label">Email</label>
                                 <div class="col-sm-10">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control price-field" name="price" placeholder="product price" required  pattern=".{1,}" title="UserName Must Be More Than 1 Characters">
-                                        <span class="input-group-append" id="basic-addon3">
-                                            <label class="input-group-text">$</label>
-                                         </span>
-                                    </div>
-                                </div>
-                            </div><!-- End Form Group -->
-                            <!-- Start Form Group -->
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">country of product</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="country_made" placeholder="product country" required="required">
+                                    <input type="email" class="form-control" value="<?php echo $data['email']; ?>" name="email" placeholder="Enter email" autocomplete="off" required="required">
                                     <span class="messages popover-valid"></span>
                                 </div>
-                            </div><!-- End Form Group -->
-                            <!-- Start Form Group -->
+                            </div>
+                            <!--  -->
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">image</label>
+                                <label class="col-sm-2 col-form-label">Full Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" value="<?php echo $data['fullName']; ?>" name="fullName" placeholder="Enter your full name" autocomplete="off" required="required">
+                                    <span class="messages popover-valid"></span>
+                                </div>
+                            </div>
+                            <!--  -->
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Avatar</label>
                                 <div class="col-sm-10">
                                     <label for="file-upload" class="custom-file-upload">
-                                        <i class="fa fa-cloud-upload"></i> Custom Upload
+                                        <i class="fa fa-cloud-upload"></i> Upload You File
                                     </label>
-                                    <input id="file-upload" type="file"/>
+                                    <input id="file-upload" type="file" name="new_avatar">
+                                    <input  value="<?php echo $data['avatar']; ?>" type="hidden" name="old_avatar">
                                 </div>
-                            </div><!-- End Form Group -->
-                            <!-- Start Form Group -->
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Status</label>
-                                <div class="col-sm-10">
-                                    <select name="status" class="form-control" >
-                                        <option value="0">...</option>
-                                        <option value="1">New</option>
-                                        <option value="2">Like New</option>
-                                        <option value="3">used</option>
-                                        <option value="4">very old</option>
-                                    </select>
-                                </div>
-                            </div><!-- End Form Group -->
-                            <!-- Start Form Group -->
-                            <!-- Start Form Group -->
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Category</label>
-                                <div class="col-sm-10">
-                                    <select name="cat_id" class="form-control">
-                                        <option value="0">...</option>
-                                        <?php
-                                        $data = GetDataTable('*','categories','id');
-                                        foreach ($data as $row){
-                                            echo "<option value=". $row['id'] .">" .$row['name']. "</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div><!-- End Form Group -->
-
+                            </div>
+                            <!--  -->
                             <div class="row">
                                 <label class="col-sm-2"></label>
                                 <div class="col-sm-10">
-                                    <button type="submit" class="btn btn-primary m-b-0">Create New Product</button>
+                                    <button type="submit" class="btn btn-primary m-b-0">Update</button>
                                 </div>
                             </div>
                         </form>
                         <?php
                         /**************************************/
-                        if($_SERVER['REQUEST_METHOD'] == "POST"){
+                        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                            //get vars
+                            $id         = $data['id'];
+                            $userName   = $_POST['userName'];
+                            $email      = $_POST['email'];
+                            $fullName   = $_POST['fullName'];
 
-                            $Name = $_POST['name'];
-                            $description        = filter_var($_POST['description'],FILTER_SANITIZE_STRING);
-                            $price              = filter_var($_POST['price'],FILTER_SANITIZE_NUMBER_INT);
-                            $country_made       = filter_var($_POST['country_made'],FILTER_SANITIZE_STRING);
-                            $status             = filter_var($_POST['status'],FILTER_SANITIZE_NUMBER_INT);
-                            $image              = 'imsge';
-                            $cat_id             = filter_var($_POST['cat_id'],FILTER_SANITIZE_NUMBER_INT);
+                            //password
+                            $oldPassword   = $_POST['oldPassword'];
+                            $newPassword   = $_POST['newPassword'];
+                            $pass = '';
 
-                            //errors
+                            //check password value
+                            $pass = empty($newPassword) ? $oldPassword : sha1($newPassword);
+
+                            //validate the form
                             $formErrors =  array();
-                            if(strlen($Name) < 4){
-                                $formErrors[] = "Product name can Not Be Less than 4 characters!";
+                            if(strlen($userName) < 4){
+                                $formErrors[] = 'username can"t less than four characters';
                             }
-                            if(empty($Name)){
-                                $formErrors[] = "Product name can't be empty!";
+                            if(empty($userName)){
+                                $formErrors[] = 'username can"t be empty';
                             }
-                            if(empty($description)){
-                                $formErrors[] = "Description Field can't be empty!";
+                            if(empty($email)){
+                                $formErrors[] = 'email can"t be empty';
                             }
-                            if(strlen($description) < 10){
-                                $formErrors[] = "Description Field can Not Be Less than 10 characters!";
+                            if(empty($fullName)){
+                                $formErrors[] = 'full name can"t be empty';
                             }
-                            if(empty($price)){
-                                $formErrors[] = "Price Field can't be empty!";
+
+                            
+                            /* ********************************************************* */
+                            //avatar
+                            $avatar = '';
+                            // echo $_POST['new_avatar'];
+                            // echo $_FILES['new_avatar'];
+                            $file_input = $_FILES['new_avatar'];
+                            //print_r($file_input);
+                            if($_FILES['new_avatar']['size'] == 0){
+                                $avatar = $_POST['old_avatar'];
+                                echo 'ni avatar';
+                            }else{
+
+                                $file_name      = $file_input['name'];
+                                $file_full_path = $file_input['full_path'];
+                                $file_type      = $file_input['type'];
+                                $file_tmp_name  = $file_input['tmp_name'];
+                                $file_size      = $file_input['size']; //input file size
+                        
+                                $AvatarAllowExtension = array('jpg','jpeg','png','gif');
+                                $explodeName = explode('.', $file_name);
+                                $avatarExtension = strtolower(end($explodeName));
+
+                                if($file_size > 4194304){
+                                    $formErrors[] = 'Sorry, You Can Not Upload File Bigger Than 4 M';
+                                }
+                                if(!empty($file_name) && !in_array($avatarExtension,$AvatarAllowExtension)){
+                                    $formErrors[] = 'Sorry, You Have The Ability To Upload Image Only';
+                                }
+
+                                $avatar = rand(0,10000000) . '__' .rand(0,10000000) . '___' . $file_name;
+                                move_uploaded_file($file_tmp_name,'uploads/avatars/' . $avatar);
+
                             }
-                            if(strlen($price) < 1){
-                                $formErrors[] = "Price Field can Not Be Less than 1 characters!";
-                            }
-                            if(empty($country_made)){
-                                $formErrors[] = "Country made can't be empty!";
-                            }
-                            if(strlen($country_made) < 2){
-                                $formErrors[] = "Country name Field can Not Be Less than 2 characters!";
-                            }
-                            if($status == 0){
-                                $formErrors[] = "Status Field can't be empty!";
-                            }
-                            if($cat_id == 0){
-                                $formErrors[] = "Category Field can't be empty!";
-                            }
-                            foreach ($formErrors as $errors){
+                            /* ********************************************************* */
+
+                            foreach ($formErrors as $error){
                                 echo '
-                                    <div class="alert alert-danger background-danger m-3">
+                                    <div class="alert alert-danger background-danger">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <i class="icofont icofont-close-line-circled text-white"></i>
                                     </button>
-                                    <strong>'. $errors.'</strong> 
+                                    <strong>'. $error.'</strong> 
                                     </div>
                                 '; //end echo
                             }//end foreach
-                            //check if there's no errors
+
+                            //check if there's no error
                             if(empty($formErrors)){
-                                //id	name	description	price	add_date	country_made	status	image	rating	cat_id	member_id
-                                $stmt = $con->prepare("INSERT INTO items(name, description, price,add_date,country_made,status,image,rating,cat_id,member_id) 
-                                                                             VALUES(:name, :description, :price, now(),:country_made,:status,:image,:rating,:cat_id,:member_id) ");
-                                $stmt->execute(array(
-                                    'name'              =>$Name,
-                                    'description'       =>$description,
-                                    'price'             =>$price,
-                                    'country_made'      =>$country_made,
-                                    'status'            =>$status,
-                                    'image'             =>$image,
-                                    'rating'            =>'...',
-                                    'cat_id'            =>$cat_id,
-                                    'member_id'         =>$userId,
-                                ));
-                                if($stmt){
-                                    //redirectHome('alert alert-success background-success m-3',"creating Success!","back", 3);
-                                    //header('profile.php',4);
-                                    header("Location:profile.php?created_msg");
+                                $stmt2 = $con->prepare("SELECT * FROM users WHERE userName = ? AND id != ?");
+                                $stmt2->execute(array($userName,$id));
+                                $count2 = $stmt2->rowCount();
+                                if($count2 == 1){
+                                    echo 'Sorry this username already exist';
+                                }else{
+                                    $stmt = $con->prepare("UPDATE users SET userName = ?, email = ?, password = ? ,fullName = ?,avatar = ? WHERE id = ?");
+                                    $stmt->execute(array($userName,$email,$pass,$fullName,$avatar,$id));
+                                    $_SESSION['userSession_id'] = $id;
+                                    redirect_user('alert alert-success background-success','You will be redirected Back!','Updating Success!','profile.php');
+
+                                    //redirectHome('alert alert-success background-success','Updating Success!');
                                 }
-                            } //end check function
-                        }else{
-                            //redirectHome('danger','sorry you can"t open this page direct',4);
+
+                            }
                         }
                         /**************************************/
 
