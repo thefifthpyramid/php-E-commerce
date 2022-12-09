@@ -278,7 +278,7 @@
                                                          data-aos="fade-up" data-aos-delay="0">
                                                         <div class="image-box">
                                                             <a href="product-details.php?product_id=<?php  echo $item['id']; ?>" class="image-link">
-                                                                <img src="layout/assets/images/product/default/home-1/default-9.jpg" alt="">
+                                                                <img src="uploads/products/<?php echo $item['image']; ?>" alt="<?php echo $item['name']; ?>">
                                                                 <img src="layout/assets/images/product/default/home-1/default-10.jpg" alt="">
                                                             </a>
                                                             <div class="action-link">
