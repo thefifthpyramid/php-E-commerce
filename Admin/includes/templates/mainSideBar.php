@@ -29,6 +29,28 @@
                     </li><!-- end li -->
                 </ul>
 
+                <!-- Dashboard -->
+                <div class="pcoded-navigation-label">Settings</div>
+                <ul class="pcoded-item pcoded-left-item">
+                    <li class=""><!-- Start dashboard li -->
+                        <a href="settings.php?do=general" class="waves-effect waves-dark">
+                                <span class="pcoded-micon">
+                                    <i class="feather icon-sliders"></i>
+                                </span>
+                            <span class="pcoded-mtext">General Settings</span>
+                        </a>
+                    </li><!-- end li -->
+                    <li class=""><!-- Start dashboard li -->
+                        <a href="settings.php?do=components" class="waves-effect waves-dark">
+                                <span class="pcoded-micon">
+                                    <i class="feather icon-package"></i>
+                                </span>
+                            <span class="pcoded-mtext">Components</span>
+                        </a>
+                    </li><!-- end li -->
+                    
+                </ul>
+
 
                 <!-- Categories -->
                 <div class="pcoded-navigation-label">Categories</div>

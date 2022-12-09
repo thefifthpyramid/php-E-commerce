@@ -78,7 +78,7 @@
                                         ?><!--   Edit Page  -->
                                         <div class="card">
                                             <div class="card-header">
-                                                <h5>Tooltip Validation</h5>
+                                                <h5>Edit My Prodile</h5>
                                                 <a href="?do=Manage" class="btn waves-effect waves-light btn-primary btn-square position-right">Show all members <i class="fa fa-users"></i> </a>
                                             </div>
                                             <div class="card-block">
