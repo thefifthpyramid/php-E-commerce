@@ -264,6 +264,8 @@
     cursor: pointer;
     -webkit-transition: all ease-in .3s;
     transition: all ease-in .3s;
+    margin-left: 10px;
+    width: 211px;
 }.btn-primary:hover, .sweet-alert button.confirm:hover, .wizard>.actions a:hover {
      background-color: #73b4ff;
      border-color: #73b4ff;
@@ -503,7 +505,7 @@
      position: relative;
      overflow: hidden;
  }
-input[type="file"] {
+input[type="file"]#file-upload {
     display: none;
 }
 .custom-file-upload {
@@ -518,6 +520,8 @@ input[type="file"] {
 .user-avatar{
     margin-top:20px;
     opacity: .8;
+    width: 150px;
+    height: 150px;
 }
 .text-c-yellow{
     color: #ffb64d;
@@ -566,3 +570,11 @@ input[type="file"] {
      color: #fff;
  }
 /*End Profile page*/
+
+/* Shop page */
+.product-default-single-item .image-link img {
+    height: 250px; 
+}.product-image-thumb img{
+    height: 100px;
+    width: 100%;
+}

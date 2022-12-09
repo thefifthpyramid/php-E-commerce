@@ -43,7 +43,7 @@
                                                         ?>
                                                         <li><a href="shop.php?category_id=<?php echo $item['id']; ?>&cat_name=<?php echo str_replace(' ','-',$item['name']); ?>"><?php echo $item['name']; ?>
                                                                 <span class="Category_counter float-right">
-                                                                    <?php echo getCatCount('cat_id','items',$item['id']); ?>
+                                                                    <?php echo getCatCount('cat_id','products',$item['id']); ?>
                                                                 </span>
                                                             </a></li>
                                                         <?php } ?>

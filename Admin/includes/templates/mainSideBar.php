@@ -55,7 +55,7 @@
                 <div class="pcoded-navigation-label">Products</div>
                 <ul class="pcoded-item pcoded-left-item">
                     <li class=""><!-- Start Show all Categories li -->
-                        <a href="items.php?do=Manage" class="waves-effect waves-dark">
+                        <a href="products.php?do=Manage" class="waves-effect waves-dark">
                             <span class="pcoded-micon">
                                 <i class="feather icon-package"></i>
                             </span>
@@ -63,7 +63,7 @@
                         </a>
                     </li><!-- end li -->
                     <li class=""><!-- Start li -->
-                        <a href="items.php?do=add" class="waves-effect waves-dark">
+                        <a href="products.php?do=add" class="waves-effect waves-dark">
                                 <span class="pcoded-micon">
                                     <i class="feather icon-edit"></i>
                                 </span>

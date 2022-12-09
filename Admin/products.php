@@ -45,7 +45,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                         <li class="breadcrumb-item">
                             <a href="dashboard.php"><i class="feather icon-home"></i></a>
                         </li>
-                        <li class="breadcrumb-item"><a href="items.php">items</a> </li>
+                        <li class="breadcrumb-item"><a href="products.php">products</a> </li>
                         <li class="breadcrumb-item readonly">create product </li>
                     </ul>
                 </div>
@@ -66,7 +66,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                 if($do == 'edit'){
                                 $id = isset($_GET['id']) && is_numeric($_GET['id']) ? intval($_GET['id']) : 0 ;
 
-                                $stmt = $con->prepare('SELECT * FROM items WHERE id = ?');
+                                $stmt = $con->prepare('SELECT * FROM products WHERE id = ?');
                                 $stmt->execute(array($id));
                                 $row = $stmt->fetch();
                                 $count = $stmt->rowCount();
@@ -243,15 +243,15 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
 
                                             foreach ($formErrors as $error){
 
-                                                redirectHome('alert alert-danger background-danger','<strong>'.$error.'</strong>','items.php');
+                                                redirectHome('alert alert-danger background-danger','<strong>'.$error.'</strong>','products.php');
                                             }//end foreach
 
                                             //check if there's no error
                                             if(empty($formErrors)){
-                                                $stmt = $con->prepare("UPDATE items SET name = ?, description = ?, price = ? ,country_made = ?,status = ?,image = ?,cat_id = ?,member_id = ? WHERE id = ?");
-                                                $stmt->execute(array($name,$description,$price,$country_made,$status,$image,$cat_id,$member_id,$id));
+                                                $stmt = $con->prepare("UPDATE products SET name = ?, description = ?, price = ? ,country_made = ?,status = ?,product_cover = ?,cat_id = ?,member_id = ? WHERE id = ?");
+                                                $stmt->execute(array($name,$description,$price,$country_made,$status,$product_cover,$cat_id,$member_id,$id));
 
-                                                redirectHome('alert alert-success background-success','Updating Success!','items.php');
+                                                redirectHome('alert alert-success background-success','Updating Success!','products.php');
                                             }
                                         }else{
                                             echo "sorry you can't open this page direct";
@@ -270,7 +270,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                 <?php if($do == 'add'){ ?><!--   create product page  -->
                                 <div class="card-header">
                                     <h5>create product page</h5>
-                                    <a href="?do=Manage" class="btn waves-effect waves-light btn-primary btn-square position-right"> Show all items <i class="fa fa-items"></i> </a>
+                                    <a href="?do=Manage" class="btn waves-effect waves-light btn-primary btn-square position-right"> Show all products <i class="fa fa-items"></i> </a>
                                 </div>
                                 <div class="card-block">
                                     <form id="second" action="?do=Insert" method="post" enctype="multipart/form-data">
@@ -312,14 +312,22 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                         </div><!-- End Form Group -->
                                         <!-- Start Form Group -->
                                         <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">image</label>
+                                            <label class="col-sm-2 col-form-label">Product Cover</label>
                                             <div class="col-sm-10">
                                                 <div class="custom-file">
-                                                    <input type="file" name="product_image" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                                                    <input type="file" name="product_cover" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
                                                     <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                                                 </div>
                                             </div>
                                         </div><!-- End Form Group -->
+                                        <!-- Start Form Group -->
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Sub Images</label>
+                                            <div class="col-sm-10">
+                                                <input type="file" name="sub_images[]" multiple />
+                                            </div>
+                                        </div><!-- End Form Group -->
+                                        <!-- Start Form Group -->
                                         <!-- Start Form Group -->
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Status</label>
@@ -385,7 +393,10 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
 
                                 }elseif($do == 'Insert'){
                                     if($_SERVER['REQUEST_METHOD'] == "POST"){
+                                        //errors
+                                        $formErrors =  array();
 
+                                        //vars
                                         $Name = $_POST['name'];
                                         $description = $_POST['description'];
                                         $price = $_POST['price'];
@@ -396,8 +407,8 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                         $tags = $_POST['tags'];
                                         echo $tags;
                                         echo $member_id;
-                                        /* ******************************************************** */
-                                        $file_input = $_FILES['product_image'];
+                                        /* *************************product_cover******************************* */
+                                        $file_input = $_FILES['product_cover'];
                                         $file_name      = $file_input['name'];
                                         $file_full_path = $file_input['full_path'];
                                         $file_type      = $file_input['type'];
@@ -407,10 +418,36 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                         $AvatarAllowExtension = array('jpg','jpeg','png','gif');
                                         $explodeName = explode('.', $file_name);
                                         $avatarExtension = strtolower(end($explodeName));
-        
+                                        /*******************************Multiple Upload********************************/
+                                            /*                      Multiple Upload                        */
+                                            $sub_images_array = array();
+                                            foreach($_FILES["sub_images"]["tmp_name"] as $key=>$tmp_name) {
+                                                $file_name = $_FILES["sub_images"]["name"][$key];
+                                                $file_tmp = $_FILES["sub_images"]["tmp_name"][$key];
+                                                $ext = pathinfo($file_name,PATHINFO_EXTENSION);
+
+                                                if(in_array($ext,$AvatarAllowExtension)) {
+                                                    /// push sub_images in array
+                                                    if(!file_exists('uploads/products/' . $file_name)) {
+                                                        move_uploaded_file($file_tmp = $_FILES["sub_images"]["tmp_name"][$key],'../uploads/products/' . $file_name);
+                                                    
+                                                        $sub_images_array[] = $file_name;
+                                                    }
+                                                    else {
+                                                        $filename = basename($file_name,$ext);
+                                                        $newFileName = $filename.time().".".$ext;
+                                                        move_uploaded_file($file_tmp = $_FILES["sub_images"]["tmp_name"][$key],'../uploads/products/' . $newFileName);
+                                                    
+                                                        $sub_images_array[] = $newFileName;
+                                                    }
+                                                }
+                                                else {
+                                                    $formErrors[] = $error . ":->" . "$file_name";
+                                                }
+                                            }//end foreach
+                                            /************************************************************ */
                         
                                         //errors
-                                        $formErrors =  array();
                                         if(empty($Name)){
                                             $formErrors[] = "section name can't be empty!";
                                         }
@@ -454,21 +491,22 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                             move_uploaded_file($file_tmp_name,'../uploads/products/' . $image_name);
 
                                             //id	name	description	price	add_date	country_made	status	image	rating	cat_id	member_id
-                                                $stmt = $con->prepare("INSERT INTO items(name, description, price,add_date,country_made,status,image,rating,cat_id,member_id,tags) 
-                                                                             VALUES(:name, :description, :price, now(),:country_made,:status,:image,:rating,:cat_id,:member_id,tags) ");
+                                                $stmt = $con->prepare("INSERT INTO products(name, description, price,add_date,country_made,status,product_cover,sub_images,rating,cat_id,member_id,tags) 
+                                                                             VALUES(:name, :description, :price, now(),:country_made,:status,:product_cover,:sub_images,:rating,:cat_id,:member_id,:tags) ");
                                                 $stmt->execute(array(
                                                     'name'              =>$Name,
                                                     'description'       =>$description,
                                                     'price'             =>$price,
                                                     'country_made'      =>$country_made,
                                                     'status'            =>$status,
-                                                    'image'             =>$image_name,
+                                                    'product_cover'     =>$image_name,
+                                                    'sub_images'        =>implode("|",$sub_images_array),
                                                     'rating'            =>'...',
                                                     'cat_id'            =>$cat_id,
                                                     'member_id'         =>$member_id,
                                                     'tags'              =>$tags,
                                                 ));
-                                            //     redirectHome('alert alert-success background-success m-3',"creating Success!","items.php?do=add", 3);
+                                            //     redirectHome('alert alert-success background-success m-3',"creating Success!","products.php?do=add", 3);
                                         } //end check function
                                     }else{
                                         redirectHome('danger','sorry you can"t open this page direct',4);
@@ -477,9 +515,9 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                 }elseif ($do == 'Manage'){
                                     $id = isset($_GET['id']) && is_numeric($_GET['id']) ? intval($_GET['id']) : 0 ;
                                     $stmt = $con->prepare("
-                                                            SELECT items.*, categories.name AS cat_name,users.userName FROM items
-                                                            INNER JOIN categories ON categories.id = items.cat_id
-                                                            INNER JOIN users ON users.id = items.member_id
+                                                            SELECT products.*, categories.name AS cat_name,users.userName FROM products
+                                                            INNER JOIN categories ON categories.id = products.cat_id
+                                                            INNER JOIN users ON users.id = products.member_id
                                                             ");
                                     $stmt->execute();
                                     $rows = $stmt->fetchAll();
@@ -488,7 +526,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                 <!--#################### Manage page #####################-->
                                 <div class="card">
                                     <div class="card-header">
-                                        <h5>All items/products</h5>
+                                        <h5>All products</h5>
                                         <a href="?do=add" class="btn waves-effect waves-light btn-primary btn-square position-right">craete new Product <i class="fa fa-plus"></i> </a>
                                     </div>
                                     <div class="card-block">
@@ -500,7 +538,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                     <th>Name</th>
                                                     <th>description</th>
                                                     <th>add_date</th>
-                                                    <th>image</th>
+                                                    <th>product Cover</th>
                                                     <th>Category Name</th>
                                                     <th>Ceated by</th>
                                                     <th>Control</th>
@@ -517,7 +555,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                         <td><?php echo $row['description']?></td>
 
                                                         <td><?php echo $row['add_date']?></td>
-                                                        <td><?php echo $row['image']?></td>
+                                                        <td><img src="../uploads/products/<?php echo $row['product_cover']?>" style="width:40px"></td>
                                                         <td><?php echo $row['cat_name']?></td>
                                                         <td><?php echo $row['userName']?></td>
                                                         <td class="text-center">
@@ -526,16 +564,16 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                                     <div class="input-group-prepend text-center" >
                                                                         <button type="button" class="btn btn-primary dropdown-toggle col-12" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>
                                                                         <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                                                            <a href="items.php?do=edit&id=<?php echo $row['id']?>" class="dropdown-item"><i class="fa fa-edit text-primary"></i> edit</a>
-                                                                            <a href="items.php?do=delete&id=<?php echo $row['id']?>" class="dropdown-item"><i class="fa fa-close text-c-red"></i> delete</a>
+                                                                            <a href="products.php?do=edit&id=<?php echo $row['id']?>" class="dropdown-item"><i class="fa fa-edit text-primary"></i> edit</a>
+                                                                            <a href="products.php?do=delete&id=<?php echo $row['id']?>" class="dropdown-item"><i class="fa fa-close text-c-red"></i> delete</a>
                                                                             <?php
                                                                             $chechCom = CheckItems('item_id','comments',$row['id']);
                                                                             if($chechCom > 0){ ?>
-                                                                                <a href="items.php?do=CommentsPage&id=<?php echo $row['id']?>" class="dropdown-item"><i class="fa fa-comments text-c-red"></i> Comments</a>
+                                                                                <a href="products.php?do=CommentsPage&id=<?php echo $row['id']?>" class="dropdown-item"><i class="fa fa-comments text-c-red"></i> Comments</a>
                                                                             <?php }
                                                                             if($row['approve'] == 0){ ?>
                                                                                 <div role="separator" class="dropdown-divider"></div>
-                                                                                <a href="items.php?do=activate&item_id=<?php echo $row['id']?>" class="dropdown-item"><i class="fa fa-eye text-c-green"></i> Activate</a>
+                                                                                <a href="products.php?do=activate&item_id=<?php echo $row['id']?>" class="dropdown-item"><i class="fa fa-eye text-c-green"></i> Activate</a>
                                                                             <?php } ?>
                                                                         </div>
                                                                     </div>
@@ -551,7 +589,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                     <th>Name</th>
                                                     <th>description</th>
                                                     <th>add_date</th>
-                                                    <th>image</th>
+                                                    <th>product Cover</th>
                                                     <th>cat_id</th>
                                                     <th>member_id</th>
                                                     <th>Control</th>
@@ -562,20 +600,20 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                     </div>
                                 </div>
                                 <!--#################### Manage page #####################-->
-                                <?php } //end the condition of add and insert items
+                                <?php } //end the condition of add and insert products
                                 elseif($do == 'delete'){
 
                                     $id = isset($_GET['id']) && is_numeric($_GET['id']) ? intval($_GET['id']) : 0 ;
-                                    $stmt = $con->prepare('SELECT * FROM items WHERE id = ? LIMIT 1');
+                                    $stmt = $con->prepare('SELECT * FROM products WHERE id = ? LIMIT 1');
 
                                     $stmt->execute(array($id));
                                     //fetch data from database
                                     $count = $stmt->rowCount();
                                     //fetch data from database
                                     if($stmt->rowCount() > 0) {
-                                        $stmt = $con->prepare('DELETE FROM items WHERE id = ?');
+                                        $stmt = $con->prepare('DELETE FROM products WHERE id = ?');
                                         $stmt->execute(array($id));
-                                        redirectHome('alert alert-success background-success m-3','Deleted Success!','items.php?do=Manage');
+                                        redirectHome('alert alert-success background-success m-3','Deleted Success!','products.php?do=Manage');
                                     }else{
                                         redirectHome('alert alert-danger background-success m-3','this row are not exist');
                                     }
@@ -584,14 +622,14 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                 elseif($do == 'activate'){
 
                                     $item_id = isset($_GET['item_id']) && is_numeric($_GET['item_id']) ? intval($_GET['item_id']) : 0 ;
-                                    $stmt = $con->prepare('SELECT * FROM items WHERE id = ? LIMIT 1');
+                                    $stmt = $con->prepare('SELECT * FROM products WHERE id = ? LIMIT 1');
 
                                     $stmt->execute(array($item_id));
                                     //fetch data from database
                                     $count = $stmt->rowCount();
                                     //fetch data from database
                                     if($stmt->rowCount() > 0) {
-                                        $stmt = $con->prepare('UPDATE items SET approve = 1 WHERE id = ? ');
+                                        $stmt = $con->prepare('UPDATE products SET approve = 1 WHERE id = ? ');
                                         $stmt->execute(array($item_id));
 
                                         redirectHome('alert alert-success background-success','Activate Success!');
@@ -602,13 +640,13 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
 
                                 $Item_Id = isset($_GET['id']) && is_numeric($_GET['id']) ? intval($_GET['id']) : 0 ;
                                 $stmt = $con->prepare("SELECT 
-                                                                comments.* ,items.name,users.userName
+                                                                comments.* ,products.name,users.userName
                                                             FROM 
                                                                 comments
                                                             INNER JOIN 
-                                                                items
+                                                                products
                                                             on 
-                                                                items.id = comments.item_id
+                                                                products.id = comments.item_id
                                                             inner join 
                                                                 users
                                                             on users.id = comments.user_id
@@ -691,7 +729,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                         </div>
                     </div>
                 </div>
-                <!--   ############# create items page ##############  -->
+                <!--   ############# create products page ##############  -->
             </div>
         </div>
     </div>

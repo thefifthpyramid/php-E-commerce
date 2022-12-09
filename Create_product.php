@@ -130,12 +130,19 @@
                             </div><!-- End Form Group -->
                             <!-- Start Form Group -->
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">image</label>
+                                <label class="col-sm-2 col-form-label">Product Cover</label>
                                 <div class="col-sm-10">
                                     <label for="file-upload" class="custom-file-upload">
-                                        <i class="fa fa-cloud-upload"></i> Custom Upload
+                                        <i class="fa fa-cloud-upload"></i> Upload Product cover
                                     </label>
-                                    <input id="file-upload" type="file" name="product_image"/>
+                                    <input id="file-upload" type="file" name="product_cover"/>
+                                </div>
+                            </div><!-- End Form Group -->
+                            <!-- Start Form Group -->
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Sub Images</label>
+                                <div class="col-sm-10">
+                                    <input type="file" name="sub_images[]" multiple />
                                 </div>
                             </div><!-- End Form Group -->
                             <!-- Start Form Group -->
@@ -179,6 +186,9 @@
                         /**************************************/
                         if($_SERVER['REQUEST_METHOD'] == "POST"){
 
+                            //errors
+                            $formErrors =  array();
+                            //////////////////////////////////////////////
                             $Name = $_POST['name'];
                             $description        = filter_var($_POST['description'],FILTER_SANITIZE_STRING);
                             $price              = filter_var($_POST['price'],FILTER_SANITIZE_NUMBER_INT);
@@ -188,7 +198,7 @@
                             $cat_id             = filter_var($_POST['cat_id'],FILTER_SANITIZE_NUMBER_INT);
 
                             /* ******************************************************** */
-                            $file_input = $_FILES['product_image'];
+                            $file_input = $_FILES['product_cover'];
                             $file_name      = $file_input['name'];
                             $file_full_path = $file_input['full_path'];
                             $file_type      = $file_input['type'];
@@ -199,10 +209,35 @@
                             $explodeName = explode('.', $file_name);
                             $avatarExtension = strtolower(end($explodeName));
 
-            
+                            /***************************************************************/
+                            /*                      Multiple Upload                        */
+                            $sub_images_array = array();
+                            foreach($_FILES["sub_images"]["tmp_name"] as $key=>$tmp_name) {
+                                $file_name = $_FILES["sub_images"]["name"][$key];
+                                $file_tmp = $_FILES["sub_images"]["tmp_name"][$key];
+                                $ext = pathinfo($file_name,PATHINFO_EXTENSION);
 
-                            //errors
-                            $formErrors =  array();
+                                if(in_array($ext,$AvatarAllowExtension)) {
+                                    /// push sub_images in array
+                                    if(!file_exists('uploads/products/' . $file_name)) {
+                                        move_uploaded_file($file_tmp = $_FILES["sub_images"]["tmp_name"][$key],'uploads/products/' . $file_name);
+                                    
+                                        $sub_images_array[] = $file_name;
+                                    }
+                                    else {
+                                        $filename = basename($file_name,$ext);
+                                        $newFileName = $filename.time().".".$ext;
+                                        move_uploaded_file($file_tmp = $_FILES["sub_images"]["tmp_name"][$key],'uploads/products/' . $newFileName);
+                                    
+                                        $sub_images_array[] = $newFileName;
+                                    }
+                                }
+                                else {
+                                    $formErrors[] = $error . ":->" . "$file_name";
+                                }
+                            }//end foreach
+                            /************************************************************ */
+                            //Errors
                             if(strlen($Name) < 4){
                                 $formErrors[] = "Product name can Not Be Less than 4 characters!";
                             }
@@ -253,16 +288,17 @@
                                 $image_name = rand(0,10000000) . '__' .rand(0,10000000) . '___' . $file_name;
                                 move_uploaded_file($file_tmp_name,'uploads/products/' . $image_name);
 
-                                //id	name	description	price	add_date	country_made	status	image	rating	cat_id	member_id
-                                $stmt = $con->prepare("INSERT INTO items(name, description, price,add_date,country_made,status,image,rating,cat_id,member_id) 
-                                                                             VALUES(:name, :description, :price, now(),:country_made,:status,:image,:rating,:cat_id,:member_id) ");
+                                //id	name	description	price	add_date	country_made	status	product_cover sub_images rating	cat_id	member_id
+                                $stmt = $con->prepare("INSERT INTO products(name, description, price,add_date,country_made,status,product_cover,sub_images,rating,cat_id,member_id) 
+                                                                             VALUES(:name, :description, :price, now(),:country_made,:status,:product_cover,:sub_images,:rating,:cat_id,:member_id) ");
                                 $stmt->execute(array(
                                     'name'              =>$Name,
                                     'description'       =>$description,
                                     'price'             =>$price,
                                     'country_made'      =>$country_made,
                                     'status'            =>$status,
-                                    'image'             =>$image_name,
+                                    'product_cover'     =>$image_name,
+                                    'sub_images'        =>implode("|",$sub_images_array),
                                     'rating'            =>'...',
                                     'cat_id'            =>$cat_id,
                                     'member_id'         =>$userId,

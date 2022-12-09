@@ -14,8 +14,8 @@
 
         // fetch the products of the user
         $stmt = $con->prepare("
-        SELECT items.*, categories.name AS cat_name FROM items
-        INNER JOIN categories ON categories.id = items.cat_id
+        SELECT products.*, categories.name AS cat_name FROM products
+        INNER JOIN categories ON categories.id = products.cat_id
         WHERE member_id = ? ORDER BY id DESC LIMIT 5
         ");
         $stmt->execute(array($data['id']));

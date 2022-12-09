@@ -10,7 +10,7 @@
     }
     $cat_name = $_GET['cat_name'];
 
-    $lastElement = $con->prepare("SELECT * FROM items " . $WhereVar ." ORDER BY id DESC ");
+    $lastElement = $con->prepare("SELECT * FROM products " . $WhereVar ." ORDER BY id DESC ");
 
     if($cat_id != 000){
         $lastElement->execute(array($cat_id));
@@ -32,7 +32,7 @@
                             <nav aria-label="breadcrumb">
                                 <ul>
                                     <li><a href="index.html">Home</a></li>
-                                    <li><a href="shop-grid-sidebar-left.html">Shop</a></li>
+                                    <li>Shop</li>
                                     <li class="active" aria-current="page"><?php echo str_replace('-',' ',$cat_name);?></li>
                                 </ul>
                             </nav>
@@ -65,7 +65,7 @@
                                         <a href="?category_id=<?php echo $item['id']; ?>&cat_name=<?php echo str_replace(' ','-',$item['name']); ?>" class="<?php if($item['name'] == str_replace('-',' ',$cat_name)){ echo 'active';}?>" ><?php echo $item['name']; ?>
 
                                             <span class="Category_counter float-right">
-                                                <?php echo getCatCount('cat_id','items',$item['id']); ?>
+                                                <?php echo getCatCount('cat_id','products',$item['id']); ?>
                                             </span>
                                         </a>
                                     </li>
@@ -78,7 +78,7 @@
                                         <li class="sub-link">
                                             <a href="?category_id=<?php echo $sub['id']; ?>&cat_name=<?php echo str_replace(' ','-',$sub['name']); ?>" class="<?php if($sub['name'] == str_replace('-',' ',$cat_name)){ echo 'active';}?>" ><?php echo $sub['name']; ?>
                                                 <span class="Category_counter float-right">
-                                                    <?php echo getCatCount('cat_id','items',$sub['id']); ?>
+                                                    <?php echo getCatCount('cat_id','products',$sub['id']); ?>
                                                 </span>
                                             </a>
                                         </li>
@@ -217,8 +217,7 @@
                         <div class="container">
                             <div class="row">
                                 <!-- Start Sort Wrapper Box -->
-                                <div class="sort-box d-flex justify-content-between align-items-md-center align-items-start flex-md-row flex-column"
-                                     data-aos="fade-up" data-aos-delay="0">
+                                <div class="sort-box d-flex justify-content-between align-items-md-center align-items-start flex-md-row flex-column" data-aos="fade-up" data-aos-delay="0">
                                     <!-- Start Sort tab Button -->
                                     <div class="sort-tablist d-flex align-items-center">
                                         <ul class="tablist nav sort-tab-btn">
@@ -278,8 +277,13 @@
                                                          data-aos="fade-up" data-aos-delay="0">
                                                         <div class="image-box">
                                                             <a href="product-details.php?product_id=<?php  echo $item['id']; ?>" class="image-link">
-                                                                <img src="uploads/products/<?php echo $item['image']; ?>" alt="<?php echo $item['name']; ?>">
-                                                                <img src="layout/assets/images/product/default/home-1/default-10.jpg" alt="">
+                                                                <img src="uploads/products/<?php echo $item['product_cover']; ?>" alt="<?php echo $item['name']; ?>">
+                                                                <?php
+                                                                    /*************************************************/
+                                                                    $sub_images_Array = explode("|",$item['sub_images']);
+                                                                    /*************************************************/
+                                                                ?>
+                                                                <img src="uploads/products/<?php echo $sub_images_Array[1]; ?>" alt="">
                                                             </a>
                                                             <div class="action-link">
                                                                 <div class="action-link-left">
@@ -339,12 +343,13 @@
                                                             <div class="product-list-single product-color--golden">
                                                                 <a href="product-details.php?product_id=<?php  echo $item['id']; ?>"
                                                                    class="product-list-img-link">
-                                                                    <img class="img-fluid"
-                                                                         src="layout/assets/images/product/default/home-1/default-5.jpg"
-                                                                         alt="">
-                                                                    <img class="img-fluid"
-                                                                         src="layout/assets/images/product/default/home-1/default-6.jpg"
-                                                                         alt="">
+                                                                    <img class="img-fluid" src="uploads/products/<?php echo $item['product_cover']; ?>" alt="<?php echo $item['name']; ?>">
+                                                                    <?php
+                                                                        /*************************************************/
+                                                                            $sub_images_Array = explode("|",$item['sub_images']);
+                                                                        /*************************************************/
+                                                                    ?>
+                                                                    <img class="img-fluid" src="uploads/products/<?php echo $sub_images_Array[1]; ?>" alt="">
                                                                 </a>
                                                                 <div class="product-list-content">
                                                                     <h5 class="product-list-link"><a  href="product-details.php?product_id=<?php  echo $item['id']; ?>"><?php  echo $item['name']; ?></a></h5>
@@ -355,23 +360,13 @@
                                                                         <li class="fill"><i class="ion-android-star"></i></li>
                                                                         <li class="empty"><i class="ion-android-star"></i></li>
                                                                     </ul>
-                                                                    <span class="product-list-price"> $25.12</span>
+                                                                    <span class="product-list-price"> $<?php  echo $item['price']; ?></span>
                                                                     <p><?php  echo $item['description']; ?></p>
                                                                     <div class="product-action-icon-link-list">
-                                                                        <a href="#" data-bs-toggle="modal"
-                                                                           data-bs-target="#modalAddcart"
-                                                                           class="btn btn-lg btn-black-default-hover">Add to
-                                                                            cart</a>
-                                                                        <a href="#" data-bs-toggle="modal"
-                                                                           data-bs-target="#modalQuickview"
-                                                                           class="btn btn-lg btn-black-default-hover"><i
-                                                                                    class="icon-magnifier"></i></a>
-                                                                        <a href="wishlist.html"
-                                                                           class="btn btn-lg btn-black-default-hover"><i
-                                                                                    class="icon-heart"></i></a>
-                                                                        <a href="compare.html"
-                                                                           class="btn btn-lg btn-black-default-hover"><i
-                                                                                    class="icon-shuffle"></i></a>
+                                                                        <a href="#" data-bs-toggle="modal"  data-bs-target="#modalAddcart"  class="btn btn-lg btn-black-default-hover">Add to cart</a>
+                                                                        <a href="#" data-bs-toggle="modal" data-bs-target="#modalQuickview" class="btn btn-lg btn-black-default-hover"><i class="icon-magnifier"></i></a>
+                                                                        <a href="wishlist.html"  class="btn btn-lg btn-black-default-hover"><i  class="icon-heart"></i></a>
+                                                                        <a href="compare.html" class="btn btn-lg btn-black-default-hover"><i  class="icon-shuffle"></i></a>
                                                                     </div>
                                                                 </div>
                                                             </div> <!-- End Product Defautlt Single -->

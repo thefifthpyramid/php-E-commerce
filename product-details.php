@@ -12,10 +12,10 @@
     if($product_id == 0){
         header("Location:shop.php?category_id=000&cat_name=All-Products");
     }
-    $lastElement = $con->prepare("SELECT * FROM items WHERE id = ? And approve = 1");
+    $lastElement = $con->prepare("SELECT * FROM products WHERE id = ? And approve = 1");
     $lastElement->execute(array($product_id));
     $product_data = $lastElement->fetch();
-    //$product_data = FetchOneColum('items','id',$product_id);
+    //$product_data = FetchOneColum('products','id',$product_id);
     $user_id = FetchOneColum('users','userName',$_SESSION['userSession_username']);
 
     if($product_data != NULL){
@@ -55,23 +55,19 @@
                     <div class="product-large-image product-large-image-horaizontal swiper-container">
                         <div class="swiper-wrapper">
                             <div class="product-image-large-image swiper-slide zoom-image-hover img-responsive">
-                            <img src="uploads/products/<?php echo $product_data['image']; ?>" alt="<?php echo $product_data['name']; ?>">
+                                <img src="uploads/products/<?php echo $product_data['product_cover']; ?>" alt="<?php echo $product_data['name']; ?>">
                             </div>
-                            <div class="product-image-large-image swiper-slide zoom-image-hover img-responsive">
-                                <img src="layout/assets/images/product/default/home-1/default-2.jpg" alt="">
-                            </div>
-                            <div class="product-image-large-image swiper-slide zoom-image-hover img-responsive">
-                                <img src="layout/assets/images/product/default/home-1/default-3.jpg" alt="">
-                            </div>
-                            <div class="product-image-large-image swiper-slide zoom-image-hover img-responsive">
-                                <img src="layout/assets/images/product/default/home-1/default-4.jpg" alt="">
-                            </div>
-                            <div class="product-image-large-image swiper-slide zoom-image-hover img-responsive">
-                                <img src="layout/assets/images/product/default/home-1/default-5.jpg" alt="">
-                            </div>
-                            <div class="product-image-large-image swiper-slide zoom-image-hover img-responsive">
-                                <img src="layout/assets/images/product/default/home-1/default-6.jpg" alt="">
-                            </div>
+                            <?php
+                                /********************************************************/
+                                $sub_images_Array = explode("|",$product_data['sub_images']);
+                                foreach($sub_images_Array as $sub_img){ 
+                            ?>
+                                <div class="product-image-large-image swiper-slide zoom-image-hover img-responsive">
+                                    <img src="uploads/products/<?php echo $sub_img; ?>" alt="">
+                                </div>
+                            <?php }
+                                /********************************************************/ 
+                            ?>
                         </div>
                     </div>
                     <!-- End Large Image -->
@@ -80,29 +76,21 @@
                         class="product-image-thumb product-image-thumb-horizontal swiper-container pos-relative mt-5">
                         <div class="swiper-wrapper">
                             <div class="product-image-thumb-single swiper-slide">
-                                <img class="img-fluid" src="uploads/products/<?php echo $product_data['image']; ?>"
-                                     alt="">
+                                <img class="img-fluid" src="uploads/products/<?php echo $product_data['product_cover']; ?>" alt="">
                             </div>
-                            <div class="product-image-thumb-single swiper-slide">
-                                <img class="img-fluid" src="layout/assets/images/product/default/home-1/default-2.jpg"
-                                     alt="">
-                            </div>
-                            <div class="product-image-thumb-single swiper-slide">
-                                <img class="img-fluid" src="layout/assets/images/product/default/home-1/default-3.jpg"
-                                     alt="">
-                            </div>
-                            <div class="product-image-thumb-single swiper-slide">
-                                <img class="img-fluid" src="layout/assets/images/product/default/home-1/default-4.jpg"
-                                     alt="">
-                            </div>
-                            <div class="product-image-thumb-single swiper-slide">
-                                <img class="img-fluid" src="layout/assets/images/product/default/home-1/default-5.jpg"
-                                     alt="">
-                            </div>
-                            <div class="product-image-thumb-single swiper-slide">
-                                <img class="img-fluid" src="layout/assets/images/product/default/home-1/default-6.jpg"
-                                     alt="">
-                            </div>
+                            <?php
+                                /********************************************************/ 
+                                $sub_images_Array = explode("|",$product_data['sub_images']);
+                                foreach($sub_images_Array as $sub_img){
+                            ?>
+                                <div class="product-image-thumb-single swiper-slide">
+                                    <img class="img-fluid" src="uploads/products/<?php echo $sub_img; ?>" alt="">
+                                </div>
+                            <?php
+                                }
+                                /********************************************************/ 
+                            ?>
+                            
                         </div>
                         <!-- Add Arrows -->
                         <div class="gallery-thumb-arrow swiper-button-next"></div>
@@ -460,15 +448,20 @@
                             <div class="swiper-wrapper">
                                 <!-- End Product Default Single Item -->
                                 <?php
-                                    $latestProduct = getLatest('*','items','id',10);
+                                    $latestProduct = getLatest('*','products','id',10);
                                     foreach ($latestProduct as $product){
                                 ?>
                                 <!-- Start Product Default Single Item -->
                                 <div class="product-default-single-item product-color--golden swiper-slide">
                                     <div class="image-box">
                                         <a href="product-details.php?product_id=<?php  echo $product['id']; ?>" class="image-link">
-                                        <img src="uploads/products/<?php echo $product['image']; ?>" alt="<?php echo $product['name']; ?>">
-                                            <img src="layout/assets/images/product/default/home-1/default-10.jpg" alt="">
+                                        <img src="uploads/products/<?php echo $product['product_cover']; ?>" alt="<?php echo $product['name']; ?>">
+                                        <?php
+                                            /*************************************************/
+                                            $sub_images_Array = explode("|",$product['sub_images']);
+                                            /*************************************************/
+                                        ?>
+                                        <img src="uploads/products/<?php echo $sub_images_Array[1]; ?>" alt="">
                                         </a>
                                         <div class="action-link">
                                             <div class="action-link-left">

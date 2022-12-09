@@ -56,14 +56,14 @@
                                     <div class="row align-items-center m-b-30">
                                         <div class="col">
                                             <h6 class="m-b-5 text-white">Total Product</h6>
-                                            <h3 class="m-b-0 f-w-700 text-white"><?php echo countItem('id','items'); //item count function //?></h3>
+                                            <h3 class="m-b-0 f-w-700 text-white"><?php echo countItem('id','products'); //item count function //?></h3>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas feather icon-package text-c-red f-18"></i>
                                         </div>
                                     </div>
                                     <p class="m-b-0 text-white m-r-10">
-                                        Last Element Added  in: <?php echo LastItem('add_date','items');//last Item function?>
+                                        Last Element Added  in: <?php echo LastItem('add_date','products');//last Item function?>
                                     </p>
                                 </div>
                             </div>
@@ -154,8 +154,8 @@
                                         <div class="row align-items-center">
                                             <div class="col">
                                                 <h6 class="m-b-25">Products</h6>
-                                                <h3 class="f-w-700 text-c-green"><?php echo countItem('id','items'); //item count function //?></h3>
-                                                <p class="m-b-0">Last Element Added  in: <?php echo LastItem('add_date','items');//last Item function?></p>
+                                                <h3 class="f-w-700 text-c-green"><?php echo countItem('id','products'); //item count function //?></h3>
+                                                <p class="m-b-0">Last Element Added  in: <?php echo LastItem('add_date','products');//last Item function?></p>
                                             </div>
                                             <div class="col-auto">
                                                 <i class="fas feather icon-package bg-c-green"></i>
@@ -438,9 +438,9 @@
                                             <tbody>
                                                     <?php
                                                         $stmt = $con->prepare("
-                                                                SELECT items.*, categories.name AS cat_name,users.userName FROM items
-                                                                INNER JOIN categories ON categories.id = items.cat_id
-                                                                INNER JOIN users ON users.id = items.member_id ORDER BY id DESC LIMIT 5
+                                                                SELECT products.*, categories.name AS cat_name,users.userName FROM products
+                                                                INNER JOIN categories ON categories.id = products.cat_id
+                                                                INNER JOIN users ON users.id = products.member_id ORDER BY id DESC LIMIT 5
                                                                 ");
                                                         $stmt->execute();
                                                         $products_data = $stmt->fetchAll();
