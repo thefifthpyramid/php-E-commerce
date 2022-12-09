@@ -60,8 +60,7 @@
             <div class="col-lg-4"><!-- Left side -->
                 <div class="card mb-4">
                     <div class="card-body text-center">
-                        <img src="uploads/avatars/<?php echo $data['avatar']; ?>" alt="avatar"
-                             class="rounded-circle img-fluid user-avatar" style="width: 150px;">
+                        <img src="uploads/avatars/<?php echo $data['avatar']; ?>" alt="<?php echo $data['userName']; ?>" class="rounded-circle img-fluid user-avatar">
                         <h5 class="my-3"><?php echo $_SESSION['userSession_username']; ?></h5>
                         <p class="text-muted mb-1">Full Stack Developer</p>
                         <p class="text-muted mb-4"><?php echo $data['email']; ?></p>
@@ -103,7 +102,7 @@
                     <div class="card-body">
                         <div class="card-header">
                             <h4 class="">My Details</h4>
-                            <a href="#" class="btn waves-effect waves-light btn-main btn-square position-right"> Edit <i class="fa fa-edit text-primary"></i> </a>
+                            <a href="Edit_information.php" class="btn waves-effect waves-light btn-main btn-square position-right"> Edit <i class="fa fa-edit text-primary"></i> </a>
                         </div>
                         <table class="table border ">
                             <tr>
