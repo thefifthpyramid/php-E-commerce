@@ -12,7 +12,7 @@
     if(isset($_SESSION['username'])){
         include "init.php";
     }else{
-        header('Location: auth/login.php'); //redirect to dashboard page
+        header('Location: login.php'); //redirect to dashboard page
         exit();
     }
     /*
