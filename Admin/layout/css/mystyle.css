@@ -46,4 +46,41 @@ body{
 }
 .Category_counter{
     float: right;
+}input[type=checkbox] {
+     accent-color: red;
+ }
+.form-check-input {
+      position: relative;
 }
+
+input[type=checkbox] {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    top: 4px;
+}
+
+input[type=checkbox]::before {
+    content: "";
+    display: block;
+    position: absolute;
+    text-align: center;
+    height: 20px;
+    width: 20px;
+    left: 0;
+    top: 0px;
+    background-color: #fa5757;
+    font-family: "Montserrat";
+    border-radius: 2px;
+    border: 1px solid rgb(116 0 0 / 30%);
+}
+input[type=checkbox]:checked::after {
+    content: url('data:image/svg+xml; utf8, <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="white" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>');
+    display: block;
+    position: absolute;
+    left: 3px;
+    top: 2px;
+}.card .card-block .dropdown-menu>a {
+     padding-top: 0;
+     padding-left: 26px;
+ }

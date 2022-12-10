@@ -45,8 +45,8 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                         <li class="breadcrumb-item">
                             <a href="dashboard.php"><i class="feather icon-home"></i></a>
                         </li>
-                        <li class="breadcrumb-item"><a href="products.php">products</a> </li>
-                        <li class="breadcrumb-item readonly">create product </li>
+                        <li class="breadcrumb-item"><a href="products.php">Settings</a> </li>
+                        <li class="breadcrumb-item readonly">Components </li>
                     </ul>
                 </div>
             </div>
@@ -268,252 +268,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                         <!--   ############# create product page ##############  -->
                         <div class="col-md-12">
                             <div class="card">
-                                <?php if($do == 'add'){ ?><!--   create product page  -->
-                                <div class="card-header">
-                                    <h5>create product page</h5>
-                                    <a href="?do=Manage" class="btn waves-effect waves-light btn-primary btn-square position-right"> Show all products <i class="fa fa-items"></i> </a>
-                                </div>
-                                <div class="card-block">
-                                    <form id="second" action="?do=Insert" method="post" enctype="multipart/form-data">
-                                        <!-- Start Form Group -->
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Name</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="name" placeholder="name of the product" required="required">
-                                                <span class="messages popover-valid"></span>
-                                            </div>
-                                        </div><!-- End Form Group -->
-                                        <!-- Start Form Group -->
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Description</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="password form-control" name="description" placeholder="product description" required="required">
-                                                <span class="messages popover-valid"></span>
-                                            </div>
-                                        </div><!-- End Form Group -->
-                                        <!-- Start Form Group -->
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Price</label>
-                                            <div class="col-sm-10">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control" name="price" placeholder="product price">
-                                                    <span class="input-group-append" id="basic-addon3">
-                                                        <label class="input-group-text">$</label>
-                                                     </span>
-                                                </div>
-                                            </div>
-                                        </div><!-- End Form Group -->
-                                        <!-- Start Form Group -->
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">country of product</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="country_made" placeholder="product country" required="required">
-                                                <span class="messages popover-valid"></span>
-                                            </div>
-                                        </div><!-- End Form Group -->
-                                        <!-- Start Form Group -->
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Product Cover</label>
-                                            <div class="col-sm-10">
-                                                <div class="custom-file">
-                                                    <input type="file" name="product_cover" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                                                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                                                </div>
-                                            </div>
-                                        </div><!-- End Form Group -->
-                                        <!-- Start Form Group -->
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Sub Images</label>
-                                            <div class="col-sm-10">
-                                                <input type="file" name="sub_images[]" multiple />
-                                            </div>
-                                        </div><!-- End Form Group -->
-                                        <!-- Start Form Group -->
-                                        <!-- Start Form Group -->
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Status</label>
-                                            <div class="col-sm-10">
-                                                <select name="status" class="form-control">
-                                                    <option value="0">...</option>
-                                                    <option value="1">New</option>
-                                                    <option value="2">Like New</option>
-                                                    <option value="3">used</option>
-                                                    <option value="4">very old</option>
-                                                </select>
-                                            </div>
-                                        </div><!-- End Form Group -->
-                                        <!-- Start Form Group -->
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Created By</label>
-                                            <div class="col-sm-10">
-                                                <select name="member_id" class="form-control">
-                                                    <option value="0">...</option>
-                                                    <?php
-                                                        $data = GetDataTable('*','users','id');
-                                                        foreach ($data as $row){
-                                                            echo "<option value=". $row['id'] .">" .$row['userName']. "</option>";
-                                                        }
-                                                    ?>
-                                                </select>
-
-                                            </div>
-                                        </div><!-- End Form Group -->
-
-                                        <!-- Start Form Group -->
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Category</label>
-                                            <div class="col-sm-10">
-                                                <select name="cat_id" class="form-control">
-                                                    <option value="0">...</option>
-                                                    <?php
-                                                        $data = GetDataTable('*','categories','id');
-                                                        foreach ($data as $row){
-                                                            echo "<option value=". $row['id'] .">" .$row['name']. "</option>";
-                                                        }
-                                                    ?>
-                                                </select>
-                                            </div>
-                                        </div><!-- End Form Group -->
-                                        <!-- Start Form Group -->
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Tags</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="tags" placeholder="Product Tags" required="required">
-                                                <span class="messages popover-valid"></span>
-                                            </div>
-                                        </div><!-- End Form Group -->
-                                        <div class="row">
-                                            <label class="col-sm-2"></label>
-                                            <div class="col-sm-10">
-                                                <button type="submit" class="btn btn-primary m-b-0">Create New Product</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <?php
-
-                                }elseif($do == 'Insert'){
-                                    if($_SERVER['REQUEST_METHOD'] == "POST"){
-                                        //errors
-                                        $formErrors =  array();
-
-                                        //vars
-                                        $Name = $_POST['name'];
-                                        $description = $_POST['description'];
-                                        $price = $_POST['price'];
-                                        $country_made = $_POST['country_made'];
-                                        $status = $_POST['status'];
-                                        $cat_id = $_POST['cat_id'];
-                                        $member_id = $_POST['member_id'];
-                                        $tags = $_POST['tags'];
-                                        echo $tags;
-                                        echo $member_id;
-                                        /* *************************product_cover******************************* */
-                                        $file_input = $_FILES['product_cover'];
-                                        $file_name      = $file_input['name'];
-                                        $file_full_path = $file_input['full_path'];
-                                        $file_type      = $file_input['type'];
-                                        $file_tmp_name  = $file_input['tmp_name'];
-                                        $file_size      = $file_input['size']; //input file size
-                                
-                                        $AvatarAllowExtension = array('jpg','jpeg','png','gif');
-                                        $explodeName = explode('.', $file_name);
-                                        $avatarExtension = strtolower(end($explodeName));
-                                        /*******************************Multiple Upload********************************/
-                                            /*                      Multiple Upload                        */
-                                            $sub_images_array = array();
-                                            foreach($_FILES["sub_images"]["tmp_name"] as $key=>$tmp_name) {
-                                                $file_name = $_FILES["sub_images"]["name"][$key];
-                                                $file_tmp = $_FILES["sub_images"]["tmp_name"][$key];
-                                                $ext = pathinfo($file_name,PATHINFO_EXTENSION);
-
-                                                if(in_array($ext,$AvatarAllowExtension)) {
-                                                    /// push sub_images in array
-                                                    if(!file_exists('uploads/products/' . $file_name)) {
-                                                        move_uploaded_file($file_tmp = $_FILES["sub_images"]["tmp_name"][$key],'../uploads/products/' . $file_name);
-                                                    
-                                                        $sub_images_array[] = $file_name;
-                                                    }
-                                                    else {
-                                                        $filename = basename($file_name,$ext);
-                                                        $newFileName = $filename.time().".".$ext;
-                                                        move_uploaded_file($file_tmp = $_FILES["sub_images"]["tmp_name"][$key],'../uploads/products/' . $newFileName);
-                                                    
-                                                        $sub_images_array[] = $newFileName;
-                                                    }
-                                                }
-                                                else {
-                                                    $formErrors[] = $error . ":->" . "$file_name";
-                                                }
-                                            }//end foreach
-                                            /************************************************************ */
-                        
-                                        //errors
-                                        if(empty($Name)){
-                                            $formErrors[] = "section name can't be empty!";
-                                        }
-                                        if(empty($description)){
-                                            $formErrors[] = "description name can't be empty!";
-                                        }
-                                        if(empty($price)){
-                                            $formErrors[] = "price name can't be empty!";
-                                        }
-                                        if(empty($country_made)){
-                                            $formErrors[] = "country made name can't be empty!";
-                                        }
-                                        if($status === 0){
-                                            $formErrors[] = "country made name can't be empty!";
-                                        }
-                                        if($cat_id == 0){
-                                            $formErrors[] = "Category name can't be empty!";
-                                        }
-                                        if($member_id == 0){
-                                            $formErrors[] = "created By can't be empty!";
-                                        }
-                                        if($file_size > 4194304){
-                                            $formErrors[] = 'Sorry, You Can Not Upload File Bigger Than 4 M';
-                                        }
-                                        if(!empty($file_name) && !in_array($avatarExtension,$AvatarAllowExtension)){
-                                            $formErrors[] = 'Sorry, You Have The Ability To Upload Image Only';
-                                        }
-                                        foreach ($formErrors as $errors){
-                                            echo '
-                                                <div class="alert alert-danger background-danger m-3">
-                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <i class="icofont icofont-close-line-circled text-white"></i>
-                                                </button>
-                                                <strong>'. $errors.'</strong> 
-                                                </div>
-                                            '; //end echo
-                                        }//end foreach
-                                        //check if there's no errors
-                                        if(empty($formErrors)){
-                                            $image_name = rand(0,10000000) . '__' .rand(0,10000000) . '___' . $file_name;
-                                            move_uploaded_file($file_tmp_name,'../uploads/products/' . $image_name);
-
-                                            //id	name	description	price	add_date	country_made	status	image	rating	cat_id	member_id
-                                                $stmt = $con->prepare("INSERT INTO products(name, description, price,add_date,country_made,status,product_cover,sub_images,rating,cat_id,member_id,tags) 
-                                                                             VALUES(:name, :description, :price, now(),:country_made,:status,:product_cover,:sub_images,:rating,:cat_id,:member_id,:tags) ");
-                                                $stmt->execute(array(
-                                                    'name'              =>$Name,
-                                                    'description'       =>$description,
-                                                    'price'             =>$price,
-                                                    'country_made'      =>$country_made,
-                                                    'status'            =>$status,
-                                                    'product_cover'     =>$image_name,
-                                                    'sub_images'        =>implode("|",$sub_images_array),
-                                                    'rating'            =>'...',
-                                                    'cat_id'            =>$cat_id,
-                                                    'member_id'         =>$member_id,
-                                                    'tags'              =>$tags,
-                                                ));
-                                            //     redirectHome('alert alert-success background-success m-3',"creating Success!","products.php?do=add", 3);
-                                        } //end check function
-                                    }else{
-                                        redirectHome('danger','sorry you can"t open this page direct',4);
-                                    }
-
-                                }elseif ($do == 'components'){
+                                <?php if ($do == 'components'){
                                     $id = isset($_GET['id']) && is_numeric($_GET['id']) ? intval($_GET['id']) : 0 ;
                                     $stmt = $con->prepare("
                                                             SELECT products.*, categories.name AS cat_name,users.userName FROM products
@@ -528,7 +283,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                 <div class="card">
                                     <div class="card-header">
                                         <h5>All products</h5>
-                                        <a href="?do=add" class="btn waves-effect waves-light btn-primary btn-square position-right">craete new Product <i class="fa fa-plus"></i> </a>
+                                        <a href="products.php?do=add" class="btn waves-effect waves-light btn-primary btn-square position-right">Create new Product <i class="fa fa-plus"></i> </a>
                                     </div>
                                     <div class="card-block">
                                         <div class="dt-responsive table-responsive">
@@ -565,7 +320,13 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                                     <div class="input-group-prepend text-center" >
                                                                         <button type="button" class="btn btn-primary dropdown-toggle col-12" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>
                                                                         <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                                                            <a href="?do=new_arraiver&id=<?php echo $row['id']?>" class="dropdown-item"><i class="fa fa-edit text-primary"></i>THE NEW ARRIVALS</a>
+                                                                            <a href="?do=new_arrivals&id=<?php echo $row['id']?>" class="dropdown-item">
+                                                                                <input type="checkbox" class="form-check-input" id="exampleCheck1"<?php if($row['component'] == 'new_arrivals'){echo "checked";}?>> New Arrivals
+                                                                            </a>
+                                                                            <div role="separator" class="dropdown-divider"></div>
+                                                                            <a href="?do=best_sellers&id=<?php echo $row['id']?>" class="dropdown-item">
+                                                                                <input type="checkbox" class="form-check-input" id="exampleCheck1"<?php if($row['component'] == 'best_sellers'){echo "checked";}?>> Best Sellers
+                                                                            </a>
                                                                             <?php
                                                                            ?>
                                                                         </div>
@@ -594,8 +355,8 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                 </div>
                                 <!--#################### Manage page #####################-->
                                 <?php } //end the condition of add and insert products
-                                elseif($do == 'new_arraiver'){
-
+                                elseif($do == 'new_arrivals' OR $do == 'best_sellers'){
+                                    $action = $_GET['do'];
                                     $id = isset($_GET['id']) && is_numeric($_GET['id']) ? intval($_GET['id']) : 0 ;
                                     $stmt = $con->prepare('SELECT * FROM products WHERE id = ? LIMIT 1');
 
@@ -605,7 +366,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                     //fetch data from database
                                     if($stmt->rowCount() > 0) {
                                         $stmt = $con->prepare('UPDATE products SET component = ? WHERE id = ? ');
-                                        $stmt->execute(array("new_arraiver",$id));
+                                        $stmt->execute(array($action,$id));
                                         redirectHome('alert alert-success background-success m-3','Deleted Success!','products.php?do=Manage');
                                     }else{
                                         redirectHome('alert alert-danger background-success m-3','this row are not exist');
