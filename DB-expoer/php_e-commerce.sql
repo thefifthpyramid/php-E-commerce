@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : dim. 04 déc. 2022 à 21:16
+-- Généré le : sam. 10 déc. 2022 à 07:59
 -- Version du serveur : 10.4.24-MariaDB
 -- Version de PHP : 8.1.6
 
@@ -31,6 +31,7 @@ CREATE TABLE `categories` (
   `id` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `description` text NOT NULL,
+  `parent` int(11) NOT NULL,
   `sort` int(11) NOT NULL,
   `visibility` tinyint(4) NOT NULL DEFAULT 0,
   `allow_comment` tinyint(4) NOT NULL DEFAULT 0,
@@ -41,20 +42,9 @@ CREATE TABLE `categories` (
 -- Déchargement des données de la table `categories`
 --
 
-INSERT INTO `categories` (`id`, `name`, `description`, `sort`, `visibility`, `allow_comment`, `allow_ads`) VALUES
-(2, 'Computers', 'Itaque quod eum quis', 10, 1, 1, 1),
-(3, 'Ariel Cantu', 'Debitis porro do mol', 49, 1, 1, 1),
-(4, 'TaShya Barrera', 'At est consectetur', 32, 1, 1, 0),
-(5, 'Levi Bridges', 'Officiis eiusmod mod', 73, 1, 1, 1),
-(6, 'Akeem Molina', 'Elit corporis culpa', 89, 1, 0, 0),
-(7, 'Hoyt Reid', 'Et eu incidunt est ', 28, 0, 1, 0),
-(8, 'Rigel Parsons', 'Consectetur aut ut a', 40, 0, 0, 1),
-(9, 'Ali Weber', 'Ullam optio quia co', 55, 1, 1, 1),
-(102, 'Cameran Rocha', 'Velit do ipsam volu', 75, 0, 0, 0),
-(103, 'Callum Sampson', 'Aspernatur saepe qui', 15, 0, 0, 0),
-(104, 'Warren Gregory', 'Iste suscipit sunt ', 95, 1, 0, 1),
-(105, 'Lane Hickman', 'Praesentium harum ad', 35, 0, 1, 0),
-(106, 'Quemby Fletcher', 'Amet nostrum quia q', 87, 1, 1, 1);
+INSERT INTO `categories` (`id`, `name`, `description`, `parent`, `sort`, `visibility`, `allow_comment`, `allow_ads`) VALUES
+(107, 'Cars', 'Est id provident il', 0, 36, 1, 1, 0),
+(108, 'Phone', 'Cell Phone', 0, 2, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -71,22 +61,13 @@ CREATE TABLE `comments` (
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Déchargement des données de la table `comments`
---
-
-INSERT INTO `comments` (`id`, `comment`, `status`, `comment_date`, `item_id`, `user_id`) VALUES
-(2, 'new comment ', 1, '2022-11-18', 4, 48),
-(3, 'Last Comment', 1, '2022-11-02', 6, 39),
-(5, 'Last Comment 2', 0, '2022-11-18', 10, 37);
-
 -- --------------------------------------------------------
 
 --
--- Structure de la table `items`
+-- Structure de la table `products`
 --
 
-CREATE TABLE `items` (
+CREATE TABLE `products` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `description` text NOT NULL,
@@ -94,35 +75,36 @@ CREATE TABLE `items` (
   `add_date` date NOT NULL,
   `country_made` varchar(255) NOT NULL,
   `status` int(11) NOT NULL,
-  `image` varchar(255) NOT NULL,
+  `product_cover` varchar(255) NOT NULL,
+  `sub_images` text NOT NULL,
   `rating` smallint(6) NOT NULL,
   `approve` tinyint(4) NOT NULL DEFAULT 0,
   `cat_id` int(11) NOT NULL,
-  `member_id` int(11) NOT NULL
+  `member_id` int(11) NOT NULL,
+  `tags` text NOT NULL,
+  `component` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `items`
+-- Déchargement des données de la table `products`
 --
 
-INSERT INTO `items` (`id`, `name`, `description`, `price`, `add_date`, `country_made`, `status`, `image`, `rating`, `approve`, `cat_id`, `member_id`) VALUES
-(2, 'New Item', 'Duis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit f', '212', '2022-11-24', 'In eius dolorem expe', 4, 'imsge', 1, 0, 9, 49),
-(3, 'Justin Hamilton', 'Duis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit f', '291', '2022-11-24', 'Qui id illo maxime ', 1, 'imsge', 2, 1, 9, 54),
-(4, 'Felix Mcguire', 'Duis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit f', '16', '2022-11-24', 'Cum ut exercitatione', 2, 'imsge', 0, 0, 8, 20),
-(6, 'Kuame Garza', 'Duis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit f', '559', '2022-11-24', 'Eum ex asperiores es', 2, 'imsge', 4, 0, 6, 42),
-(7, 'Helen Meyers', 'Duis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit f', '233', '2022-11-24', 'Minus irure tempor i', 0, 'imsge', 0, 1, 5, 51),
-(8, 'Mira Kirby', 'Duis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit f', '236', '2022-11-24', 'Ex non autem asperio', 2, 'imsge', 3, 0, 9, 36),
-(9, 'Justina Daugherty', 'Duis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit f', '591', '2022-11-24', 'Dolorem veniam volu', 2, 'imsge', 1, 0, 4, 41),
-(10, 'Noelle Ramirez', 'Duis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit fDuis reprehenderit f', '130', '2022-11-24', 'Quaerat ea in sit am', 2, 'imsge', 2, 0, 4, 47),
-(11, 'Barry Maddox', 'Nemo ut qui voluptat', '601', '2022-12-01', 'Impedit quod fugiat', 2, 'imsge', 1, 0, 103, 1),
-(12, 'Amena Campbell', 'Ut autem voluptas po', '770', '2022-12-01', 'Optio placeat irur', 4, 'imsge', 3, 0, 105, 20),
-(13, 'Grace Quinn', 'Eos magni nemo est c', '873', '2022-12-01', 'Cupiditate tempore ', 3, 'imsge', 4, 0, 3, 1),
-(17, 'Bryar Beasley', 'Sunt velit porro s', '900', '2022-12-04', 'Incididunt consequat', 2, 'imsge', 0, 0, 104, 1),
-(18, 'Tashya Rhodes', 'Recusandae Id perfe', '685', '2022-12-04', 'Beatae quia nisi ill', 2, 'imsge', 0, 0, 105, 1),
-(19, 'Wilma Snow', 'Occaecat nostrud est', '682', '2022-12-04', 'Tempora aut error ar', 2, 'imsge', 0, 0, 104, 1),
-(20, 'Wilma Snow', 'Occaecat nostrud est', '682', '2022-12-04', 'Tempora aut error ar', 2, 'imsge', 0, 0, 104, 1),
-(21, 'Tiger Yates', 'Atque animi in ipsa', '690', '2022-12-04', 'Voluptates perspicia', 1, 'imsge', 0, 0, 106, 1),
-(22, 'Coby Sweeney', 'Est voluptatem Ita', '316', '2022-12-04', 'Libero doloribus con', 3, 'imsge', 0, 0, 104, 1);
+INSERT INTO `products` (`id`, `name`, `description`, `price`, `add_date`, `country_made`, `status`, `product_cover`, `sub_images`, `rating`, `approve`, `cat_id`, `member_id`, `tags`, `component`) VALUES
+(47, 'Crossover', 'Consectetur volupta', '1000000', '2022-12-09', 'Aut id delectus eli', 1, '6297250__8027321___960x015.jpg', '0x019.jpg|0x029.jpg|400x05.jpg|960x015.jpg', 3, 1, 107, 1, '', 'new_arrivals'),
+(48, 'Convertible', 'Pariatur Quae fuga', '478', '2022-12-09', 'Voluptatum molestiae', 1, '7307365__6963583___960x014.jpg', '960x03.jpg|960x04.jpg|960x013.jpg|960x014.jpg', 4, 1, 107, 1, '', 'best_sellers'),
+(49, 'Colt Wooten', 'Corporis consectetur', '39', '2022-12-09', 'Voluptatem maxime om', 1, '7548951__2719086___960x020.jpg', '960x0.jpg|960x010.jpg|960x011.jpg|960x020.jpg', 3, 1, 107, 1, '', 'new_arrivals'),
+(52, 'Kelsey Sandoval', 'Aut incididunt occae', '989', '2022-12-09', 'Nostrum aliquid eu e', 1, '9346879__7601476___960x0.jpg', '0x05.jpg|0x023.jpg|1.jpg|960x0.jpg', 5, 1, 107, 19, 'Qui enim tempore re', 'new_arrivals'),
+(53, 'iPhone 14 Pro Max', 'Dolorum est a cum ne', '438', '2022-12-10', 'Sed accusantium quis', 2, '9941671__3224287___71QU1-kvp0L._AC_SX679_.jpg', '61fUC+17f8L._AC_SX679_.jpg|71QU1-kvp0L._AC_SX679_.jpg', 0, 1, 108, 32, 'Ut praesentium archi', 'new_arrivals'),
+(54, 'Thor Good', 'Et accusantium exerc', '768', '2022-12-10', 'Est tempor beatae re', 2, '4596929__5059557___41D3TwTi76L._AC_.jpg', '41aQXQRXJ9L._AC_.jpg|41cN-CAGz3L._AC_.jpg|41D3TwTi76L._AC_.jpg', 0, 0, 108, 38, 'Labore dolorem persp', 'new_arrivals'),
+(55, 'Sheila Wiggins', 'Architecto et cillum', '484', '2022-12-10', 'Molestias amet maio', 1, '6509601__3722264___41iLbanhcTL.jpg', '41froGV6kcL._AC_.jpg|41Gc0zjLPqL._AC_SY1000_.jpg|41iLbanhcTL.jpg', 0, 0, 108, 27, 'Asperiores lorem odi', 'new_arrivals'),
+(56, 'Chandler Chen', 'Dolore eos omnis po', '943', '2022-12-10', 'Dolore et in labore ', 1, '9792651__1194507___41mY6R0MqKL._AC_SY580_.jpg', '41j1uYREGhL._SS400_.jpg|41lHHD6iD1L._AC_.jpg|41mY6R0MqKL._AC_SY580_.jpg', 0, 0, 108, 8, 'Corrupti fuga Reru', 'new_arrivals'),
+(57, 'Constance Ball', 'Saepe voluptatem lab', '690', '2022-12-10', 'Blanditiis esse dign', 2, '5529486__5533968___41zBg7ng-LL._AC_SY780_.jpg', '41WadDQ1k3L._AC_SY1000_.jpg|41YNaNTqJoL._AC_.jpg|41zBg7ng-LL._AC_SY780_.jpg', 0, 0, 108, 39, 'In optio vel unde o', 'new_arrivals'),
+(58, 'Pearl Battle', 'Voluptas consequatur', '524', '2022-12-10', 'Dignissimos aut eos ', 1, '3177504__8118166___61D84NtVgVL._AC_SR263263_QL70_.jpg', '41zfcuozuWL._AC_SR300300.jpg|51zTCZf4fzL._AC_SY1000_.jpg|61D84NtVgVL._AC_SR263263_QL70_.jpg', 0, 0, 108, 122, 'Amet aute maxime no', 'new_arrivals'),
+(59, 'Judah Holt', 'Aliquam repudiandae ', '356', '2022-12-10', 'Iusto occaecat tempo', 4, '1847724__9733288___image6.jpeg', 'image4.jpeg|image5.jpeg|image6.jpeg', 0, 0, 108, 40, 'Autem hic deserunt m', 'new_arrivals'),
+(60, 'Brooke Mcleod', 'Officia reprehenderi', '610', '2022-12-10', 'Tempora beatae amet', 2, '6221184__5895648___images34.jpg', 'images31.jpg|images32.jpg|images34.jpg', 0, 0, 108, 37, 'Similique sapiente i', 'new_arrivals'),
+(61, 'Aimee Sexton', 'Reprehenderit id qui', '952', '2022-12-10', 'Ipsum ipsum dolor d', 2, '4665359__6327600___images6.jpg', 'images4.jpg|images5.jpg|images6.jpg', 0, 0, 108, 114, 'Voluptas sunt atque', 'best_sellers'),
+(62, 'Jermaine Kim', 'Natus enim sapiente ', '403', '2022-12-10', 'Omnis nisi voluptas ', 3, '3099376__8470730___71u7mwY7FVL.jpg', '71QU1-kvp0L._AC_SX679_.jpg|71TT922jjL._AC_SL1500_.jpg|71u7mwY7FVL.jpg', 0, 0, 108, 102, 'Ut et temporibus exp', 'best_sellers'),
+(63, 'Kalia Moran', 'In omnis qui debitis', '885', '2022-12-10', 'Repudiandae corrupti', 4, '5405786__7131019___81xvGbBFNhL._SX522_.jpg', '81spjQN-VL._AC_UL330_SR330330_.jpg|81UT07JsBqL._AC._SR360460.jpg|81xvGbBFNhL._SX522_.jpg', 0, 0, 108, 41, 'Aliquid deserunt ut ', 'best_sellers');
 
 -- --------------------------------------------------------
 
@@ -136,6 +118,7 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `fullName` varchar(255) NOT NULL,
+  `avatar` varchar(255) NOT NULL,
   `groupID` int(11) NOT NULL DEFAULT 0,
   `Reg_Status` int(11) NOT NULL DEFAULT 0,
   `Date` date DEFAULT NULL
@@ -145,65 +128,74 @@ CREATE TABLE `users` (
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`id`, `userName`, `password`, `email`, `fullName`, `groupID`, `Reg_Status`, `Date`) VALUES
-(1, 'ahmed', '8cb2237d0679ca88db6464eac60da96345513964', 'admin@outlook.com', 'Ahmed Ali Mohammed', 1, 0, '2022-11-18'),
-(8, 'noriqyki', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'leme@mailinator.com', 'Fletcher Molina', 0, 1, '2022-11-18'),
-(13, 'vuhuxa', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'sanopeleza@mailinator.com', 'Sage Goodman', 0, 1, NULL),
-(14, 'hyhud', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'jibif@mailinator.com', 'Aubrey Russell', 0, 1, NULL),
-(15, 'hyhud', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'jibif@mailinator.com', 'Aubrey Russell', 0, 1, NULL),
-(16, 'hyhud', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'jibif@mailinator.com', 'Aubrey Russell', 0, 0, NULL),
-(17, 'hyhud', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'jibif@mailinator.com', 'Aubrey Russell', 0, 0, NULL),
-(18, 'hyhud', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'jibif@mailinator.com', 'Aubrey Russell', 0, 0, NULL),
-(19, 'hyhud', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'jibif@mailinator.com', 'Aubrey Russell', 0, 0, NULL),
-(20, 'ahmed', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'filuzawek@mailinator.com', 'Marny Marshall', 0, 0, NULL),
-(21, 'hyhud', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'pevafus@mailinator.com', 'Xanthus Gordon', 0, 0, NULL),
-(22, 'rysaqecozi', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'tosenaduwo@mailinator.com', 'Aurora Raymond', 0, 0, NULL),
-(23, 'Ahmed Alii Klay', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'xibeqy@mailinator.com', 'Julie Baker', 0, 0, '2022-11-30'),
-(24, 'Ahmed Mohammed', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'bytel@mailinator.com', 'Leah Farley', 0, 0, '2022-11-09'),
-(25, 'zadatiha nor al deen', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'vyjos@mailinator.com', 'Cole Vega', 0, 1, '2022-11-09'),
-(26, 'jyfem', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'nupy@mailinator.com', 'Ferdinand Conner', 0, 1, '2022-11-16'),
-(27, 'dasize', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'sasuve@mailinator.com', 'Alfreda Byers', 0, 1, '2022-11-16'),
-(28, 'tososedih', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'huqybujofo@mailinator.com', 'Abel Grant', 0, 1, '2022-11-16'),
-(29, 'muqefup', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'hawelofy@mailinator.com', 'Tatyana Cherry', 0, 1, '2022-11-16'),
-(30, 'dozuwi', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'newyqyxozo@mailinator.com', 'Kelly Morris', 0, 1, '2022-11-21'),
-(31, 'nuzubo', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'mure@mailinator.com', 'Dominic Richards', 0, 1, '2022-11-21'),
-(32, 'baqymu2', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'tomaqyhe@mailinator.com', 'Nissim Ferrell', 0, 1, '2022-11-21'),
-(33, 'buwazyniwia', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'taovyqarygi@mailinator.com', 'Cora Long', 0, 1, '2022-11-21'),
-(35, 'hefobybibu', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'tewatoj@mailinator.com', 'Phoebe Blackwell', 0, 1, '2022-11-21'),
-(36, 'gunegisaci', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'wosud@mailinator.com', 'Hiram Kelley', 0, 1, '2022-11-21'),
-(37, 'dalyfajifa', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'dihen@mailinator.com', 'Melodie Burks', 0, 1, '2022-11-21'),
-(38, 'caxoramym', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'doce@mailinator.com', 'Belle Harrington', 0, 1, '2022-11-21'),
-(39, 'dijikezon', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'sykanafaj@mailinator.com', 'Maya Hall', 0, 1, '2022-11-21'),
-(40, 'tegywi', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'bunu@mailinator.com', 'Daniel Lewis', 0, 1, '2022-11-21'),
-(41, 'decusuli', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'diqali@mailinator.com', 'Yoko Vasquez', 0, 1, '2022-11-21'),
-(42, 'jaduryjon', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'welikoze@mailinator.com', 'Lacey Riggs', 0, 1, '2022-11-21'),
-(43, 'doquqob', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'doduf@mailinator.com', 'Kyra Hebert', 0, 1, '2022-11-21'),
-(44, 'xirehunaf', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'jysofe@mailinator.com', 'Stuart Chase', 0, 1, '2022-11-21'),
-(45, 'hisajox', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'hepo@mailinator.com', 'Nero Hutchinson', 0, 1, '2022-11-21'),
-(46, 'ponehogub', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'pakepe@mailinator.com', 'Lavinia Albert', 0, 1, '2022-11-21'),
-(47, 'cerahyb', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'qykimuj@mailinator.com', 'Emily Hardin', 0, 1, '2022-11-21'),
-(48, 'gomulu', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'lewyk@mailinator.com', 'Zephr Dunn', 0, 1, '2022-11-21'),
-(49, 'lyxecozyze', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'didemuguv@mailinator.com', 'Lisandra Bright', 0, 1, '2022-11-21'),
-(50, 'juretic', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'lebosadaxi@mailinator.com', 'Chaim Rodriquez', 0, 1, '2022-11-21'),
-(51, 'gutana', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'henoganyb@mailinator.com', 'Fulton Gould', 0, 0, '2022-11-21'),
-(52, 'nuquw', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'kirab@mailinator.com', 'April Randall', 0, 0, '2022-11-21'),
-(54, 'AHMED', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'tivuza@mailinator.com', 'Athena Buckner', 0, 1, '2022-11-21'),
-(100, 'Ali Ahmed', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'kekibulyq@mailinator.com', 'Vaughan Jacobson', 0, 0, '2022-11-21'),
-(102, 'klay2', '8cb2237d0679ca88db6464eac60da96345513964', 'AhmedAliKlay@outlook.com', 'Ahmed Ali Klay', 0, 1, '2022-11-30'),
-(103, 'syhonabuc', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'zyxosonyj@mailinator.com', 'Dolan Blake', 0, 0, '2022-12-02'),
-(104, 'wehybuze', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'qyqy@mailinator.com', 'Eliana Todd', 0, 0, '2022-12-02'),
-(105, 'qupewore', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'vecoqowocy@mailinator.com', 'Nichole Ratliff', 0, 0, '2022-12-02'),
-(106, 'becefusu', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'zeneg@mailinator.com', 'Wyoming Whitley', 0, 0, '2022-12-02'),
-(107, 'pycofuliji', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'nekohis@mailinator.com', 'Alexander Hendrix', 0, 0, '2022-12-02'),
-(108, 'zywexyz', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'noped@mailinator.com', 'Denise Hatfield', 0, 0, '2022-12-02'),
-(109, 'zomuf', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'kisa@mailinator.com', 'Christine Romero', 0, 0, '2022-12-02'),
-(110, '<script>alert(1)</script>', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'wocydumycy@mailinator.com', '<script>alert(1)</script>', 0, 0, '2022-12-02'),
-(111, 'alert(1)', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'kitovamuto@mailinator.com', 'alert(1)', 0, 0, '2022-12-02'),
-(112, '?>alert(1);', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'kinejuhyc@mailinator.com', 'Amaya Daniel', 0, 0, '2022-12-02'),
-(113, 'capygocur', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'hasogewoby@mailinator.com', 'Karen Fleming', 0, 0, '2022-12-02'),
-(114, 'vecewucy', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'kyrizaly@mailinator.com', 'unKnown', 0, 0, '2022-12-03'),
-(115, 'ahmed', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'dyfi@mailinator.com', 'unKnown', 0, 0, '2022-12-03'),
-(116, 'sysasateg', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'joki@mailinator.com', 'unKnown', 0, 0, '2022-12-03');
+INSERT INTO `users` (`id`, `userName`, `password`, `email`, `fullName`, `avatar`, `groupID`, `Reg_Status`, `Date`) VALUES
+(1, 'ahmed', '8cb2237d0679ca88db6464eac60da96345513964', 'admin@outlook.com', 'Ahmed Ali Mohammed', '96237__IMG_20220208_025857_304.jpg', 1, 0, '2022-11-18'),
+(8, 'noriqyki', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'leme@mailinator.com', 'Fletcher Molina', '96237__IMG_20220208_025857_304.jpg', 0, 1, '2022-11-18'),
+(13, 'vuhuxa', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'sanopeleza@mailinator.com', 'Sage Goodman', '96237__IMG_20220208_025857_304.jpg', 0, 1, NULL),
+(14, 'hyhud', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'jibif@mailinator.com', 'Aubrey Russell', '96237__IMG_20220208_025857_304.jpg', 0, 1, NULL),
+(15, 'hyhud', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'jibif@mailinator.com', 'Aubrey Russell', '', 0, 1, NULL),
+(16, 'hyhud', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'jibif@mailinator.com', 'Aubrey Russell', '', 0, 0, NULL),
+(17, 'hyhud', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'jibif@mailinator.com', 'Aubrey Russell', '', 0, 0, NULL),
+(18, 'hyhud', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'jibif@mailinator.com', 'Aubrey Russell', '', 0, 0, NULL),
+(19, 'hyhud', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'jibif@mailinator.com', 'Aubrey Russell', '', 0, 0, NULL),
+(20, 'ahmed', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'filuzawek@mailinator.com', 'Marny Marshall', '', 0, 0, NULL),
+(21, 'hyhud', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'pevafus@mailinator.com', 'Xanthus Gordon', '', 0, 0, NULL),
+(22, 'rysaqecozi', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'tosenaduwo@mailinator.com', 'Aurora Raymond', '', 0, 0, NULL),
+(23, 'Ahmed Alii Klay', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'xibeqy@mailinator.com', 'Julie Baker', '', 0, 0, '2022-11-30'),
+(24, 'Ahmed Mohammed', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'bytel@mailinator.com', 'Leah Farley', '', 0, 0, '2022-11-09'),
+(25, 'zadatiha nor al deen', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'vyjos@mailinator.com', 'Cole Vega', '', 0, 1, '2022-11-09'),
+(26, 'jyfem', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'nupy@mailinator.com', 'Ferdinand Conner', '', 0, 1, '2022-11-16'),
+(27, 'dasize', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'sasuve@mailinator.com', 'Alfreda Byers', '', 0, 1, '2022-11-16'),
+(28, 'tososedih', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'huqybujofo@mailinator.com', 'Abel Grant', '', 0, 1, '2022-11-16'),
+(29, 'muqefup', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'hawelofy@mailinator.com', 'Tatyana Cherry', '', 0, 1, '2022-11-16'),
+(30, 'dozuwi', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'newyqyxozo@mailinator.com', 'Kelly Morris', '', 0, 1, '2022-11-21'),
+(31, 'nuzubo', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'mure@mailinator.com', 'Dominic Richards', '', 0, 1, '2022-11-21'),
+(32, 'baqymu2', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'tomaqyhe@mailinator.com', 'Nissim Ferrell', '', 0, 1, '2022-11-21'),
+(33, 'buwazyniwia', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'taovyqarygi@mailinator.com', 'Cora Long', '', 0, 1, '2022-11-21'),
+(35, 'hefobybibu', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'tewatoj@mailinator.com', 'Phoebe Blackwell', '', 0, 1, '2022-11-21'),
+(36, 'gunegisaci', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'wosud@mailinator.com', 'Hiram Kelley', '', 0, 1, '2022-11-21'),
+(37, 'dalyfajifa', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'dihen@mailinator.com', 'Melodie Burks', '', 0, 1, '2022-11-21'),
+(38, 'caxoramym', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'doce@mailinator.com', 'Belle Harrington', '', 0, 1, '2022-11-21'),
+(39, 'dijikezon', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'sykanafaj@mailinator.com', 'Maya Hall', '', 0, 1, '2022-11-21'),
+(40, 'tegywi', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'bunu@mailinator.com', 'Daniel Lewis', '', 0, 1, '2022-11-21'),
+(41, 'decusuli', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'diqali@mailinator.com', 'Yoko Vasquez', '', 0, 1, '2022-11-21'),
+(42, 'jaduryjon', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'welikoze@mailinator.com', 'Lacey Riggs', '', 0, 1, '2022-11-21'),
+(43, 'doquqob', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'doduf@mailinator.com', 'Kyra Hebert', '', 0, 1, '2022-11-21'),
+(44, 'xirehunaf', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'jysofe@mailinator.com', 'Stuart Chase', '', 0, 1, '2022-11-21'),
+(45, 'hisajox', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'hepo@mailinator.com', 'Nero Hutchinson', '', 0, 1, '2022-11-21'),
+(46, 'ponehogub', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'pakepe@mailinator.com', 'Lavinia Albert', '', 0, 1, '2022-11-21'),
+(47, 'cerahyb', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'qykimuj@mailinator.com', 'Emily Hardin', '', 0, 1, '2022-11-21'),
+(48, 'gomulu', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'lewyk@mailinator.com', 'Zephr Dunn', '', 0, 1, '2022-11-21'),
+(49, 'lyxecozyze', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'didemuguv@mailinator.com', 'Lisandra Bright', '', 0, 1, '2022-11-21'),
+(50, 'juretic', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'lebosadaxi@mailinator.com', 'Chaim Rodriquez', '', 0, 1, '2022-11-21'),
+(51, 'gutana', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'henoganyb@mailinator.com', 'Fulton Gould', '', 0, 0, '2022-11-21'),
+(52, 'nuquw', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'kirab@mailinator.com', 'April Randall', '', 0, 0, '2022-11-21'),
+(54, 'AHMED', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'tivuza@mailinator.com', 'Athena Buckner', '', 0, 1, '2022-11-21'),
+(100, 'Ali Ahmed', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'kekibulyq@mailinator.com', 'Vaughan Jacobson', '', 0, 0, '2022-11-21'),
+(102, 'klay2', '8cb2237d0679ca88db6464eac60da96345513964', 'AhmedAliKlay@outlook.com', 'Ahmed Ali Klay', '', 0, 1, '2022-11-30'),
+(103, 'syhonabuc', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'zyxosonyj@mailinator.com', 'Dolan Blake', '', 0, 0, '2022-12-02'),
+(104, 'wehybuze', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'qyqy@mailinator.com', 'Eliana Todd', '', 0, 0, '2022-12-02'),
+(105, 'qupewore', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'vecoqowocy@mailinator.com', 'Nichole Ratliff', '', 0, 0, '2022-12-02'),
+(106, 'becefusu', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'zeneg@mailinator.com', 'Wyoming Whitley', '', 0, 0, '2022-12-02'),
+(107, 'pycofuliji', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'nekohis@mailinator.com', 'Alexander Hendrix', '', 0, 0, '2022-12-02'),
+(108, 'zywexyz', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'noped@mailinator.com', 'Denise Hatfield', '', 0, 0, '2022-12-02'),
+(109, 'zomuf', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'kisa@mailinator.com', 'Christine Romero', '', 0, 0, '2022-12-02'),
+(111, 'alert(1)', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'kitovamuto@mailinator.com', 'alert(1)', '', 0, 0, '2022-12-02'),
+(112, '?>alert(1);', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'kinejuhyc@mailinator.com', 'Amaya Daniel', '', 0, 0, '2022-12-02'),
+(113, 'capygocur', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'hasogewoby@mailinator.com', 'Karen Fleming', '', 0, 0, '2022-12-02'),
+(114, 'vecewucy', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'kyrizaly@mailinator.com', 'unKnown', '', 0, 0, '2022-12-03'),
+(115, 'ahmed', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'dyfi@mailinator.com', 'unKnown', '', 0, 0, '2022-12-03'),
+(116, 'sysasateg', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'joki@mailinator.com', 'unKnown', '', 0, 0, '2022-12-03'),
+(117, 'xinare', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'fevemy@mailinator.com', 'Allen Weeks', '', 0, 0, '2022-12-08'),
+(118, 'xydonoleb', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'genipy@mailinator.com', 'Harriet Boyle', '', 0, 0, '2022-12-08'),
+(119, 'tiqohu', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'dupynyle@mailinator.com', 'Henry Horton', '96237__IMG_20220208_025857_304.jpg', 0, 0, '2022-12-08'),
+(120, 'Mazen', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'zedo@mailinator.com', 'Julie Cantrell', '96237__IMG_20220208_025857_304.jpg', 0, 0, '2022-12-08'),
+(121, 'Last User', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'vupigiwuju@mailinator.com', 'unKnown', '8941380__4929395___IMG_20220704_171314.jpg', 0, 0, '2022-12-08'),
+(122, 'Kimo', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'jewu@mailinator.com', 'unKnown', '242700__7982981___IMG20220418123024.jpg', 0, 0, '2022-12-09'),
+(123, 'Kimo2', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'luzeqesok@mailinator.com', 'unKnown', '5523223__1183703___IMG20220418123024.jpg', 0, 0, '2022-12-09'),
+(124, 'pesuc', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'tovu@mailinator.com', 'unKnown', '683629__9214119___CamScanner 01-07-2022 19.52_3.jpg', 0, 0, '2022-12-09'),
+(125, 'tojobunib', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'junubafe@mailinator.com', 'unKnown', '6052063__6719825___IMG_20211213_234709_811.jpg', 0, 0, '2022-12-09'),
+(126, 'Good test', 'ac748cb38ff28d1ea98458b16695739d7e90f22d', 'dysewaxis@mailinator.com', 'unKnown', '4304094__9851015___FB_IMG_16271136825688228.jpg', 0, 0, '2022-12-09');
 
 --
 -- Index pour les tables déchargées
@@ -220,13 +212,14 @@ ALTER TABLE `categories`
 -- Index pour la table `comments`
 --
 ALTER TABLE `comments`
+  ADD PRIMARY KEY (`id`),
   ADD KEY `items_comment` (`item_id`),
   ADD KEY `comment_user` (`user_id`);
 
 --
--- Index pour la table `items`
+-- Index pour la table `products`
 --
-ALTER TABLE `items`
+ALTER TABLE `products`
   ADD PRIMARY KEY (`id`),
   ADD KEY `member_1` (`member_id`),
   ADD KEY `cat_1` (`cat_id`);
@@ -245,19 +238,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 
 --
--- AUTO_INCREMENT pour la table `items`
+-- AUTO_INCREMENT pour la table `comments`
 --
-ALTER TABLE `items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+ALTER TABLE `comments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT pour la table `products`
+--
+ALTER TABLE `products`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
 
 --
 -- Contraintes pour les tables déchargées
@@ -268,12 +267,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `comments`
   ADD CONSTRAINT `comment_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `items_comment` FOREIGN KEY (`item_id`) REFERENCES `items` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `items_comment` FOREIGN KEY (`item_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `items`
+-- Contraintes pour la table `products`
 --
-ALTER TABLE `items`
+ALTER TABLE `products`
   ADD CONSTRAINT `cat_1` FOREIGN KEY (`cat_id`) REFERENCES `categories` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `member_1` FOREIGN KEY (`member_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE;
 COMMIT;
