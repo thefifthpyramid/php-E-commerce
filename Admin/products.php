@@ -491,8 +491,8 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                             move_uploaded_file($file_tmp_name,'../uploads/products/' . $image_name);
 
                                             //id	name	description	price	add_date	country_made	status	image	rating	cat_id	member_id
-                                                $stmt = $con->prepare("INSERT INTO products(name, description, price,add_date,country_made,status,product_cover,sub_images,rating,cat_id,member_id,tags) 
-                                                                             VALUES(:name, :description, :price, now(),:country_made,:status,:product_cover,:sub_images,:rating,:cat_id,:member_id,:tags) ");
+                                                $stmt = $con->prepare("INSERT INTO products(name, description, price,add_date,country_made,status,product_cover,sub_images,rating,approve,cat_id,member_id,tags) 
+                                                                             VALUES(:name, :description, :price, now(),:country_made,:status,:product_cover,:sub_images,:rating,1,:cat_id,:member_id,:tags) ");
                                                 $stmt->execute(array(
                                                     'name'              =>$Name,
                                                     'description'       =>$description,
@@ -560,12 +560,12 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                         <td><?php echo $row['userName']?></td>
                                                         <td class="text-center">
                                                             <div class="col-12">
-                                                                <div class="input-group-dropdown">
+                                                                <div class="input-group-dropdown custom-menu">
                                                                     <div class="input-group-prepend text-center" >
                                                                         <button type="button" class="btn btn-primary dropdown-toggle col-12" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>
                                                                         <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px; will-change: transform;">
                                                                             <a href="products.php?do=edit&id=<?php echo $row['id']?>" class="dropdown-item"><i class="fa fa-edit text-primary"></i> edit</a>
-                                                                            <a href="products.php?do=delete&id=<?php echo $row['id']?>" class="dropdown-item"><i class="fa fa-close text-c-red"></i> delete</a>
+                                                                            <a href="products.php?do=delete&id=<?php echo $row['id']?>" class="dropdown-item"><i class="fa fa-times text-c-red"></i> delete</a>
                                                                             <?php
                                                                             $chechCom = CheckItems('item_id','comments',$row['id']);
                                                                             if($chechCom > 0){ ?>
@@ -631,8 +631,8 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                     if($stmt->rowCount() > 0) {
                                         $stmt = $con->prepare('UPDATE products SET approve = 1 WHERE id = ? ');
                                         $stmt->execute(array($item_id));
-
-                                        redirectHome('alert alert-success background-success','Activate Success!');
+                                        header('Location:products.php?do=Manage');
+                                        //redirectHome('alert alert-success background-success','Activate Success!');
                                     }else{
                                         echo "this row are not exist";
                                     }

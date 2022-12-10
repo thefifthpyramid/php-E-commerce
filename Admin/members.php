@@ -418,7 +418,7 @@
                                                                     <button type="button" class="btn btn-primary dropdown-toggle col-12" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>
                                                                     <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px; will-change: transform;">
                                                                         <a href="members.php?do=edit&userid=<?php echo $row['id']?>" class="dropdown-item"><i class="fa fa-edit text-primary"></i> edit</a>
-                                                                        <a href="members.php?do=delete&userid=<?php echo $row['id']?>" class="dropdown-item"><i class="fa fa-close text-c-red"></i> delete</a>
+                                                                        <a href="members.php?do=delete&userid=<?php echo $row['id']?>" class="dropdown-item"><i class="fa fa-times text-c-red"></i> delete</a>
                                                                         <?php
                                                                         if($row['Reg_Status'] == 0){ ?>
                                                                             <div role="separator" class="dropdown-divider"></div>

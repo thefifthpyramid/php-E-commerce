@@ -16,7 +16,9 @@
     $lastElement->execute(array($product_id));
     $product_data = $lastElement->fetch();
     //$product_data = FetchOneColum('products','id',$product_id);
-    $user_id = FetchOneColum('users','userName',$_SESSION['userSession_username']);
+    if(isset($_SESSION['userSession_username'])) {
+        $user_id = FetchOneColum('users', 'userName', $_SESSION['userSession_username']);
+    }
 
     if($product_data != NULL){
     $category_name = FetchOneColum('categories','id',$product_data['cat_id']);

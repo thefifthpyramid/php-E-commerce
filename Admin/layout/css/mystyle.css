@@ -84,3 +84,7 @@ input[type=checkbox]:checked::after {
      padding-top: 0;
      padding-left: 26px;
  }
+.card .card-block .input-group-dropdown.custom-menu .dropdown-menu>a{
+    padding-top: 10px;
+    padding-left: 10px;
+}

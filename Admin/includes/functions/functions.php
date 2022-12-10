@@ -198,8 +198,8 @@ function getProduct($where,$value,$approve = null){
         $sql = 'And approve = 1';
     }
     global $con;
-    $product = $con->prepare("SELECT * FROM items WHERE $where = ? $sql ORDER By id DESC");
+    $product = $con->prepare("SELECT * FROM products WHERE $where = ? $sql ORDER By id DESC");
     $product->execute(array($value));
-    return $product->fetch();
+    return $product->fetchAll();
 
 }

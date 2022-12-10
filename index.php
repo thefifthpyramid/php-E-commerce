@@ -1,9 +1,8 @@
 <?php
     $pageTitle = "Home Page";
     include_once "init.php";
-
-    $new_arrivals = getIData('products','component','new_arrivals');
-    $best_sellers = getIData('products','component','best_sellers');
+    $new_arrivals = getProduct('component','new_arrivals');
+    $best_sellers = getProduct('component','best_sellers');
 ?>
 <!--Start Page-->
 
@@ -202,7 +201,7 @@
                                 <!-- Start Product Default Single Item -->
                                 <div class="product-default-single-item product-color--pink swiper-slide">
                                     <div class="image-box">
-                                        <a href="product-details-default.html" class="image-link"><img src="uploads/products/<?php echo $item['product_cover']; ?>" alt="<?php echo $item['name']; ?>">
+                                        <a href="product-details.php?product_id=<?php  echo $item['id']; ?>" class="image-link"><img src="uploads/products/<?php echo $item['product_cover']; ?>" alt="<?php echo $item['name']; ?>">
                                             <?php
                                             /*=================================================*/
                                             $sub_images_Array = explode("|",$item['sub_images']);
@@ -330,7 +329,7 @@
                                     <!-- Start Product Default Single Item -->
                                     <div class="product-default-single-item product-color--pink swiper-slide">
                                         <div class="image-box">
-                                            <a href="product-details-default.html" class="image-link"><img src="uploads/products/<?php echo $item['product_cover']; ?>" alt="<?php echo $item['name']; ?>">
+                                            <a href="product-details.php?product_id=<?php  echo $item['id']; ?>" class="image-link"><img src="uploads/products/<?php echo $item['product_cover']; ?>" alt="<?php echo $item['name']; ?>">
                                                 <?php
                                                 /*=================================================*/
                                                 $sub_images_Array = explode("|",$item['sub_images']);
