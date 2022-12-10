@@ -1,14 +1,19 @@
 <?php
     $pageTitle = "Home Page";
     include_once "init.php";
-    $cat_id = $userid = isset($_GET['category_id']) && is_numeric($_GET['category_id']) ? intval($_GET['category_id']) : 0 ;
+    $cat_id = isset($_GET['category_id']) && is_numeric($_GET['category_id']) ? intval($_GET['category_id']) : 0 ;
     $WhereVar =  '';
     if($cat_id != 000){
         $WhereVar =  "WHERE cat_id = ? AND approve = 1";
     }else{
         $WhereVar =  "WHERE approve = 1";
     }
-    $cat_name = $_GET['cat_name'];
+    if(isset($_GET['cat_name'])){
+        $cat_name = $_GET['cat_name'];
+    }else{
+        $cat_name = "All Products";
+    }
+
 
     $lastElement = $con->prepare("SELECT * FROM products " . $WhereVar ." ORDER BY id DESC ");
 
