@@ -132,26 +132,28 @@
 <!-- Start Banner Section -->
 <div class="banner-section section-top-gap-100">
     <div class="banner-wrapper clearfix">
+        <?php
+            /* ********************************************************* */
+                $bannerItems = bannerItems('component','first_banner',3);
+                foreach($bannerItems as $item){
+            /* ********************************************************* */
+        ?>
         <!-- Start Banner Single Item -->
         <a href="product-details-default.html">
-            <div class="banner-single-item banner-style-7 banner-animation banner-color--green float-left"
-                 data-aos="fade-up" data-aos-delay="0">
+            <div class="banner-single-item banner-style-7 banner-animation banner-color--green float-left" data-aos="fade-up" data-aos-delay="0">
+                <div class="banner-details">
+                    <div class="banner-title"><?php echo $item['name']; ?></div>
+                    <div class="banner-desc"><?php echo $item['description']; ?></div>
+                    <div class="banner-link">Shop now</div>
+                </div>
                 <div class="image">
-                    <img class="img-fluid" src="layout/assets/images/banner/banner-style-7-img-1.jpg" alt="">
+                    <img src="uploads/products/<?php echo $item['product_cover']; ?>" alt="">
                 </div>
             </div>
         </a>
         <!-- End Banner Single Item -->
-        <!-- Start Banner Single Item -->
-        <a href="product-details-default.html">
-            <div class="banner-single-item banner-style-7 banner-animation banner-color--green float-left"
-                 data-aos="fade-up" data-aos-delay="200">
-                <div class="image">
-                    <img class="img-fluid" src="layout/assets/images/banner/banner-style-7-img-2.jpg" alt="">
-                </div>
-            </div>
-        </a>
-        <!-- End Banner Single Item -->
+        <?php   } ?>
+
         <!-- Start Banner Single Item -->
         <a href="product-details-default.html">
             <div class="banner-single-item banner-style-7 banner-animation banner-color--green float-left"

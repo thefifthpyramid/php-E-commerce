@@ -327,6 +327,10 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                                             <a href="?do=best_sellers&id=<?php echo $row['id']?>" class="dropdown-item">
                                                                                 <input type="checkbox" class="form-check-input" id="exampleCheck1"<?php if($row['component'] == 'best_sellers'){echo "checked";}?>> Best Sellers
                                                                             </a>
+                                                                            <div role="separator" class="dropdown-divider"></div>
+                                                                            <a href="?do=first_banner&id=<?php echo $row['id']?>" class="dropdown-item">
+                                                                                <input type="checkbox" class="form-check-input" id="exampleCheck1"<?php if($row['component'] == 'first_banner'){echo "checked";}?>> First Banner
+                                                                            </a>
                                                                             <?php
                                                                            ?>
                                                                         </div>
@@ -355,7 +359,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                 </div>
                                 <!--#################### Manage page #####################-->
                                 <?php } //end the condition of add and insert products
-                                elseif($do == 'new_arrivals' OR $do == 'best_sellers'){
+                                elseif($do == 'new_arrivals' OR $do == 'best_sellers' OR $do == 'first_banner'){
                                     $action = $_GET['do'];
                                     $id = isset($_GET['id']) && is_numeric($_GET['id']) ? intval($_GET['id']) : 0 ;
                                     $stmt = $con->prepare('SELECT * FROM products WHERE id = ? LIMIT 1');

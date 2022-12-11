@@ -158,6 +158,7 @@ function getIData($table,$where,$value){
     return $count->fetchAll();
 }
 
+
 function FetchOneColum($table,$where,$value){
     global $con;
     $lastElement = $con->prepare("SELECT * FROM $table WHERE $where = ?");
@@ -202,4 +203,12 @@ function getProduct($where,$value,$approve = null){
     $product->execute(array($value));
     return $product->fetchAll();
 
+}
+/*************************/
+
+function bannerItems($where,$value,$limit){
+    global $con;
+    $lastElement = $con->prepare("SELECT * FROM products WHERE $where = ? ORDER BY id DESC LIMIT $limit");
+    $lastElement->execute(array($value));
+    return $lastElement->fetchAll();
 }
