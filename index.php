@@ -139,12 +139,12 @@
             /* ********************************************************* */
         ?>
         <!-- Start Banner Single Item -->
-        <a href="product-details-default.html">
+        <a href="product-details.php?product_id=<?php  echo $item['id']; ?>">
             <div class="banner-single-item banner-style-7 banner-animation banner-color--green float-left" data-aos="fade-up" data-aos-delay="0">
                 <div class="banner-details">
                     <div class="banner-title"><?php echo $item['name']; ?></div>
                     <div class="banner-desc"><?php echo $item['description']; ?></div>
-                    <div class="banner-link">Shop now</div>
+                    <div class="banner-btn">Shop now <i class="fa fa-long-arrow-right"></i> </div>
                 </div>
                 <div class="image">
                     <img src="uploads/products/<?php echo $item['product_cover']; ?>" alt="">
@@ -153,17 +153,6 @@
         </a>
         <!-- End Banner Single Item -->
         <?php   } ?>
-
-        <!-- Start Banner Single Item -->
-        <a href="product-details-default.html">
-            <div class="banner-single-item banner-style-7 banner-animation banner-color--green float-left"
-                 data-aos="fade-up" data-aos-delay="400">
-                <div class="image">
-                    <img class="img-fluid" src="layout/assets/images/banner/banner-style-7-img-3.jpg" alt="">
-                </div>
-            </div>
-        </a>
-        <!-- End Banner Single Item -->
     </div>
 </div>
 <!-- End Banner Section -->
