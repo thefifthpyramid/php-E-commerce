@@ -98,11 +98,18 @@
                              data-aos-delay="200">
                             <h5 class="title">MY ACCOUNT</h5>
                             <ul class="footer-nav">
-                                <li><a href="my-account.html">My account</a></li>
-                                <li><a href="wishlist.html">Wishlist</a></li>
-                                <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                                <li><a href="faq.html">Frequently Questions</a></li>
-                                <li><a href="#">Order History</a></li>
+                                <?php
+                                if(isset($_SESSION['userSession_username'])){
+                                    ?>
+                                    <li><a href="profile.php">My Profile</a></li>
+                                    <li><a href="Create_product.php">New Product</a></li>
+                                    <li><a href="auth/logout.php">Sign Out</a></li>
+                                    <?php
+                                }else{
+                                    echo '
+                                        <li><a href="login.php">Login</a></li>
+                                        <li><a href="register.php">register</a></li>';
+                                }?>
                             </ul>
                         </div>
                         <!-- End Footer Single Item -->
@@ -112,12 +119,19 @@
                         <div class="footer-widget-single-item footer-widget-color--pink" data-aos="fade-up"
                              data-aos-delay="400">
                             <h5 class="title">CATEGORIES</h5>
+
                             <ul class="footer-nav">
-                                <li><a href="#">Decorative</a></li>
-                                <li><a href="#">Kitchen utensils</a></li>
-                                <li><a href="#">Chair & Bar stools</a></li>
-                                <li><a href="#">Sofas and Armchairs</a></li>
-                                <li><a href="#">Interior lighting</a></li>
+                                <?php
+                                $dataCat = getLatestCat('*','categories','id',5);
+                                foreach ($dataCat as $item){
+                                    ?>
+                                    <li>
+                                        <a href="?category_id=<?php echo $item['id']; ?>&cat_name=<?php echo str_replace(' ','-',$item['name']); ?>" class="<?php if($item['name'] == str_replace('-',' ',$cat_name)){ echo 'active';}?>" >
+                                            <?php echo $item['name']; ?>
+                                        </a>
+                                    </li>
+                                    <?php
+                                        } ?>
                             </ul>
                         </div>
                         <!-- End Footer Single Item -->
@@ -128,12 +142,13 @@
                              data-aos-delay="600">
                             <h5 class="title">ABOUT US</h5>
                             <div class="footer-about">
-                                <p>We are a team of designers and developers that create high quality Magento,
-                                    Prestashop, Opencart.</p>
+                                <p>
+                                    My Name is Ahmed i'm a full stack developer ,hope that you will like my work
+                                </p>
 
                                 <address>
-                                    <span>Address: Your address goes here.</span>
-                                    <span>Email: demo@example.com</span>
+                                    <span>Address: Cairo,Egypt.</span>
+                                    <span>Email: AhmedAliKlay@outlook.com</span>
                                 </address>
                             </div>
                         </div>
@@ -184,9 +199,9 @@
                         class="row justify-content-between align-items-center align-items-center flex-column flex-md-row mb-n6">
                     <div class="col-auto mb-6">
                         <div class="footer-copyright">
-                            <p class="copyright-text">&copy; 2021 <a href="index.html">therankme</a>. Made with <i
-                                        class="fa fa-heart text-danger"></i> by <a href="https://therankme.com/"
-                                                                                   target="_blank">therankme</a> </p>
+                            <p class="copyright-text">
+                                &copy; 2022 <a href="index.php">Klay</a>. Made with <i class="fa fa-heart text-danger"></i>
+                                by <a href="https://github.com/thefifthpyramid" target="_blank">Ahmed Ali Klay</a> </p>
 
                         </div>
                     </div>

@@ -21,6 +21,7 @@ if(isset($_SESSION['username'])){
 ============================================================
 */
 $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
+$Action = isset($_GET['action']) ? $_GET['action'] : 'blank page';
 
 
 ?>
@@ -320,16 +321,16 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                                                     <div class="input-group-prepend text-center" >
                                                                         <button type="button" class="btn btn-primary dropdown-toggle col-12" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>
                                                                         <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                                                            <a href="?do=new_arrivals&id=<?php echo $row['id']?>" class="dropdown-item">
+                                                                            <a href="?action=component&do=new_arrivals&id=<?php echo $row['id']?>" class="dropdown-item">
                                                                                 <input type="checkbox" class="form-check-input" id="exampleCheck1"<?php if($row['component'] == 'new_arrivals'){echo "checked";}?>> New Arrivals
                                                                             </a>
                                                                             <div role="separator" class="dropdown-divider"></div>
-                                                                            <a href="?do=best_sellers&id=<?php echo $row['id']?>" class="dropdown-item">
+                                                                            <a href="?action=component&do=best_sellers&id=<?php echo $row['id']?>" class="dropdown-item">
                                                                                 <input type="checkbox" class="form-check-input" id="exampleCheck1"<?php if($row['component'] == 'best_sellers'){echo "checked";}?>> Best Sellers
                                                                             </a>
                                                                             <div role="separator" class="dropdown-divider"></div>
-                                                                            <a href="?do=first_banner&id=<?php echo $row['id']?>" class="dropdown-item">
-                                                                                <input type="checkbox" class="form-check-input" id="exampleCheck1"<?php if($row['component'] == 'first_banner'){echo "checked";}?>> First Banner
+                                                                            <a href="?action=component&do=second_banner&id=<?php echo $row['id']?>" class="dropdown-item">
+                                                                                <input type="checkbox" class="form-check-input" id="exampleCheck1"<?php if($row['component'] == 'second_banner'){echo "checked";}?>> Second Banner
                                                                             </a>
                                                                             <?php
                                                                            ?>
@@ -358,9 +359,9 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                     </div>
                                 </div>
                                 <!--#################### Manage page #####################-->
-                                <?php } //end the condition of add and insert products
-                                elseif($do == 'new_arrivals' OR $do == 'best_sellers' OR $do == 'first_banner'){
-                                    $action = $_GET['do'];
+                                <?php } //end the condition of add and insert productsaction=component&
+                                elseif($Action == 'component'){
+                                    $do = $_GET['do'];
                                     $id = isset($_GET['id']) && is_numeric($_GET['id']) ? intval($_GET['id']) : 0 ;
                                     $stmt = $con->prepare('SELECT * FROM products WHERE id = ? LIMIT 1');
 
@@ -370,7 +371,7 @@ $do = isset($_GET['do']) ? $_GET['do'] : 'blank page';
                                     //fetch data from database
                                     if($stmt->rowCount() > 0) {
                                         $stmt = $con->prepare('UPDATE products SET component = ? WHERE id = ? ');
-                                        $stmt->execute(array($action,$id));
+                                        $stmt->execute(array($do,$id));
                                         redirectHome('alert alert-success background-success m-3','Deleted Success!','products.php?do=Manage');
                                     }else{
                                         redirectHome('alert alert-danger background-success m-3','this row are not exist');

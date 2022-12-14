@@ -106,6 +106,16 @@ function getLatest($item,$table,$order,$limit){
 }
 
 
+function getLatestCat($item,$table,$order,$limit){
+
+    global $con;
+    $lastElement = $con->prepare("SELECT $item FROM $table WHERE parent = 0 ORDER BY $order DESC LIMIT $limit");
+    $lastElement->execute();
+    $data = $lastElement->fetchAll();
+    return $data;
+}
+
+
 //#########################################
 /*
 	** fetch data table Function v1.0
@@ -207,6 +217,12 @@ function getProduct($where,$value,$approve = null){
 /*************************/
 
 function bannerItems($where,$value,$limit){
+    global $con;
+    $lastElement = $con->prepare("SELECT * FROM products WHERE $where = ? ORDER BY id DESC LIMIT $limit");
+    $lastElement->execute(array($value));
+    return $lastElement->fetchAll();
+}
+function LastProducts($where,$value,$limit){
     global $con;
     $lastElement = $con->prepare("SELECT * FROM products WHERE $where = ? ORDER BY id DESC LIMIT $limit");
     $lastElement->execute(array($value));

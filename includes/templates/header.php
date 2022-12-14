@@ -45,54 +45,39 @@
                                                                 <span class="Category_counter float-right">
                                                                     <?php echo getCatCount('cat_id','products',$item['id']); ?>
                                                                 </span>
-                                                            </a></li>
+                                                            </a>
+                                                        </li>
                                                         <?php } ?>
                                                     </ul>
                                                 </li>
                                                 <!-- Mega Menu Sub Link -->
                                                 <li class="mega-menu-item">
-                                                    <a href="#" class="mega-menu-item-title">Other Pages</a>
+                                                    <a href="#" class="mega-menu-item-title">Last Product</a>
                                                     <ul class="mega-menu-sub">
-                                                        <li><a href="cart.html">Cart</a></li>
-                                                        <li><a href="empty-cart.html">Cart</a></li>
-                                                        <li><a href="wishlist.html">Wishlist</a></li>
-                                                        <li><a href="compare.html">Compare</a></li>
-                                                        <li><a href="checkout.html">Checkout</a></li>
-                                                        <li><a href="my-account.html">My Account</a></li>
+                                                        <?php
+                                                            $dataProduct = LastProducts('approve',1,7);
+                                                            foreach ($dataProduct as $item){
+                                                        ?>
+                                                                <li><a href="product-details.php?product_id=<?php echo $item['id']; ?>">
+                                                                        <?php echo $item['name']; ?>
+                                                                </a></li>
+                                                        <?php } ?>
                                                     </ul>
                                                 </li>
                                                 <!-- Mega Menu Sub Link -->
                                                 <li class="mega-menu-item">
                                                     <a href="#" class="mega-menu-item-title">Product Types</a>
                                                     <ul class="mega-menu-sub">
-                                                        <li><a href="shop.php">Product
-                                                                Default</a></li>
-                                                        <li><a href="product-details-variable.html">Product
-                                                                Variable</a></li>
-                                                        <li><a href="product-details-affiliate.html">Product
-                                                                Referral</a></li>
-                                                        <li><a href="product-details-group.html">Product Group</a>
-                                                        </li>
-                                                        <li><a href="product-details-single-slide.html">Product
-                                                                Slider</a></li>
+                                                        <li><a href="shop.php">Product Default</a></li>
+                                                        <li><a href="product-details-variable.html">Product Variable</a></li>
                                                     </ul>
                                                 </li>
                                                 <!-- Mega Menu Sub Link -->
                                                 <li class="mega-menu-item">
                                                     <a href="#" class="mega-menu-item-title">Product Types</a>
                                                     <ul class="mega-menu-sub">
-                                                        <li><a href="product-details-tab-left.html">Product Tab
-                                                                Left</a></li>
-                                                        <li><a href="product-details-tab-right.html">Product Tab
-                                                                Right</a></li>
-                                                        <li><a href="product-details-gallery-left.html">Product
-                                                                Gallery Left</a></li>
-                                                        <li><a href="product-details-gallery-right.html">Product
-                                                                Gallery Right</a></li>
-                                                        <li><a href="product-details-sticky-left.html">Product
-                                                                Sticky Left</a></li>
-                                                        <li><a href="product-details-sticky-right.html">Product
-                                                                Sticky right</a></li>
+                                                        <li><a href="product-details-tab-left.html">Product Tab  Left</a></li>
+                                                        <li><a href="product-details-tab-right.html">Product Tab Right</a></li>
                                                     </ul>
                                                 </li>
                                             </ul>
@@ -322,13 +307,16 @@
                     <li><a href="about-us.html">About Us</a></li>
                     <li><a href="contact-us.html">Contact Us</a></li>
                     <?php
-                        if(isset($_SESSION['userSession_username'])){
-                    ?>
-                        <li><a href="login.php">Login</a></li>
-                        <li><a href="register.php">register</a></li>
-                    <?php
+                    if(isset($_SESSION['userSession_username'])){
+                        ?>
+                        <li><a href="profile.php">My Profile</a></li>
+                        <li><a href="Create_product.php">New Product</a></li>
+                        <li><a href="auth/logout.php">Sign Out</a></li>
+                        <?php
                     }else{
-                        echo '<li><a href="auth/logout.php">Sign Out</a></li>';
+                        echo '
+                    <li><a href="login.php">Login</a></li>
+                    <li><a href="register.php">register</a></li>';
                     }?>
                 </ul>
             </div> <!-- End Mobile Menu Nav -->
@@ -342,9 +330,9 @@
             </div>
 
             <address class="address">
-                <span>Address: Your address goes here.</span>
-                <span>Call Us: 0123456789, 0123456789</span>
-                <span>Email: demo@example.com</span>
+                <span>Address: Cairo,Egypt.</span>
+                <span>Call Us: 01126350859</span>
+                <span>Email: AhmedAliKlay@outlook.com</span>
             </address>
 
             <ul class="social-link">
