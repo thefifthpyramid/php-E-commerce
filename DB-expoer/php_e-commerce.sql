@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : sam. 10 déc. 2022 à 07:59
+-- Généré le : mar. 20 déc. 2022 à 07:38
 -- Version du serveur : 10.4.24-MariaDB
 -- Version de PHP : 8.1.6
 
@@ -95,16 +95,22 @@ INSERT INTO `products` (`id`, `name`, `description`, `price`, `add_date`, `count
 (49, 'Colt Wooten', 'Corporis consectetur', '39', '2022-12-09', 'Voluptatem maxime om', 1, '7548951__2719086___960x020.jpg', '960x0.jpg|960x010.jpg|960x011.jpg|960x020.jpg', 3, 1, 107, 1, '', 'new_arrivals'),
 (52, 'Kelsey Sandoval', 'Aut incididunt occae', '989', '2022-12-09', 'Nostrum aliquid eu e', 1, '9346879__7601476___960x0.jpg', '0x05.jpg|0x023.jpg|1.jpg|960x0.jpg', 5, 1, 107, 19, 'Qui enim tempore re', 'new_arrivals'),
 (53, 'iPhone 14 Pro Max', 'Dolorum est a cum ne', '438', '2022-12-10', 'Sed accusantium quis', 2, '9941671__3224287___71QU1-kvp0L._AC_SX679_.jpg', '61fUC+17f8L._AC_SX679_.jpg|71QU1-kvp0L._AC_SX679_.jpg', 0, 1, 108, 32, 'Ut praesentium archi', 'new_arrivals'),
-(54, 'Thor Good', 'Et accusantium exerc', '768', '2022-12-10', 'Est tempor beatae re', 2, '4596929__5059557___41D3TwTi76L._AC_.jpg', '41aQXQRXJ9L._AC_.jpg|41cN-CAGz3L._AC_.jpg|41D3TwTi76L._AC_.jpg', 0, 0, 108, 38, 'Labore dolorem persp', 'new_arrivals'),
-(55, 'Sheila Wiggins', 'Architecto et cillum', '484', '2022-12-10', 'Molestias amet maio', 1, '6509601__3722264___41iLbanhcTL.jpg', '41froGV6kcL._AC_.jpg|41Gc0zjLPqL._AC_SY1000_.jpg|41iLbanhcTL.jpg', 0, 0, 108, 27, 'Asperiores lorem odi', 'new_arrivals'),
-(56, 'Chandler Chen', 'Dolore eos omnis po', '943', '2022-12-10', 'Dolore et in labore ', 1, '9792651__1194507___41mY6R0MqKL._AC_SY580_.jpg', '41j1uYREGhL._SS400_.jpg|41lHHD6iD1L._AC_.jpg|41mY6R0MqKL._AC_SY580_.jpg', 0, 0, 108, 8, 'Corrupti fuga Reru', 'new_arrivals'),
-(57, 'Constance Ball', 'Saepe voluptatem lab', '690', '2022-12-10', 'Blanditiis esse dign', 2, '5529486__5533968___41zBg7ng-LL._AC_SY780_.jpg', '41WadDQ1k3L._AC_SY1000_.jpg|41YNaNTqJoL._AC_.jpg|41zBg7ng-LL._AC_SY780_.jpg', 0, 0, 108, 39, 'In optio vel unde o', 'new_arrivals'),
-(58, 'Pearl Battle', 'Voluptas consequatur', '524', '2022-12-10', 'Dignissimos aut eos ', 1, '3177504__8118166___61D84NtVgVL._AC_SR263263_QL70_.jpg', '41zfcuozuWL._AC_SR300300.jpg|51zTCZf4fzL._AC_SY1000_.jpg|61D84NtVgVL._AC_SR263263_QL70_.jpg', 0, 0, 108, 122, 'Amet aute maxime no', 'new_arrivals'),
-(59, 'Judah Holt', 'Aliquam repudiandae ', '356', '2022-12-10', 'Iusto occaecat tempo', 4, '1847724__9733288___image6.jpeg', 'image4.jpeg|image5.jpeg|image6.jpeg', 0, 0, 108, 40, 'Autem hic deserunt m', 'new_arrivals'),
+(54, 'Thor Good', 'Et accusantium exerc', '768', '2022-12-10', 'Est tempor beatae re', 2, '4596929__5059557___41D3TwTi76L._AC_.jpg', '41aQXQRXJ9L._AC_.jpg|41cN-CAGz3L._AC_.jpg|41D3TwTi76L._AC_.jpg', 0, 1, 108, 38, 'Labore dolorem persp', 'new_arrivals'),
+(55, 'Sheila Wiggins', 'Architecto et cillum', '484', '2022-12-10', 'Molestias amet maio', 1, '6509601__3722264___41iLbanhcTL.jpg', '41froGV6kcL._AC_.jpg|41Gc0zjLPqL._AC_SY1000_.jpg|41iLbanhcTL.jpg', 0, 1, 108, 27, 'Asperiores lorem odi', 'new_arrivals'),
+(56, 'Chandler Chen', 'Dolore eos omnis po', '943', '2022-12-10', 'Dolore et in labore ', 1, '9792651__1194507___41mY6R0MqKL._AC_SY580_.jpg', '41j1uYREGhL._SS400_.jpg|41lHHD6iD1L._AC_.jpg|41mY6R0MqKL._AC_SY580_.jpg', 0, 1, 108, 8, 'Corrupti fuga Reru', 'new_arrivals'),
+(57, 'Constance Ball', 'Saepe voluptatem lab', '690', '2022-12-10', 'Blanditiis esse dign', 2, '5529486__5533968___41zBg7ng-LL._AC_SY780_.jpg', '41WadDQ1k3L._AC_SY1000_.jpg|41YNaNTqJoL._AC_.jpg|41zBg7ng-LL._AC_SY780_.jpg', 0, 1, 108, 39, 'In optio vel unde o', 'new_arrivals'),
+(58, 'Pearl Battle', 'Voluptas consequatur', '524', '2022-12-10', 'Dignissimos aut eos ', 1, '3177504__8118166___61D84NtVgVL._AC_SR263263_QL70_.jpg', '41zfcuozuWL._AC_SR300300.jpg|51zTCZf4fzL._AC_SY1000_.jpg|61D84NtVgVL._AC_SR263263_QL70_.jpg', 0, 1, 108, 122, 'Amet aute maxime no', 'new_arrivals'),
+(59, 'Judah Holt', 'Aliquam repudiandae ', '356', '2022-12-10', 'Iusto occaecat tempo', 4, '1847724__9733288___image6.jpeg', 'image4.jpeg|image5.jpeg|image6.jpeg', 0, 1, 108, 40, 'Autem hic deserunt m', 'new_arrivals'),
 (60, 'Brooke Mcleod', 'Officia reprehenderi', '610', '2022-12-10', 'Tempora beatae amet', 2, '6221184__5895648___images34.jpg', 'images31.jpg|images32.jpg|images34.jpg', 0, 0, 108, 37, 'Similique sapiente i', 'new_arrivals'),
 (61, 'Aimee Sexton', 'Reprehenderit id qui', '952', '2022-12-10', 'Ipsum ipsum dolor d', 2, '4665359__6327600___images6.jpg', 'images4.jpg|images5.jpg|images6.jpg', 0, 0, 108, 114, 'Voluptas sunt atque', 'best_sellers'),
-(62, 'Jermaine Kim', 'Natus enim sapiente ', '403', '2022-12-10', 'Omnis nisi voluptas ', 3, '3099376__8470730___71u7mwY7FVL.jpg', '71QU1-kvp0L._AC_SX679_.jpg|71TT922jjL._AC_SL1500_.jpg|71u7mwY7FVL.jpg', 0, 0, 108, 102, 'Ut et temporibus exp', 'best_sellers'),
-(63, 'Kalia Moran', 'In omnis qui debitis', '885', '2022-12-10', 'Repudiandae corrupti', 4, '5405786__7131019___81xvGbBFNhL._SX522_.jpg', '81spjQN-VL._AC_UL330_SR330330_.jpg|81UT07JsBqL._AC._SR360460.jpg|81xvGbBFNhL._SX522_.jpg', 0, 0, 108, 41, 'Aliquid deserunt ut ', 'best_sellers');
+(62, 'Jermaine Kim', 'Natus enim sapiente ', '403', '2022-12-10', 'Omnis nisi voluptas ', 3, '3099376__8470730___71u7mwY7FVL.jpg', '71QU1-kvp0L._AC_SX679_.jpg|71TT922jjL._AC_SL1500_.jpg|71u7mwY7FVL.jpg', 0, 1, 108, 102, 'Ut et temporibus exp', 'best_sellers'),
+(63, 'Kalia Moran', 'In omnis qui debitis', '885', '2022-12-10', 'Repudiandae corrupti', 4, '5405786__7131019___81xvGbBFNhL._SX522_.jpg', '81spjQN-VL._AC_UL330_SR330330_.jpg|81UT07JsBqL._AC._SR360460.jpg|81xvGbBFNhL._SX522_.jpg', 0, 1, 108, 41, 'Aliquid deserunt ut ', 'best_sellers'),
+(64, 'Driscoll Lee', 'Aut amet aut culpa', '5', '2022-12-11', 'Et ex aut qui eligen', 3, '7566691__1202923___image7.jpeg', 'image5.jpeg|image6.jpeg|image7.jpeg', 0, 1, 108, 42, 'Vel cum ab enim aute', 'first_banner'),
+(65, 'Micah Lowe', 'Repudiandae molestia', '224', '2022-12-11', 'Quo neque sint quis', 0, '6751726__1987645___41Gc0zjLPqL._AC_SY1000_.jpg', '41fe1ZUBZ9L._AC_.jpg|41froGV6kcL._AC_.jpg|41Gc0zjLPqL._AC_SY1000_.jpg', 0, 1, 108, 33, 'Molestias repudianda', 'first_banner'),
+(66, 'Teegan Manning', 'Sed molestias sint d', '196', '2022-12-11', 'Dolor nostrud alias ', 4, '4323803__8371734___61iutq6CRYL._AC_SS300_.jpg', '61fUC+17f8L._AC_SX679_.jpg|61hj2b6hVJL._AC_UL330_SR330330_.jpg|61iutq6CRYL._AC_SS300_.jpg', 0, 1, 108, 32, 'Ut est voluptate la', 'first_banner'),
+(67, 'Abel Spence', 'Similique iste delen', '300', '2022-12-13', 'Porro in sunt ut vo', 4, '9225876__1926085___images6.jpg', 'image8.jpeg|image18.jpeg|image28.jpeg|images6.jpg', 0, 1, 108, 49, 'Et sit distinctio L', 'best_sellers'),
+(68, 'Pearl Gilliam', 'At labore consequat', '716', '2022-12-13', 'Quis in vero laborio', 0, '6837958__1611863___Flagship_s21.jpg', 'Flagship_huaweip40.jpg|Flagship_iPhone12.jpg|Flagship_s21.jpg', 0, 1, 108, 123, 'Quidem assumenda qui', 'second_banner'),
+(69, 'Arthur Nguyen', 'Odio irure molestias', '980', '2022-12-13', 'Iusto quo alias quia', 1, '9246522__5547443___61fUC+17f8L._AC_SX679_.jpg', '51ZHzpeK3UL._AC_SY580_.jpg|51zTCZf4fzL._AC_SY1000_.jpg|61D84NtVgVL._AC_SR263263_QL70_.jpg|61fUC+17f8L._AC_SX679_.jpg', 0, 1, 108, 102, 'Impedit eius aut de', 'second_banner');
 
 -- --------------------------------------------------------
 
@@ -250,7 +256,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT pour la table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT pour la table `users`
